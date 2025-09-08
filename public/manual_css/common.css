@@ -1,0 +1,46 @@
+     html, body {
+            font-family: 'Poppins', sans-serif;
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        img.full-width {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Make navbar links easier to tap on mobile */
+.navbar .nav-link { padding: .6rem .75rem; }
+
+/* Ensure the logo doesn’t overflow on tiny screens */
+.navbar-brand img { height: auto; max-height: 50px; width: auto; }
+
+/* Footer spacing comfort on small screens */
+@media (max-width: 575.98px) {
+  footer .form-control { min-width: 0; }
+}
+#nav-active{
+  /* background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); */
+  color: orange !important;            /* keep text dark */
+  border-radius: 20px;
+  padding: .35rem .75rem;             /* gives the pill some breathing room */
+}
+a {
+    text-decoration: none;
+    /* dark text by default */
+}
+
+a:hover {
+    color: #ffc107; /* yellow on hover */
+    text-decoration: underline; /* optional */
+}
+span{
+    color: red;
+}
+

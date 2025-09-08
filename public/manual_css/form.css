@@ -1,0 +1,50 @@
+/* Container adjustments */
+.form-container {
+    margin-top: 2rem;
+}
+
+/* Card styling */
+.form-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 80px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.form-header {
+    text-align: center;
+    font-weight: bold;
+    background-color: #ffc107; /* Bootstrap warning yellow */
+    color: #212529; /* Dark text */
+    padding: 1rem;
+    font-size: 1.25rem;
+}
+
+/* Body padding */
+.form-body {
+    padding: 2rem;
+}
+
+/* Submit button */
+.form-submit-btn {
+    background-color: #ffc107 ; /* Same yellow */
+    color: #212529;
+    font-weight: bold;
+    border: none;
+}
+
+.form-submit-btn:hover {
+    background-color:yellowgreen; /* Darker yellow on hover */
+    color: #fff;
+}
+.form-end{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.return-error{
+    color: red;
+    margin-top: 2px;
+    margin-left: 10px;
+}
