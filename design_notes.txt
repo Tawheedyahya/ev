@@ -11,3 +11,6 @@
 js and php function
 
 url()->previous() for back    javasccript:history.back()
+
+offsetWidth = what you see
+scroll width =total width
