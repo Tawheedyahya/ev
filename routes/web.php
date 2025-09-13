@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customercontroller;
+use App\Http\Controllers\Eventspacecontroller;
 use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Vendorcontroller;
 use App\Http\Controllers\Venueprovider;
@@ -11,11 +12,17 @@ Route::get('/', function () {
     return redirect('/home/dashboard');
 });
 
+Route::prefix('errors')->group(function(){
+    Route::get('/auth',function(){
+        return view("errors.auth");
+    });
+});
+
 Route::prefix('/home')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'dashboard']);
 });
 Route::prefix('/eventspace')->group(function(){
-    Route::get('/dashboard',[Homecontroller::class,'dashboard']);
+    Route::get('venues_provider/dashboard',[Eventspacecontroller::class,'dashboard']);
 });
 Route::prefix('/aboutus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'dashboard']);
@@ -41,8 +48,18 @@ Route::prefix('/vendor')->group(function(){
     Route::get('/venue_login_form',[Vendorcontroller::class,'venue_login_form']);
     Route::get('/venue_register_form',[Vendorcontroller::class,'venue_register_form']);
 });
+// venue_provider
 Route::prefix('/venue_provider')->group(function(){
     Route::post('/register',[Venueprovider::class,'register'])->name('venue.register');
     Route::get('/verified_email',[Venueprovider::class,'email_verify']);
     Route::post('/login',[Venueprovider::class,'login'])->name('venue.login');
+    Route::get('/logout',[Venueprovider::class,'logout'])->name('vp.logout');
+    Route::get('/dashboard',[Venueprovider::class,'dashboard'])->name('venue_provider.dashboard')->middleware('venue_provider_auth');
+    Route::get('/venues/dashbaord',[Venueprovider::class,'venue_dashboard'])->middleware('venue_provider_auth');
+    Route::get('/venues/add_venue',[Venueprovider::class,'add_venue'])->name('vp.venue.add')->middleware('venue_provider_auth');
+    Route::post('/venues/add_venue',[Venueprovider::class,'register_venue'])->name('vp.venue.register')->middleware('venue_provider_auth');
+    Route::get('/venues/edit_venue/{id}',[Venueprovider::class,'add_venue'])->name('vp.venue.edit')->middleware(['venue_provider_auth','venue_provider_action']);
+    Route::get('/venues/delete_venue/{id}',[Venueprovider::class,'delete_venue'])->name('vp.venue.delete')->middleware(['venue_provider_auth','venue_provider_action']);
+    Route::post('/venues/update_venue/{id}',[Venueprovider::class,'register_venue'])->name('vp.venue.update')->middleware(['venue_provider_auth','venue_provider_action']);
 });
+

@@ -1,0 +1,10 @@
+  .venue-img{
+    width: 500px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    justify-content: center ;
+    align-items: center;
+  }
+

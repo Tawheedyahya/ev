@@ -1,0 +1,25 @@
+.select2-container--default .select2-selection--multiple {
+    min-height: 40px;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #0d6efd; /* Blue background for selected */
+    border: none;
+    color: white;
+    padding: 3px 8px;
+    font-size: 0.875rem;
+    border-radius: 3px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 4px 10px;
+}
+

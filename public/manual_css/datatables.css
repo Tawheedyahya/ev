@@ -1,0 +1,50 @@
+.dataTables_filter input {
+  border-radius: 8px;
+  padding: 6px 12px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: 0.3s;
+}
+
+.dataTables_filter input:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 6px rgba(13, 110, 253, 0.4);
+  background-color: #fff;
+}
+.dataTables_length select {
+  border-radius: 8px;
+  padding: 6px 12px;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  transition: 0.3s;
+}
+
+.dataTables_length select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 6px rgba(13, 110, 253, 0.4);
+  background-color: #fff;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 6px 12px;
+  margin: 2px;
+  border-radius: 6px;
+  border: none;
+  background: #f1f3f5;
+  color: #0d6efd !important;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background:orange;
+  color: #fff !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: #0d6efd;
+  color: #fff !important;
+  font-weight: bold;
+}
+#my_table_length,#my_table_filter{
+    margin-bottom: 20px;
+}

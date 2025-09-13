@@ -1,0 +1,67 @@
+/* Base shell */
+.custom-search-bar {
+  border-radius: 999px;           /* pill on desktop */
+  background: #fff;
+  gap: 0;
+}
+
+/* Ensure image-like cropping if an icon block gets bigger later */
+.custom-input {
+  min-width: 0;                   /* let input shrink properly in flex row */
+}
+
+/* Left/Right button corner radii for desktop */
+.custom-left-btn {
+  border-top-left-radius: 999px !important;
+  border-bottom-left-radius: 999px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.custom-right-btn {
+  border-top-right-radius: 999px !important;
+  border-bottom-right-radius: 999px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+/* Make icons align nicely */
+.custom-search-bar .btn i {
+  line-height: 1;
+  display: inline-block;
+}
+
+/* ===== Mobile (<= 768px) ===== */
+@media (max-width: 768px) {
+  .custom-search-bar {
+    flex-direction: column;       /* stack vertically */
+    border-radius: 12px;          /* card look on mobile */
+  }
+  .custom-search-bar > .btn,
+  .custom-search-bar > .form-control {
+    width: 100%;
+    border-radius: 0 !important;  /* reset between stacked items */
+  }
+  .custom-left-btn {
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+  }
+  .custom-right-btn {
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+  }
+  .custom-search-bar .btn,
+  .custom-search-bar .form-control {
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+}
+
+/* ===== Tablet/Desktop (>= 769px) ===== */
+@media (min-width: 769px) {
+  .custom-search-bar {
+    flex-wrap: nowrap;            /* keep one line */
+  }
+  .custom-search-bar .form-control {
+    height: 54px;
+  }
+}

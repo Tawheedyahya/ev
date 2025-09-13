@@ -1,0 +1,15 @@
+.table-start{
+    margin-top: 40px;
+}
+th{
+    align-items: center;
+}
+@media (max-width:575.98px) {
+    .phone-device{
+    display: none;
+}
+th{
+    /* font-weight: 100; */
+    font-size: small;
+}
+}
