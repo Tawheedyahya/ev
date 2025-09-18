@@ -1,0 +1,104 @@
+/* Chip group layout */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem .6rem;
+}
+
+/* Hide the checkbox but keep it accessible */
+.chip-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Chip base */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: .45rem .8rem;
+  border-radius: 999px;
+  background: #f2f2f2;
+  color: #222;
+  font-size: .92rem;
+  line-height: 1;
+  border: 1px solid #e6e6e6;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+
+
+/* Checked (active pill) — orange like your screenshot */
+.chip-input:checked + .chip {
+    background: #ffa7331a;
+    color: #ff8a00;
+    border-color: #ff8a00;
+    box-shadow: inset 0 0 0 1px #ff8a00;
+    font-weight: 600;
+}
+
+/* Range slider (simple orange style) */
+.range {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #ffd199;
+  border-radius: 999px;
+  outline: none;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #ff8a00;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.range::-moz-range-thumb {
+  width: 18px; height: 18px; background: #ff8a00; border: 0; border-radius: 50%; cursor: pointer;
+}
+
+
+/* for range */
+/* Base (WebKit uses the element background for the fill via background-size) */
+.orange-range{
+  height: 6px;
+  border-radius: 999px;
+  background:
+    linear-gradient(#ff8a00, #ff8a00) 0/0% 100% no-repeat,
+    #ffd199;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* WebKit track/thumb (Chrome, Edge, Safari) */
+.orange-range::-webkit-slider-runnable-track{
+  height: 6px; border-radius: 999px; background: transparent;
+}
+.orange-range::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #ff8a00; border: 0; cursor: pointer;
+  margin-top: -6px; /* center on 6px track */
+}
+
+/* Firefox track/progress/thumb */
+/* .orange-range::-moz-range-track{
+  height: 6px; border-radius: 999px; background: #ffd199;
+}
+.orange-range::-moz-range-progress{
+  height: 6px; border-radius: 999px; background: #ff8a00;
+}
+.orange-range::-moz-range-thumb{
+  width: 18px; height: 18px; border-radius: 50%;
+  background: #ff8a00; border: 0; cursor: pointer;
+} */
+
+/* Optional focus */
+/* .orange-range:focus { box-shadow: 0 0 0 3px rgba(255,138,0,.2); border-radius: 10px; } */

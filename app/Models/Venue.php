@@ -15,4 +15,7 @@ class Venue extends Model
     public function venueimages(){
         return $this->hasMany(Venueimage::class,'venue_id');
     }
+    public function room(){
+        return $this->hasMany(Room::class,'venue_id');
+    }
 }

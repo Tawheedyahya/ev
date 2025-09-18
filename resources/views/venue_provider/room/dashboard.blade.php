@@ -1,14 +1,15 @@
 @extends('venue_provider.venue_app')
-@section('title', 'venue')
 
+@section('title', 'add room')
 @section('content')
     <div class="container-fluid">
         @include('venue_provider.layouts.header')
-
+         <h1 class="title-with-underline mb-3">ROOMS </h1>
+        {{-- add room button --}}
         <div class="add-venue mb-3">
-            <a href="{{ route('vp.venue.add') }}" class="add-venue-tile" aria-label="Add a new venue">
+            <a href="{{ route('rooms.add', $id) }}" class="add-venue-tile" aria-label="Add a new venue"> {{-- merge venues id --}}
                 <span class="btn btn-warning rounded-pill">
-                    <i class="bi bi-plus-lg me-1"></i> Add venue
+                    <i class="bi bi-plus-lg me-1"></i> Add Rooms
                 </span>
             </a>
         </div>
@@ -17,22 +18,22 @@
             <table class="table table-striped table-bordered align-middle" id="my_table" style="width:100%">
                 <thead class="table-warning">
                     <tr>
-                        <th class="phone-device">V.NO</th>
-                        <th class="phone-device">V.ID</th>
-                        <th>VENUE NAME</th>
-                        <th>VENUE DESCRIPTION</th>
-                        <th>VENUE AMOUNT</th>
+
+                        <th class="">R.NO</th>
+                        <th class="">R.ID</th>
+                        <th>ROOM NAME</th>
+                        {{-- <th>VENUE DESCRIPTION</th> --}}
+                        <th>ROOM CAPACITY</th>
                         <th>ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($venues as $venue)
+                    @foreach ($rooms as $room)
                         <tr>
-                            <td class="phone-device">{{ $loop->iteration }}</td>
-                            <td class="phone-device">{{ $venue['id'] }}</td>
-                            <td>{{ $venue['venue_name'] }}</td>
-                            <td>{{ $venue['description'] }}</td>
-                            <td>{{ $venue['amount'] }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $room['id'] }}</td>
+                            <td>{{ $room['room_name'] }}</td>
+                            <td>{{ $room['room_capacity'] }}</td>
                             <td class="text-end" style="white-space:nowrap;width:1%;">
                                 <div class="dropdown" data-bs-display="static" data-bs-boundary="viewport">
                                     <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown"
@@ -42,14 +43,18 @@
 
                                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                         <li>
-                                            <a class="dropdown-item" role="button" tabindex="0" href="{{route('vp.venue.edit',$venue['id'])}}">Edit</a>
+                                            <a class="dropdown-item" role="button" tabindex="0"
+                                                href="{{ route('room.edit',['id'=>$id,'room_id'=>$room['id'] ]) }}">Edit</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item text-danger" role="button" tabindex="0" href="{{route('vp.venue.delete',$venue['id'])}}" onclick="return confirm('Are you sure you want to delete')">Delete</a>
+                                            <a class="dropdown-item text-danger" role="button" tabindex="0"
+                                                href="{{ route('room.delete', ['id'=>$id,'room_id'=>$room['id']]) }}"
+                                                onclick="return confirm('Are you sure you want to delete')">Delete</a>
                                         </li>
-                                         <li>
-                                            <a class="dropdown-item " role="button" tabindex="0" href="{{route('rooms.dashboard',$venue['id'])}}">Rooms</a>
-                                        </li>
+                                        {{-- <li>
+                                            <a class="dropdown-item " role="button" tabindex="0"
+                                                href="{{ route('rooms.dashboard', $room['id']) }}">Rooms</a>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </td>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Roomaction;
 use App\Http\Middleware\Venueaction;
 use App\Http\Middleware\Venueproviderauth;
 use Illuminate\Foundation\Application;
@@ -16,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias(
             [
                 'venue_provider_auth'=>Venueproviderauth::class,
-                'venue_provider_action'=>Venueaction::class
+                'venue_provider_action'=>Venueaction::class,
+                'room_action'=>Roomaction::class
             ]
             );
     })

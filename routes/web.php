@@ -3,6 +3,7 @@
 use App\Http\Controllers\Customercontroller;
 use App\Http\Controllers\Eventspacecontroller;
 use App\Http\Controllers\Homecontroller;
+use App\Http\Controllers\Roomcontroller;
 use App\Http\Controllers\Vendorcontroller;
 use App\Http\Controllers\Venueprovider;
 use Illuminate\Support\Facades\Mail;
@@ -22,7 +23,9 @@ Route::prefix('/home')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'dashboard']);
 });
 Route::prefix('/eventspace')->group(function(){
-    Route::get('venues_provider/dashboard',[Eventspacecontroller::class,'dashboard']);
+    Route::get('venues_provider/dashboard',[Eventspacecontroller::class,'dashboard'])->name('eventspace.dashboard');
+    Route::get('/location_filter',[Eventspacecontroller::class,'location_filter'])->name('eventspace.location');
+    Route::post('/filter',[Eventspacecontroller::class,'filter'])->name('eventspace.filter');
 });
 Route::prefix('/aboutus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'dashboard']);
@@ -48,7 +51,7 @@ Route::prefix('/vendor')->group(function(){
     Route::get('/venue_login_form',[Vendorcontroller::class,'venue_login_form']);
     Route::get('/venue_register_form',[Vendorcontroller::class,'venue_register_form']);
 });
-// venue_provider
+// lovider
 Route::prefix('/venue_provider')->group(function(){
     Route::post('/register',[Venueprovider::class,'register'])->name('venue.register');
     Route::get('/verified_email',[Venueprovider::class,'email_verify']);
@@ -61,5 +64,13 @@ Route::prefix('/venue_provider')->group(function(){
     Route::get('/venues/edit_venue/{id}',[Venueprovider::class,'add_venue'])->name('vp.venue.edit')->middleware(['venue_provider_auth','venue_provider_action']);
     Route::get('/venues/delete_venue/{id}',[Venueprovider::class,'delete_venue'])->name('vp.venue.delete')->middleware(['venue_provider_auth','venue_provider_action']);
     Route::post('/venues/update_venue/{id}',[Venueprovider::class,'register_venue'])->name('vp.venue.update')->middleware(['venue_provider_auth','venue_provider_action']);
+    Route::prefix('/venues')->group(function(){
+        Route::get('/rooms/{id}',[Roomcontroller::class,'dashboard'])->name('rooms.dashboard')->middleware(['venue_provider_auth','venue_provider_action']);
+        Route::get('/rooms/add/{id}',[Roomcontroller::class,'add_rooms'])->name('rooms.add')->middleware(['venue_provider_auth','venue_provider_action']);
+        Route::post('/room/insert/{id}',[Roomcontroller::class,'insert_room'])->name('room.insert')->middleware(['venue_provider_auth','venue_provider_action']);
+        Route::get('/room/edit/{id}/{room_id}',[Roomcontroller::class,'add_rooms'])->name('room.edit')->middleware(['venue_provider_auth','room_action']);
+        Route::post('/room/update/{id}/{room_id}',[Roomcontroller::class,'insert_room'])->name('room.update')->middleware(['venue_provider_auth','room_action']);
+        Route::get('/room/delete/{id}/{room_id}',[Roomcontroller::class,'delete_room'])->name('room.delete')->middleware(['venue_provider_auth','room_action']);
+    });
 });
 

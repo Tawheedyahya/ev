@@ -2,6 +2,9 @@
 @section('title')
 home dashboard
 @endsection
+@push('styles')
+    <link rel="stylesheet" href="{{asset('manual_css/text.css')}}">
+@endpush
 @section('content')
     {{-- Banner Section --}}
     <div class="position-relative text-center">
@@ -43,6 +46,18 @@ home dashboard
         <div class="occasions-body">
             @include('components.occasions')
         </div>
+    </div>
+    <div class="category">
+        @include('home.category')
+    </div>
+    <div class="category-show">
+        @include('home.category_show',['category'=>$venues])
+    </div>
+    <div class="work">
+        @include('home.work')
+    </div>
+    <div class="testimonials">
+        @include('home.testimonials')
     </div>
     @push('scripts')
     <script src="{{asset('manual_js/navigator.js')}}" defer></script>

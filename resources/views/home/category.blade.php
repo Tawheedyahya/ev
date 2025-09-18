@@ -1,12 +1,7 @@
-@php
-    $route=Request::segment(2);
-@endphp
 <div class="catagorize">
-    <a href="" class="a-color @if (Str::Contains($route,['venue_login_form','venue_register_form']))
-    a-active
-    @endif">venue providers</a>
-    <a href="" class="a-color">professionals</a>
-    <a href="" class="a-color">service providers</a>
+    <a href="" class="a-color a-active">venue providers</a>
+    <a href="javascript:void(0)" class="a-color" onclick="change(this)">professionals</a>
+    <a href="javascript:voit(0)" class="a-color" onclick="change(this)">service providers</a>
     {{-- <a href="" class="a-color">Registeration-status</a> --}}
 </div>
 <style>
@@ -17,17 +12,25 @@
     /* gap: 20px; */
    background: rgba(248, 248, 248, 1);
 
-    /* padding: 20px; */
+    padding: 5px;
     border-radius: 30px;
     /* width: 100vw;     */
     margin-bottom: 10px;
 }
 .a-color{
+    flex: 1;
     color: black;
     padding: 10px;
+    text-align: center;
 }
 .a-active{
     background: rgba(247, 148, 29, 1);
     border-radius: 30px;
+    /* width: 100px; */
 }
 </style>
+<script>
+    function change(e){
+        
+    }
+</script>

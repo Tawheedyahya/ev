@@ -168,7 +168,7 @@
                                 {{-- <img src="{{asset("$venue['doc']")}}" alt="">
                                  --}}
                             </div>
-                            <img src="{{ asset($venue['doc'][0] ?? '') }}"  class="venue-img img-fluid" loading="lazy">
+                            <img src="{{ asset($venue['doc'][0] ?? '') }}"  class="venue-img img-fluid" loading="lazy" id="p-img" style="height: 180px;width:200px;">
                             <div class="mt-3 form-end d-flex justify-content-center align-items-center">
                                 <button class="btn" style="background-color:grey;color:white;">submit</button>
                             </div>
@@ -185,4 +185,21 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('manual_js/leaflet.js') }}"></script>
+    <script>
+$('#doc').on('change', function () {
+  const file = this.files && this.files[0];
+  if (!file) return;
+
+  // basic validation (optional)
+  if (!file.type.startsWith('image/')) {
+    alert('Please choose an image file.');
+    this.value = '';
+    return;
+  }
+
+  const url = URL.createObjectURL(file);
+  $('#p-img')
+    .attr('src', url); // free memory after load
+});
+    </script>
 @endpush

@@ -244,7 +244,7 @@ class Venueprovider extends Controller
     {
         if ($id) {
             $venue = Venue::findOrFail($id);
-        } else {
+        } if(!$id) {
             $venue = new Venue();
         }
         $seat = (int)$request->input('venue_seat_capacity');
@@ -298,7 +298,7 @@ class Venueprovider extends Controller
                     }
                 }
                 $file = $request->file('doc');
-                $file_name = time() . $request->input('venue_name') . '.' . $file->getClientOriginalExtension();
+                $file_name = time() . Str::slug($request->input('venue_name')) . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('verified_venue_images'), $file_name);
                 if($re_entry!=null){
                       $venue->venueimages()->update([
@@ -321,7 +321,8 @@ class Venueprovider extends Controller
         $venue = Venue::with([
             'appvenuefacilitie',
             'occasion',
-            'venueimages'
+            'venueimages',
+            'room'
         ])->find($id);
         DB::transaction(function () use ($venue) {
             $venue->appvenuefacilitie()->detach();
