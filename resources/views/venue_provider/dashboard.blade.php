@@ -33,7 +33,6 @@
                 <table class="table align-middle mb-0">
                     <thead>
                         <tr>
-
                             <th>Customer</th>
                             <th>Occasion</th>
                             <th>Date</th>
@@ -43,7 +42,6 @@
                     </thead>
                     <tbody>
                         <tr><td>Arun Kumar</td><td>Birthday</td><td>08 Sep 2025</td><td><span class="badge bg-success">Confirmed</span></td><td><a href="#" class="btn btn-sm btn-outline-primary">Details</a></td></tr>
-                        <!-- More rows -->
                     </tbody>
                 </table>
             </div>

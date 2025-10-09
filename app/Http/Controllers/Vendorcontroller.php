@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Professional;
+use App\Models\Professionlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Vendorcontroller extends Controller
 {
@@ -11,5 +14,19 @@ class Vendorcontroller extends Controller
     }
     public function venue_register_form(){
         return view('vendor.venue_register_form');
+    }
+    public function professionals_login_form(){
+        // echo 'hi';
+        // return;
+        if(Auth::guard('prof')->check()){
+            if(Auth::guard('prof')->user()->status=='approved')
+            return redirect('/professionals/dashboard');
+        }
+        return view('vendor.professionals');
+    }
+    public function professionals_register_form(){
+        $professional_list=Professionlist::all();
+        // pr($professionals);
+        return view('vendor.professionals_register_form',compact('professional_list'));
     }
 }

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Occasion;
+use App\Models\Professional;
 use App\Models\Venue;
 use App\Models\Venuefacility;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class Eventspacecontroller extends Controller
@@ -126,7 +129,7 @@ class Eventspacecontroller extends Controller
         if (!empty($fac)) {
             $sql .= " AND vf.venue_facilities IN ($facPh)";
         }
-        if ($location && $location!=null && $location!='') {
+        if ($location && $location != null && $location != '') {
             $sql .= " AND v.venue_city IN ('$location')";
         }
 
@@ -141,6 +144,13 @@ class Eventspacecontroller extends Controller
             $bindings = array_merge($bindings, $fac, [count($fac)]);
         }
 
+        if (!is_null($min) && $min !== '' && !is_null($seat_capacity) && $seat_capacity !== '') {
+            $sql .= " ORDER BY v.amount DESC, v.venue_seat_capacity ASC ";
+        }
+        if (!is_null($min) && $seat_capacity == null) {
+            $sql .= " ORDER BY v.amount DESC";
+        }
+
 
         $q = DB::select($sql, $bindings);
         $venues = array_map(function ($r) {
@@ -150,4 +160,99 @@ class Eventspacecontroller extends Controller
         $html = view('eventscape.venue_show', compact('venues', 'location', 'paginate'))->render();
         return response()->json(['html' => $html]);
     }
+    public function venue($id)
+    {
+        if ($id) {
+            $venue = Venue::with('venueimages', 'room', 'provider')->findOrFail($id)->toArray();
+            // $provider=Venue::
+            // pr($venue);
+            $provider = $venue['provider'];
+            unset($venue['provider']);
+            $rooms = $venue['room'];
+            $venue_img = $venue['venueimages'];
+            $images = array_merge($venue_img, $rooms);
+            // pr($venue);
+            unset($venue['room']);
+            unset($venue['venueimages']);
+            // $venue=array_column($venue['venueimages'],'doc');
+            // pr($venue);
+            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider'));
+        }
+    }
+    public function book($id, Request $request)
+    {
+        $user = Auth::id();
+        if (!$user || $user == '' || $user == null) {
+            return redirect('/customer/login_form')->with('error', 'Need to login');
+        }
+        $order_date = $request->input('starts_at');
+        $upto_date = $request->input('ends_at');
+        if ($order_date == null || $order_date == '' || $upto_date == null || $upto_date == '') {
+            return back()->with('error', 'order date and upto date is required');
+        }
+        $booking = new Booking();
+        $booking->venue_id = $id;
+        $booking->user_id = Auth::id();
+        $booking->name = Auth::user()->name;
+        $booking->email = Auth::user()->email;
+        $booking->phone = Auth::user()->phone;
+        $booking->order_date = $order_date;
+        $booking->upto_date = $upto_date;
+        if ($booking->save()) {
+            return back()->with('success', 'booking successfully go to your profile and check the status');
+        }
+    }
+    public function prof_location(Request $request)
+    {
+        $paginate = false;
+        $company = $request->get('location', '');
+        // return response()->json($company);
+        // $company=
+        $professionals = Professional::with('professionlist')->where('companyname', $company)->get();
+        //   return response()->json($professionals);
+        $render = view('eventscape.professional.prof_show', compact('professionals', 'paginate'))->render();
+        return response()->json(['html' => $render]);
+    }
+
+   public function prof_filter(Request $request)
+{
+    $min = $request->get('min');
+    $places = $request->get('places');
+    $category = $request->get('category');
+
+    $query = DB::table('professionals as p')
+        ->join('professionlists as pl', 'p.profession', '=', 'pl.id');
+
+    if (!empty($places)) {
+        $query->join('proserviceplaces as pp', 'pp.pro_id', '=', 'p.id')
+              ->where('pp.ser_id', $places);
+    }
+    if (!empty($min)) {
+        $query->where('p.price', '<=', (float) $min);
+    }
+    if (!empty($category)) {
+        $query->where('pl.id', $category);
+    }
+
+    $rows = $query->select('p.*','pl.name as profession_name')->get();
+    // pr($rows);
+    $professionals = $rows->map(function ($r) {
+        return [
+            'id'              => (int) $r->id,
+            'name'            => (string) $r->name,
+            'companyname'     => (string) $r->companyname,
+            'address'         => (string) $r->address,
+            'experience'      => isset($r->experience) ? (float) $r->experience : null,
+            'price'           => isset($r->price) ? (float) $r->price : null,
+            'prof_logo'       => $r->prof_logo ? asset($r->prof_logo) : asset('images/placeholder.jpg'),
+            'email'           => (string) $r->email,
+            'profession_id'   => (int) $r->profession,
+            'profession_name' => $r->profession_name ?? null,
+        ];
+    });
+    $paginate = false;
+    $html = view('eventscape.professional.prof_show', compact('paginate', 'professionals'))->render();
+    return response()->json(['h' => $html]);
+}
+
 }

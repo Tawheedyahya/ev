@@ -28,7 +28,7 @@ class Venueprovider extends Controller
                 'email' => 'required|unique:venueproviders,email',
                 'phone' => 'required',
                 'password' => 'required|confirmed',
-                'doc' => 'required'
+                   'doc' => 'required|max:2048',
             ]);
             $name = trim($request->input('name'));
             $email = trim($request->input('email'));
@@ -234,7 +234,7 @@ class Venueprovider extends Controller
             'venue_facilities' => 'required|array|min:1',
             'latitude' => 'required',
             'longitude' => 'required',
-            'doc' => 'required',
+            'doc' => 'required|mimes:jpg,jpeg,png|max:1024',
             'amount' => 'required',
             'description' => 'required'
         ]);

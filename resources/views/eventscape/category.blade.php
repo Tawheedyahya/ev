@@ -4,12 +4,16 @@
     // echo $route;
 @endphp
 <div class="catagorize mt-3">
-    <a href="#" @if ($route=='venues_provider')
+    <a href="{{url('/eventspace/venues_provider/dashboard')}}" @if ($route=='venues_provider')
     class="a-active"
    @else
    class="a-color"
     @endif>venue providers</a>
-    <a href="#" class="a-color">professionals</a>
+    <a href="{{url('eventspace/prof/dashboard')}}"  @if ($route=='prof')
+    class="a-active"
+    @else
+    class="a-color"
+    @endif>professionals</a>
     <a href="#" class="a-color">service providers</a>
 </div>
 <style>

@@ -41,7 +41,9 @@
 @endpush
 @section('content')
 
-    @include('components.navigator')
+    @include('components.navigator',[
+        'action'=>'eventspace.location'
+    ])
 
     {{-- </div> --}}
     <div class="container-fluid " style="margin-top: 50px;">
@@ -67,3 +69,54 @@
         <script src="{{ asset('manual_js/navigator.js') }}" defer></script>
     @endpush
 @endsection
+@if (request()->routeIs('eventspace.dashboard'))
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+@endif
+<style>
+    .venues-wrap {
+        display: flex;
+        /* grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); */
+        /* gap: 16px;
+   */
+        flex-direction: column;
+    }
+
+    .venue-card {
+        display: flex;
+        gap: 16px;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        background: #fff;
+        padding: 12px;
+    }
+
+    .venue-img .v-img {
+        width: 250px;
+        height: 183px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .venue-body {
+        flex: 1;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+        .venue-card {
+            flex-direction: column;
+            /* stack image above text on small screens */
+            gap: 12px;
+        }
+
+        .venue-img .v-img {
+            width: 100%;
+            height: 180px;
+        }
+    }
+</style>

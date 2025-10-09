@@ -1,49 +1,53 @@
+{{-- img laziness --}}
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 <div class="venues-wrap">
     @forelse ($venues as $venue)
-        <a href=""><div class="venue-card mb-2">
-            <div class="venue-img">
-                <img src="{{ $venue['doc'] ? asset($venue['doc']) : asset('images/placeholder.jpg') }}"
-                    alt="{{ $venue['venue_name'] }} image" class="v-img img-fluid" loading="lazy">
+        <a href="{{ route('card.venue', $venue) }}">
+            <div class="venue-card mb-2">
+                <div class="venue-img">
+                    <img data-src="{{ $venue['doc'] ? asset($venue['doc']) : asset('images/placeholder.jpg') }}"
+                        alt="{{ $venue['venue_name'] }} image" class="v-img img-fluid lazyload" loading="lazy" decoding="async" fetchpriority="low">
+                </div>
+
+                <div class="venue-body">
+                    <div class="venue-name">
+                        <h3>{{ $venue['venue_name'] }}</h3>
+                    </div>
+
+                    <div class="venue-location">
+                        <p>
+                            <i class="bi bi-geo-alt-fill text-danger"></i>
+                            {{ $venue['venue_city'] }}
+                        </p>
+                    </div>
+
+                    <div class="venue-description">
+                        <p>{{ $venue['description'] }}</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="venue-body">
-                <div class="venue-name">
-                    <h3>{{ $venue['venue_name'] }}</h3>
-                </div>
-
-                <div class="venue-location">
-                    <p>
-                        <i class="bi bi-geo-alt-fill text-danger"></i>
-                        {{ $venue['venue_city'] }}
-                    </p>
-                </div>
-
-                <div class="venue-description">
-                    <p>{{ $venue['description'] }}</p>
-                </div>
-            </div>
-        </div></a>
+        </a>
     @empty
         <p class="text-muted">No venues found for this location.</p>
     @endforelse
     @if ($paginate)
-            <div class="mt-3">
+        <div class="mt-3">
             {{ $venues->links('pagination::bootstrap-5') }}
         </div>
     @else
-       {{-- <div class="mt-3">
+        {{-- <div class="mt-3">
             {{ $venues->links('pagination::bootstrap-5') }}
         </div> --}}
     @endif
 
 </div>
 @if (request()->routeIs('eventspace.dashboard'))
-<style>
-    a {
-        text-decoration: none;
-        color: black;
-    }
-</style>
+    <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
 @endif
 <style>
     .venues-wrap {

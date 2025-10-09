@@ -43,6 +43,10 @@ return [
         'venue_provider'=>[
             'driver'=>'session',
             'provider'=>'venueproviders'
+        ],
+        'prof'=>[
+            'driver'=>'session',
+            'provider'=>'professionals'
         ]
     ],
 
@@ -71,6 +75,10 @@ return [
         'venueproviders'=>[
             'driver'=>'eloquent',
             'model'=>App\Models\Venueproviders::class
+        ],
+        'professionals'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\Professional::class
         ]
 
         // 'users' => [
@@ -107,6 +115,12 @@ return [
         ],
         'venueproviders'=>[
             'provider' => 'venueproviders',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'professionals'=>[
+            'provider' => 'professionals',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

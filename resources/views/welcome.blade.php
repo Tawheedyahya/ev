@@ -16,11 +16,15 @@
 
     <link rel="stylesheet" href="{{ asset('manual_css/common.css') }}">
 
+    <link rel="stylesheet" href="{{asset('manual_css/text.css')}}">
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- jQuery Validation Plugin -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    {{-- img laziness --}}
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 
     <script src="{{asset('manual_js/common.js')}}" defer></script>
 

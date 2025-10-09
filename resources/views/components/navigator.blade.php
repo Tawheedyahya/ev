@@ -26,34 +26,52 @@
 
 <script>
   $(function () {
-    // Autocomplete
     var availableLocations = @json($location);
+
+    // Instagram-like autocomplete
     $("#location").autocomplete({
-      source: availableLocations,
-      minLength: 0
-    }).on('focus', function () {
-      // show all options on focus
-      $(this).autocomplete('search', '');
+      source: function (request, response) {
+        const term = request.term.toLowerCase();
+        // Only show results while typing
+        if (term.length < 1) {
+          response([]); // don’t show anything if less than 2 chars
+          return;
+        }
+        const results = availableLocations
+          .filter(item => item.toLowerCase().includes(term))
+          .slice(0, 8); // show max 8 results
+        response(results);
+      },
+      minLength: 2, // only show after typing 2 chars
+      delay: 100,   // smooth typing delay
+      position: { my: "left top+6", at: "left bottom" }
     });
 
-    // Click handler (jQuery way)
-    $('#search').on('click', function () {
-      const location = $('#location').val().trim();
-      if (location !== '') {
-        $.ajax({
-          url: "{{ route('eventspace.location') }}", // <-- Blade string
-          method: 'GET',                              // or 'POST' (then add CSRF)
-          data: { location: location },
-          success: function (res) {
-            $('.venues-wrap').html(res.html)
-            // TODO: render your results here
-          },
-          error: function (err) {
-            console.error('Error:', err);
-          }
-        });
+    // Enter key triggers search
+    $('#location').on('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        $('#search').click();
       }
     });
-  });
 
+    // Click handler
+    $('#search').on('click', function () {
+      const location = $('#location').val().trim();
+      if (!location) return;
+
+      $.ajax({
+        url: "{{ route($action) }}",
+        method: 'GET',
+        data: { location },
+        success: function (res) {
+            console.log(res);
+          $('.venues-wrap').html(res.html);
+        },
+        error: function (err) {
+          console.error('Error:', err);
+        }
+      });
+    });
+  });
 </script>

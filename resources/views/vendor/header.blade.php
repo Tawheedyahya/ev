@@ -2,10 +2,12 @@
     $route=Request::segment(2);
 @endphp
 <div class="catagorize">
-    <a href="" class="a-color @if (Str::Contains($route,['venue_login_form','venue_register_form']))
+    <a href="{{url('/vendor/venue_login_form')}}" class="a-color @if (Str::Contains($route,['venue_login_form','venue_register_form']))
     a-active
     @endif">venue providers</a>
-    <a href="" class="a-color">professionals</a>
+    <a href="{{url('/vendor/professionals_login')}}" class="a-color @if (Str::Contains($route,['professionals_login','venue_register_form']))
+    a-active
+    @endif">professionals</a>
     <a href="" class="a-color">service providers</a>
     {{-- <a href="" class="a-color">Registeration-status</a> --}}
 </div>

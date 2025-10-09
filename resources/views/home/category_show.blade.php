@@ -1,6 +1,6 @@
 <div class="category-pic">
     @foreach ($venues as $venue)
-        <a href="#" class="card">
+        <a href="{{route('card.venue',$venue['id'])}}" class="card">
             <img src="{{ asset($venue['doc']) }}" alt="{{ $venue['id'] }}" loading='lazy'>
             <div class="overlay">
                 <h4>{{ $venue['venue_name'] ?? 'Venue' }}</h4>

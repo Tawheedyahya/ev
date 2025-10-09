@@ -18,7 +18,7 @@
                     class="nav-link text-white  @if ($request == 'venues') active" @else " @endif href="{{ url('/venue_provider/venues/dashbaord') }}"><i
                         class="bi bi-calendar-event"></i> <span class="">Venues</span></a></li>
             <li class="nav-item"><a
-                    class="nav-link text-white  @if ($request == 'bookings') active" @else " @endif href="#"><i
+                    class="nav-link text-white  @if ($request == 'bookings') active" @else " @endif href="{{url('/venue_provider/bookings/dashboard')}}"><i
                         class="bi bi-journal-check"></i> <span class="">Bookings</span></a></li>
             <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'settings') active" @else " @endif href="#"><i

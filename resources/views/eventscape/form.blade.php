@@ -14,7 +14,7 @@
 
     <div class="chip-group" role="group" aria-label="Occasions">
         @foreach ($occasions as $occasion)
-            <input class="chip-input" type="checkbox" id="{{ $occasion->name }}" name="occasions[]"
+            <input class="chip-input" type="radio" id="{{ $occasion->name }}" name="occasions[]"
                 value="{{ $occasion->id }}">
             <label class="chip" for="{{ $occasion->name }}">{{ $occasion->name }}</label>
         @endforeach
