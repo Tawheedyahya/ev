@@ -7,7 +7,7 @@
   {{-- SIDEBAR --}}
   <aside class="sidebar" id="sidebar">
     <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">☰ hide</button>
-    <a href="{{url('/customer/profile')}}" class="@if ($request=='profile') active
+    <a href="{{url('/customer/profile')}}" class="@if ($request=='profile' || $request=='professional') active
     @endif">Profile</a>
     <a href="{{url('/customer/liked_venues')}}" class="@if ($request=='liked_venues') active
     @endif">Liked Venues</a>
