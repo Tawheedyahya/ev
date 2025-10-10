@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bookprofessional;
 use App\Models\Occasion;
 use App\Models\Professional;
 use App\Models\Professionlist;
 use App\Models\Serviceplace;
 use App\Models\Venuefacility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Professionalbookcontroller extends Controller
 {
@@ -54,5 +56,29 @@ if ($professionals) {
 } else {
     pr('Professional not found.');
 }
+    }
+
+    public function booking($id,Request $request){
+        if(!Auth::check()){
+            return redirect('/customer/login_form')->with('error','need to login first');
+        }
+        $order_date=$request->input('order_date');
+        $upto_date=$request->input('upto_date');
+        // echo $order_date;
+        // echo $upto_date;
+        // return;
+        $user=Auth::user();
+        // pr($user);
+        $booking=new Bookprofessional();
+        $booking->professional_id=$id;
+        $booking->user_id=Auth::id();
+        $booking->phone=Auth::user()->phone;
+        $booking->status='pending';
+        $booking->order_date=$order_date;
+        $booking->upto_date=$upto_date;
+        if($booking->save()){
+            return back()->with('success','booked successfully view your profile booking for more details');
+        }
+        // $booking->order_date=
     }
 }

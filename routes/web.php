@@ -56,6 +56,10 @@ Route::prefix('/customer')->group(function(){
     Route::delete('/booking/cancel/{id}',[Customercontroller::class,'booking_cancel'])->name('booking.cancel');
     Route::patch('/booking/date/{id}',[Customercontroller::class,'booking_date'])->name('booking.date');
     Route::get('/logout',[Customercontroller::class,'logout']);
+    // professional
+    Route::get('/professional',[Customercontroller::class,'professional_book']);
+    Route::delete('/professional/booking/cancel/{id}',[Customercontroller::class,'prof_booking_cancel'])->name('prof.booking.cancel');
+    Route::patch('/professional/booking/date/{id}',[Customercontroller::class,'prof_booking_date'])->name('prof.booking.date');
     // heart
     Route::post('/heart',[Customercontroller::class,'heart']);
 });
@@ -107,6 +111,7 @@ Route::prefix('/eventspace/prof')->group(function(){
     Route::get('/dashboard',[Professionalbookcontroller::class,'dashboard'])->name('prof.dashboard');
     // Route::get('/')
     Route::get('/professional/{id}',[Professionalbookcontroller::class,'professional'])->name('prof.professional');
+    Route::post('/professional/booking/{id}',[Professionalbookcontroller::class,'booking'])->name('prof.book');
 });
 
 

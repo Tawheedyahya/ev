@@ -30,12 +30,13 @@
         <select id="redirection" class="form-select shadow-sm"
             style="max-width: 300px; border-radius: 8px; border: 2px solid #ffc107; font-weight: 500; color: #333;">
             <option value="" style="background-color:#fffbe6;">-- Choose Category --</option>
-            <option value="{{ url('/customer/login_form') }}" style="background-color:#fff8cc;">Venues</option>
+            <option value="{{ url('/customer/profile') }}" style="background-color:#fff8cc;">Venues</option>
             <option value="{{ url('/customer/professional') }}" style="background-color:#fff3b0;">Professionals</option>
-            <option value="{{ url('/service_providers') }}" style="background-color:#fff1a8;">Service Providers</option>
+            <option value="" style="background-color:#fff1a8;">Service Providers</option>
         </select>
     </div>
-    @include('customer.bookings')
+    {{-- @include('customer.bookings') --}}
+    @yield('component')
 @endsection
 
 @push('styles')

@@ -13,4 +13,7 @@ class Professional extends User
     public function professionlist(){
         return $this->belongsTo(Professionlist::class,'profession','id');
     }
+      public function professionalbooking(){
+        return $this->belongsTo(Professional::class,'professional_id','id');
+    }
 }

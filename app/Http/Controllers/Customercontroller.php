@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Passwordmail;
 use App\Models\Booking;
+use App\Models\Bookprofessional;
 use App\Models\User;
 use App\Models\Venue;
 use Illuminate\Http\Request;
@@ -211,4 +212,48 @@ class Customercontroller extends Controller
         return view('customer.likedvenues',compact('venues','paginate'));
         pr($venues->toArray());
     }
+    public function professional_book(){
+        // echo 'hi';
+        $bookings=Bookprofessional::with('professionals:companyname,id,prof_logo,name,phone')->where('user_id',Auth::id())->get();
+        // pr($bookings);
+        return view('customer.professional.dashboard',compact('bookings'));
+    }
+    public function prof_booking_cancel($id){
+        $booking=Bookprofessional::findOrFail($id);
+        if($booking){
+            $booking->status='cancelled';
+            $booking->save();
+            return back()->with('error','booking cancelled');
+        }
+    }
+public function prof_booking_date($id, Request $request)
+{
+    $booking = Bookprofessional::findOrFail($id);
+
+    $order_date = $request->input('starts_at');
+    $upto_date  = $request->input('ends_at');
+
+    // Validation check
+    if (empty($order_date) || empty($upto_date)) {
+        return back()->with('error', 'Order date and up-to date are mandatory.');
+    }
+
+    try {
+        // Normalize the format before saving
+        $order_date = date('Y-m-d H:i:s', strtotime($order_date));
+        $upto_date  = date('Y-m-d H:i:s', strtotime($upto_date));
+
+        // $booking->update([
+        //     'order_date' => $order_date,
+        //     'upto_date'  => $upto_date,
+        // ]);
+        $booking->order_date=$order_date;
+        $booking->upto_date=$upto_date;
+        $booking->save();
+
+        return back()->with('success', 'Booking dates updated successfully.');
+    } catch (\Exception $e) {
+        return back()->with('error', 'Failed to update booking dates: ' . $e->getMessage());
+    }
+}
 }
