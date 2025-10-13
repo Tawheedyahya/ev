@@ -106,6 +106,7 @@ Route::prefix('/professionals')->group(function(){
     Route::get('/dashboard/edit',[Professionalcontroller::class,'edit'])->middleware(['prof'])->name('prof.profile.edit');
     Route::get('/logout',[Professionalcontroller::class,'logout'])->middleware(['prof'])->name('pf.logout');
     Route::post('/edit',[Professionalcontroller::class,'update'])->middleware(['prof'])->name('prof.prof.edit');
+    Route::get('/bookings',[Professionalcontroller::class,'bookings'])->middleware(['prof']);
 });
 Route::prefix('/eventspace/prof')->group(function(){
     Route::get('/dashboard',[Professionalbookcontroller::class,'dashboard'])->name('prof.dashboard');
