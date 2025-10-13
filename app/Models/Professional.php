@@ -16,4 +16,9 @@ class Professional extends User
       public function professionalbooking(){
         return $this->belongsTo(Professional::class,'professional_id','id');
     }
+    public function likers()
+    {
+        return $this->belongsToMany(User::class, 'professionllikes', 'professional_id', 'user_id')
+                ->withTimestamps();
+    }
 }

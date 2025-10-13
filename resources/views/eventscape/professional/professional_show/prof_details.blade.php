@@ -21,6 +21,7 @@
                     <i class="bi bi-calendar-check"></i> Book Event
                 </a>
             </div>
+                <button id="prof_heart" class="heart" aria-label="Like" data-id="{{Auth::id()}}"></button><span class="heart_m"></span>
         </div>
     </div>
 </div>
@@ -60,5 +61,38 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
     <script src="{{ asset('manual_js/flatpicker.js') }}" defer></script>
+    <script>
+    const heartBtn = document.querySelector(".heart");
+    const heart_msg=document.querySelector('.heart_m');
+    const url=window.location.href
+    const parts=url.split('/').filter(Boolean)
+    const v_id=parts[parts.length-1]
+    // console.log(v_id);
+    heartBtn.addEventListener("click", async() => {
+     heart_msg.textContent=''
+    if(heartBtn.dataset.id=='' || heartBtn.dataset.id==null){
+        heart_msg.textContent='Need to Login'
+        return
+    }
+    heartBtn.classList.add("active");
+
+    const origin=window.location.href+'/heart'
+    console.log(origin);
+    const response=await fetch(origin,{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            professional_id:v_id,
+            user_id:heartBtn.dataset.id,
+            like:'yes'
+        })
+    })
+    const data=await response.json();
+    console.log(data)
+});
+
+    </script>
 
 @endsection

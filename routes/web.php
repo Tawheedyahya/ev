@@ -106,13 +106,16 @@ Route::prefix('/professionals')->group(function(){
     Route::get('/dashboard/edit',[Professionalcontroller::class,'edit'])->middleware(['prof'])->name('prof.profile.edit');
     Route::get('/logout',[Professionalcontroller::class,'logout'])->middleware(['prof'])->name('pf.logout');
     Route::post('/edit',[Professionalcontroller::class,'update'])->middleware(['prof'])->name('prof.prof.edit');
-    Route::get('/bookings',[Professionalcontroller::class,'bookings'])->middleware(['prof']);
+    Route::get('/bookings',[Professionalcontroller::class,'bookings'])->middleware(['prof'])->name('professional.bookings');
+    Route::get('/booking/accept/{id}',[Professionalcontroller::class,'accept'])->middleware(['prof'])->name('prof.booking.approve');
+    Route::post('/booking/reject/{id}',[Professionalcontroller::class,'reject'])->middleware(['prof'])->name('prof.booking.reject');
 });
 Route::prefix('/eventspace/prof')->group(function(){
     Route::get('/dashboard',[Professionalbookcontroller::class,'dashboard'])->name('prof.dashboard');
     // Route::get('/')
     Route::get('/professional/{id}',[Professionalbookcontroller::class,'professional'])->name('prof.professional');
     Route::post('/professional/booking/{id}',[Professionalbookcontroller::class,'booking'])->name('prof.book');
+    Route::post('/professional/{id}/heart',[Professionalbookcontroller::class,'likes']);
 });
 
 

@@ -7,6 +7,7 @@ use App\Models\Occasion;
 use App\Models\Professional;
 use App\Models\Professionlist;
 use App\Models\Serviceplace;
+use App\Models\User;
 use App\Models\Venuefacility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ if ($professionals) {
     // Wrap the model instance in a collection, even though it’s only a single model
     $prof = collect([$professionals])->map(function($q) {
         return [
+            'id'=>$q->id,
             'name' => $q->name,                  // Correctly accessing the 'name' property
             'company_name' => $q->companyname,   // Correctly accessing the 'companyname' property
             'prof_logo' => $q->prof_logo,        // Correctly accessing the 'prof_logo' property
@@ -81,4 +83,27 @@ if ($professionals) {
         }
         // $booking->order_date=
     }
+public function likes(Request $request)
+{
+    $professional_id = $request->input('professional_id'); // or (int) $request->input('professional_id');
+    $user_id = $request->input('user_id');
+         // or (int) $request->input('user_id');
+    $like=$request->input('like');
+
+    $professional = Professional::findOrFail((int) $professional_id);
+    $user = User::with('likedProfessionals')->findOrFail((int) $user_id);
+
+    // Check if user already likes this professional
+    $exists = $user->likedProfessionals()
+                   ->where('professional_id', (int) $professional_id)
+                   ->exists();
+    if($like=='yes' && !$exists){
+        $user->likedProfessionals()->attach($professional_id);
+    }
+    if($like=='no' && $exists){
+        $user->likedProfessionals()->detach($professional_id);
+    }
+    return;
+}
+
 }

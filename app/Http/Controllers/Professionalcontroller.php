@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Passwordmail;
+use App\Models\Bookprofessional;
 use App\Models\Professional;
 use App\Models\Serviceplace;
 use Illuminate\Http\Request;
@@ -150,5 +151,33 @@ class Professionalcontroller extends Controller
             return back()->with('success','updated successfully');
         }
 
+    }
+    public function bookings(){
+      $bookings = Bookprofessional::with(['user:id,name,email,phone'])
+    ->where('professional_id', Auth::guard('prof')->user()->id)
+    ->get()->toArray();
+    // pr($bookings);
+    return view('professionals.booking',compact('bookings'));
+    }
+    public function accept($id){
+        $booking=Bookprofessional::findOrFail($id);
+        $c=Bookprofessional::with('user')->where('id',$id)->first();
+        // pr($c->);
+        if($booking && ($booking->status=='pending' || $booking->status=='rejected')){
+            $booking->status='approved';
+            $booking->notes=null;
+            $booking->save();
+            return back()->with('success',"booking accepted for customer ".$booking->user->name);
+        }
+    }
+    public function reject($id,Request $request){
+        $booking=Bookprofessional::findOrFail($id);
+        $c=Bookprofessional::with('user')->where('id',$id)->first();
+        if($booking && ($booking->status=='pending' || $booking->status=='approved')){
+            $booking->notes=$request->input('rejection_note');
+            $booking->status='rejected';
+            $booking->save();
+            return back()->with('error',"booking rejected for customer ".$booking->user->name);
+        }
     }
 }

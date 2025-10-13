@@ -15,7 +15,7 @@
                     class=" text-white nav-link @if ($request == 'dashboard') active" @else " @endif href="{{ route('professional.dashboard') }}"><i
                         class="bi bi-speedometer2"></i> <span class="">Dashboard</span></a></li>
             <li class="nav-item"><a
-                    class="nav-link text-white  @if ($request == 'bookings') active" @else " @endif href=""><i
+                    class="nav-link text-white  @if ($request == 'bookings') active" @else " @endif href="{{route('professional.bookings')}}"><i
                         class="bi bi-calendar-event"></i> <span class="">Bookings</span></a></li>
             {{-- <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'bookings') active" @else " @endif href="{{ url('/venue_provider/bookings/dashboard') }}"><i
