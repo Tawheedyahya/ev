@@ -12,6 +12,8 @@
     <a href="{{url('/customer/liked_venues')}}" class="@if ($request=='liked_venues') active
     @endif">Liked Venues</a>
     <a href="#">Liked Services</a>
-    <a href="#">Liked Professionals</a>
+    <a href="{{url('/customer/liked_professionals')}}" class="@if ($request=='liked_professionals')
+    active
+    @endif">Liked Professionals</a>
     <a href="{{url('/customer/logout')}}">Log out</a>
   </aside>

@@ -53,6 +53,7 @@ Route::prefix('/customer')->group(function(){
     Route::post('/set_password/{id}',[Customercontroller::class,'set_password'])->name('customer.password_reset');
     Route::get('/profile',[Customercontroller::class,'profile']);
     Route::get('/liked_venues',[Customercontroller::class,'liked_venues']);
+    Route::get('/liked_professionals',[Customercontroller::class,'liked_professionals']);
     Route::delete('/booking/cancel/{id}',[Customercontroller::class,'booking_cancel'])->name('booking.cancel');
     Route::patch('/booking/date/{id}',[Customercontroller::class,'booking_date'])->name('booking.date');
     Route::get('/logout',[Customercontroller::class,'logout']);

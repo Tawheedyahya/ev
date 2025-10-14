@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\Passwordmail;
 use App\Models\Booking;
 use App\Models\Bookprofessional;
+use App\Models\Professional;
 use App\Models\User;
 use App\Models\Venue;
 use Illuminate\Http\Request;
@@ -256,4 +257,13 @@ public function prof_booking_date($id, Request $request)
         return back()->with('error', 'Failed to update booking dates: ' . $e->getMessage());
     }
 }
+    public function liked_professionals(){
+           $user = Auth::user();
+
+    // Get all liked professionals
+    $likedprofessionals = $user->likedProfessionals()->select('professionals.id','professionals.name','professionals.address','professionals.companyname','professionals.prof_logo','professionals.experience','professionals.price')->get()->toArray();
+    // Debug or pass to view
+    // pr($likedprofessionals);
+    return view('eventscape.professional.liked',compact('likedprofessionals'));
+    }
 }

@@ -86,7 +86,7 @@ if ($professionals) {
 public function likes(Request $request)
 {
     $professional_id = $request->input('professional_id'); // or (int) $request->input('professional_id');
-    $user_id = $request->input('user_id');
+    $user_id = Auth::id();
          // or (int) $request->input('user_id');
     $like=$request->input('like');
 
@@ -103,7 +103,9 @@ public function likes(Request $request)
     if($like=='no' && $exists){
         $user->likedProfessionals()->detach($professional_id);
     }
-    return;
+    return response()->json([
+        'status'=>'unliked'
+    ],200);
 }
 
 }
