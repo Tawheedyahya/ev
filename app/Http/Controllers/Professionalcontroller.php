@@ -94,7 +94,7 @@ class Professionalcontroller extends Controller
         $professional->email_verified_at=date('Y-m-d H:i:s');
         $professional->token=null;
         if($professional->save()){
-            return redirect('/vendor/professionals_login' )->with('success','email verified successfully');
+            return redirect('/vendor/service_providers_login' )->with('success','email verified successfully');
         }
 
     }

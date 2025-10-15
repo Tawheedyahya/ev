@@ -7,6 +7,8 @@ use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Professionalbookcontroller;
 use App\Http\Controllers\Professionalcontroller;
 use App\Http\Controllers\Roomcontroller;
+use App\Http\Controllers\Serviceprovider;
+use App\Http\Controllers\Serviceprovidercontroller;
 use App\Http\Controllers\Vendorcontroller;
 use App\Http\Controllers\Venueprovider;
 use App\Models\Professional;
@@ -70,6 +72,8 @@ Route::prefix('/vendor')->group(function(){
     Route::get('/venue_register_form',[Vendorcontroller::class,'venue_register_form']);
     Route::get('/professionals_login',[Vendorcontroller::class,'professionals_login_form']);
     Route::get('/professionals_register_form',[Vendorcontroller::class,'professionals_register_form']);
+    Route::get('/service_providers_login',[Vendorcontroller::class,'service_providers_login']);
+    Route::get('/service_providers_register',[Vendorcontroller::class,'service_providers_register']);
 });
 // lovider
 Route::prefix('/venue_provider')->group(function(){
@@ -122,5 +126,10 @@ Route::prefix('/eventspace/prof')->group(function(){
 
 Route::prefix('/booking')->group(function(){
     Route::post('/book/{id}',[Eventspacecontroller::class,'book'])->name('venue.book');
+});
+Route::prefix('/service_provider')->group(function(){
+    Route::post('/login',[Serviceprovidercontroller::class,'login'])->name('service.login');
+    Route::post('/register',[Serviceprovidercontroller::class,'register'])->name('serviceprovider.register');
+    Route::get('/verified',[Serviceprovidercontroller::class,'email']);
 });
 
