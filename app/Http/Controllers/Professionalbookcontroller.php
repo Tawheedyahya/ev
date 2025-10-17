@@ -16,9 +16,9 @@ class Professionalbookcontroller extends Controller
 {
     public function dashboard()
     {
-        $location=Professional::all()->pluck('companyname')->toArray();
+        $location=Professional::where('status','approved')->pluck('companyname')->toArray();
         $service_places=Serviceplace::all();
-        $professionals=Professional::with('professionlist')->paginate(5);
+        $professionals=Professional::with('professionlist')->where('status','approved')->paginate(5);
         $category=Professionlist::all();
         // pr($professionals->toArray());
         $paginate=true;
@@ -26,6 +26,9 @@ class Professionalbookcontroller extends Controller
     }
     public function professional($id){
 $professionals = Professional::with('proserviceplace')->findOrFail($id);
+    if($professionals->status=='pending'||$professionals->staus=='pending'){
+        return redirect()->route('err');
+    }
 // pr($professionals->toArray());
 // Ensure that the professional exists before proceeding
 if ($professionals) {
