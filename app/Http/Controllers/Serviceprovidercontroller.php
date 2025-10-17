@@ -6,15 +6,32 @@ use App\Mail\Passwordmail;
 use App\Models\Serviceproviders;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class Serviceprovidercontroller extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
-        // return 'b';
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+        $service=Serviceproviders::where('email',$request->input('email'))->first();
+        if(empty($service)||$service==null){
+            return back()->with('error','admin not found');
+        }
+        if(!Hash::check($request->input('password'),$service->password)){
+            return back()->with('error','password not match');
+        }
+        if($service->status=='pending' || $service->status=='rejected'){
+            return back()->with('error','your registration is ' .$service->status);
+        }
+        Auth::guard('ser')->login($service);
+        // return Auth::guard('ser')->user()->name;
+        return back()->with('success','login successfully');
     }
     public function register(Request $request)
     {
