@@ -3,6 +3,7 @@
 use App\Http\Middleware\Bookingaction;
 use App\Http\Middleware\Profcheckmiddleware;
 use App\Http\Middleware\Roomaction;
+use App\Http\Middleware\Sercheckmiddleware;
 use App\Http\Middleware\Venueaction;
 use App\Http\Middleware\Venueproviderauth;
 use Illuminate\Foundation\Application;
@@ -25,7 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 'venue_provider_action'=>Venueaction::class,
                 'room_action'=>Roomaction::class,
                 'book_action'=>Bookingaction::class,
-                'prof'=>Profcheckmiddleware::class
+                'prof'=>Profcheckmiddleware::class,
+                'sercheck'=>Sercheckmiddleware::class
             ]
             );
     })

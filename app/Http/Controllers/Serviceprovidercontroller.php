@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Passwordmail;
+use App\Models\Serviceblog;
 use App\Models\Serviceproviders;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -31,7 +33,7 @@ class Serviceprovidercontroller extends Controller
         }
         Auth::guard('ser')->login($service);
         // return Auth::guard('ser')->user()->name;
-        return back()->with('success','login successfully');
+        return redirect('/service_provider/dashboard')->with('success','login successfully');
     }
     public function register(Request $request)
     {
@@ -83,5 +85,50 @@ class Serviceprovidercontroller extends Controller
                 return redirect('/vendor/service_providers_login')->with('success','email_verified and try to login');
             }
         }
+    }
+    public function dashboard()
+    {
+        // echo 'hi';
+        // return;
+        return view('service_providers.dashboard');
+    }
+    public function blogs(){
+        $blogs=Serviceblog::where('serviceproviderid',Auth::guard('ser')->user()->id)->get();
+        // pr($blogs->toArray());
+        return view('service_providers.show',compact('blogs'));
+    }
+    public function uploads(){
+        return view('service_providers.form');
+    }
+    public function logout(){
+        Auth::guard('ser')->logout();
+        return redirect('/vendor/service_providers_login')->with('error','logout successfully');
+    }
+    public function post(Request $request){
+        $request->validate([
+            'description'=>'required',
+            'room_doc'=>'required'
+        ]);
+           DB::transaction(function()use($request){
+            if($request->hasFile('room_doc')){
+                $img=$request->file('room_doc');
+                $file_name=Auth::guard('ser')->user()->id.'_'.time().'.'.$img->getClientOriginalExtension();
+                $img->move(public_path('service_blogs'),$file_name);
+                $blogs=new Serviceblog();
+                $blogs->serviceproviderid=Auth::guard('ser')->user()->id;
+                $blogs->blogimg='service_blogs/'.$file_name;
+                $blogs->description=$request->input('description');
+                $blogs->save();
+            }
+        });
+        return back()->with('success','blogs posted');
+    }
+    public function delete_post($id){
+        $post=Serviceblog::findOrFail($id);
+        if($post->serviceproviderid!=Auth::guard('ser')->user()->id){
+            return redirect()->route('err');
+        }
+        $post->delete();
+        return back()->with('error','blog deleted');
     }
 }

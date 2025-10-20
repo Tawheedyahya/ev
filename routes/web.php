@@ -132,4 +132,12 @@ Route::prefix('/service_provider')->group(function(){
     Route::post('/register',[Serviceprovidercontroller::class,'register'])->name('serviceprovider.register');
     Route::get('/verified',[Serviceprovidercontroller::class,'email']);
 });
+Route::prefix('/service_provider')->middleware('sercheck')->group(function(){
+    Route::get('/dashboard',[Serviceprovidercontroller::class,'dashboard'])->name('service.dashboard');
+    Route::get('/blogs',[Serviceprovidercontroller::class,'blogs'])->name('service.blogs');
+    Route::get('/uploads',[Serviceprovidercontroller::class,'uploads'])->name('service.uploads');
+    Route::get('/logout',[Serviceprovidercontroller::class,'logout'])->name('service.logout');
+    Route::post('/post',[Serviceprovidercontroller::class,'post'])->name('service.post');
+    Route::delete('/post/delete/{id}',[Serviceprovidercontroller::class,'delete_post'])->name('service.blog.delete');
+});
 

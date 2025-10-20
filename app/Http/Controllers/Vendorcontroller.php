@@ -31,6 +31,9 @@ class Vendorcontroller extends Controller
         return view('vendor.professionals_register_form',compact('professional_list'));
     }
     public function service_providers_login(){
+        if(Auth::guard('ser')->check()){
+            return redirect('/service_provider/dashboard');
+        }
         return view('vendor.service_providers_login');
     }
     public function service_providers_register(){

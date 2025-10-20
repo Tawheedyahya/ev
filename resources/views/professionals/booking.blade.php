@@ -1,4 +1,4 @@
-@extends('venue_provider.venue_app')
+@extends('professionals.profession_app')
 
 @section('title', 'Dashboard')
 
