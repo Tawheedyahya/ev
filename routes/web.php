@@ -146,6 +146,6 @@ Route::prefix('/service_provider')->middleware('sercheck')->group(function(){
     Route::get('/edit_profile',[Serviceprovidercontroller::class,'profile_edit'])->name('ser.prof.edit');
     Route::post('/update/profile',[Serviceprovidercontroller::class,'profile_update'])->name('ser.prof.update');
 });
-Route::get('/vr',function(){
+Route::get('/about',function(){
     return view('vr');
 });
