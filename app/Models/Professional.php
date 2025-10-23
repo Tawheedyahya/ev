@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\User;
 
 class Professional extends User
 {
+        protected $hidden = [
+        'password',
+        'remember_token',
+    ];
     public function proserviceplace(){
         return $this->belongsToMany(Serviceplace::class,'proserviceplaces','pro_id','ser_id');
     }

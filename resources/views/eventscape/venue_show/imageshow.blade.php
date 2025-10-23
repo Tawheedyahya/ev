@@ -25,8 +25,8 @@
 {{-- VR SHOW --}}
 <div class="vr-show">
     <div class="vrr">
-        <a href="#" class="btn btn-warning" class="vr-card"><img data-src="{{ asset('ev_photos/vr.png') }}"
-                alt="" style="margin-right:5px;" class="lazyload">VR</a>
+        <a href="javascript:void(0)" class="btn btn-warning vr-card" onclick="vr()"><img data-src="{{ asset('ev_photos/vr.png') }}"
+                alt="" style="margin-right:5px;" class="lazyload" ><span id="title">VR</span></a>
                 @php
                 use Illuminate\Support\Facades\Auth;
                     @$u_id=Auth::id();
@@ -132,3 +132,71 @@
 @endpush
 
 <script src="{{ asset('manual_js/eventspace/imageshow.js') }}"></script>
+<script>
+function vr() {
+  const url = @json($venue['vr']);
+
+  // Validate URL
+  if (!url || typeof url !== 'string' || !/^https?:\/\//i.test(url)) {
+    // Keep carousel intact; just warn
+    alert('There is no valid VR link for this venue.');
+    return;
+  }
+
+  // Build a sandboxed iframe to block frame-busting on mobile
+  const iframeHtml = `
+    <div id="tour" style="display:block; margin-top:10px;">
+      <iframe
+        src="${url}"
+        width="100%"
+        height="600"
+        frameborder="0"
+        allow="autoplay; fullscreen; xr-spatial-tracking; accelerometer; gyroscope"
+        allowfullscreen
+        sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock"
+        referrerpolicy="no-referrer-when-downgrade"
+        style="border:0; display:block;">
+      </iframe>
+    </div>
+  `;
+
+  // Replace carousel only after validation
+  $('.carousel-inner').html(iframeHtml);
+  $('.custom-arrow').hide()
+  // Update controls
+  $('#title').text('Close VR').attr('onclick','close_vr()');
+  $('.vr-card').attr('onclick','close_vr()'); // FIX: removed stray quote
+
+  // Optional: If the provider forbids embedding, show a graceful fallback
+  // after a short delay (can't reliably detect cross-origin errors).
+  setTimeout(() => {
+    // If user still on this page and we see no user interaction, offer open-in-new-tab
+    // (You can also add a visible fallback block in the DOM instead of alert)
+    // NOTE: This won't detect all cases, but improves UX.
+    const opened = document.getElementById('tour');
+    if (opened) {
+      // You can check for a CSS computed size as a weak signal:
+      const rect = opened.getBoundingClientRect();
+      if (rect.height < 50) {
+        // Fallback CTA
+        if (confirm('Your browser blocked the embedded VR. Open it in a new tab?')) {
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }
+      }
+    }
+  }, 1200);
+}
+
+function close_vr() {
+  // Light reset so you don’t reload the whole page on mobile
+//   window.location.reload();
+//   Alternatively (no reload):
+  $('.carousel-inner').load(location.href + ' .carousel-inner>*', '');
+  $('#title').text('VR').attr('onclick', 'vr()');
+//   $()
+ $('.custom-arrow').show()
+  $('.vr-card').attr('onclick','vr()');
+}
+</script>
+
+

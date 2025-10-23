@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Passwordmail;
+use App\Models\Serfacility;
 use App\Models\Serviceblog;
+use App\Models\Serviceplace;
 use App\Models\Serviceproviders;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Http\Request;
@@ -130,5 +132,45 @@ class Serviceprovidercontroller extends Controller
         }
         $post->delete();
         return back()->with('error','blog deleted');
+    }
+    public function  profile_edit(){
+        $user=Serviceproviders::with('places:id,name')->findOrFail(Auth::guard('ser')->user()->id);
+        // pr($user->toArray());
+        $serfacilitis=Serfacility::where('serpro_id',Auth::guard('ser')->user()->id)->get();
+        $service_place=Serviceplace::all();
+        // unset($user['places']);
+        // pr($service_place);
+        $pro_service_place=$user->places->pluck('id')->toArray();
+        // pr($pro_service_place);
+        return view('service_providers.edit',compact('user','service_place','pro_service_place'));
+    }
+    public function profile_update(Request $request){
+        // $feature=$request->input('feature');
+        // pr($feature);
+        $request->validate([
+            'name'=>'required',
+            'phone'=>'required',
+            'logo'=>'mimes:png,jpg'
+        ]);
+        $user=Serviceproviders::findOrFail(Auth::guard('ser')->user()->id);
+        DB::transaction(function () use($request,$user){
+            $place=$request->input('ser_service_place')??[];
+            $user->name=$request->input('name');
+            $user->phone=$request->input('phone');
+            $user->facebook=$request->input('facebook')??null;
+            $user->instagram=$request->input('instagram')??null;
+            if($request->hasFile('logo')){
+                if(file_exists(public_path($user->logo))){
+                    @unlink(public_path($user->logo));
+                    $file=$request->file('logo');
+                    $file_name=Auth::guard('ser')->user()->id.'_'.time().'.'.$file->getClientOriginalExtension();
+                    $file->move(public_path('service_provider_logos'),$file_name);
+                    $user->logo='service_provider_logos/'.$file_name;
+                }
+            }
+            $user->places()->sync($place);
+            $user->save();
+        });
+        return back()->with('success','profile updated');
     }
 }

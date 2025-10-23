@@ -159,6 +159,7 @@ class Venueprovider extends Controller
             // pr($venues_collection);
             $venue = [
                 'id'               => $venues_collection['id'],
+                'vr'               => $venues_collection['vr'],
                 'venue_name'       => $venues_collection['venue_name'],
                 'venue_address'    => $venues_collection['venue_address'],
                 'venue_city'       => $venues_collection['venue_city'],
@@ -251,6 +252,7 @@ class Venueprovider extends Controller
 
         $venue->venue_name = $request->input('venue_name');
         $venue->venue_provider_id = Auth::guard('venue_provider')->user()->id;
+        $venue->vr=$request->input('vr')??null;
         $venue->venue_address = $request->input('venue_address');
         $venue->venue_city = $request->input('venue_city');
         $venue->venue_seat_capacity = $seat;

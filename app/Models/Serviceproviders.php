@@ -7,5 +7,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Serviceproviders extends Authenticatable
 {
-    //
+        protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    public function places(){
+        return $this->belongsToMany(Serviceplace::class,'serserviceplaces','serpro_id','serpla_id');
+    }
+    public function serserplace(){
+        return $this->hasMany(Serfacility::class,'serpro_id');
+    }
 }

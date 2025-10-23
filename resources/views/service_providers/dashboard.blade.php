@@ -5,45 +5,68 @@
 @section('content')
     <div class="container-fluid">
         @include('venue_provider.layouts.header')
-        <h3 class="mb-1">Welcome back 👋</h3>
-        <p class="text-muted">Here’s what’s happening with your venues today.</p>
 
-        <div class="row g-3">
-            <div class="col-md-6 col-xl-3">
-                <div class="card shadow-sm">
-                    <div class="card-body d-flex align-items-center">
-                        <i class="bi bi-journal-check text-primary me-3 fs-2"></i>
-                        <div>
-                            <h5 class="mb-0">42</h5>
-                            <small class="text-muted">Total Bookings</small>
-                        </div>
+        <div class="card shadow-sm mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center justify-content-between gap-3">
+                    <h4 class="mb-0">My Profile</h4>
+                    <img src="{{Auth::guard('ser')->user()->logo?asset(Auth::guard('ser')->user()->logo): asset('prof_logo/5.png') }}" alt="Profile" class="rounded-circle"
+                        style="width: 50px; height: 50px; object-fit: cover;">
+                </div>
+                <a href="{{route('ser.prof.edit')}}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+            </div>
+
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Name:</strong>
+                        <p>{{ Auth::guard('ser')->user()->name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Company Name:</strong>
+                        <p>{{ Auth::guard('ser')->user()->companyname }}</p>
                     </div>
                 </div>
-            </div>
-            <!-- Add more stat cards as needed -->
-        </div>
 
-        <!-- Recent Bookings Table Example -->
-        <div class="card mt-4 shadow-sm">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <span>Recent Bookings</span>
-                <a href="#" class="btn btn-sm btn-primary">View all</a>
-            </div>
-            <div class="table-responsive">
-                <table class="table align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>Customer</th>
-                            <th>Occasion</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Arun Kumar</td><td>Birthday</td><td>08 Sep 2025</td><td><span class="badge bg-success">Confirmed</span></td><td><a href="#" class="btn btn-sm btn-outline-primary">Details</a></td></tr>
-                    </tbody>
-                </table>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Phone:</strong>
+                        <p>{{ Auth::guard('ser')->user()->phone ?? 'Not provided' }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Email:</strong>
+                        <p>{{ Auth::guard('ser')->user()->email }}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Instagram:</strong>
+                        <p>
+                            @if (Auth::guard('ser')->user()->instagram)
+                                <a href="{{ Auth::guard('ser')->user()->instagram }}" target="_blank">
+                                    {{ Auth::guard('ser')->user()->instagram }}
+                                </a>
+                            @else
+                                Not linked
+                            @endif
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Facebook:</strong>
+                        <p>
+                            @if (Auth::guard('ser')->user()->facebook)
+                                <a href="{{ Auth::guard('ser')->user()->facebook }}" target="_blank">
+                                    {{ Auth::guard('ser')->user()->facebook }}
+                                </a>
+                            @else
+                                Not linked
+                            @endif
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

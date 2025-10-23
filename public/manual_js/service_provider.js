@@ -105,4 +105,50 @@ $(document).ready(function () {
             },
         });
     }
+
+     let edit = "#prof_edit";
+    if (edit) {
+        $("#prof_edit").validate({
+            rules: {
+                name: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                },
+                // experience: {
+                //     required: true,
+                // },
+                logo: {
+                    filesize: 1148579,
+                },
+            },
+            messages: {
+                name: {
+                    required: "Enter your name",
+                },
+                phone: {
+                    required: "Enter your phone number",
+                },
+                // experience: {
+                //     required: "enter your experience",
+                // },
+                logo: {
+                    // required: "upload your logo",
+                    filesize: "Image less than 1 mb compress and upload",
+                },
+            },
+            errorElement: "div",
+            errorClass: "invalid-feedback",
+            highlight: function (element) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function (element) {
+                $(element).removeClass("is-invalid").addClass("is-valid");
+            },
+            errorPlacement: function (error, element) {
+                error.insertAfter(element);
+            },
+        });
+    }
 });

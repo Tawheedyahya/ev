@@ -119,6 +119,15 @@
                                 @enderror
                             </div>
 
+                            <div class="mb-3">
+                                <label for="vr" class="form-label">VR URL</label>
+                                <input type="text" name="vr" id="vr" class="form-control"
+                                    value="{{ old('vr',$venue['vr']??'') }}">
+                                @error('vr')
+                                    <div class="return-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
 
                             {{-- Location (click map to set) --}}
                             <div class="mb-3">
