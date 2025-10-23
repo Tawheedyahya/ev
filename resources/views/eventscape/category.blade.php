@@ -14,7 +14,7 @@
     @else
     class="a-color"
     @endif>professionals</a>
-    <a href="#" class="a-color">service providers</a>
+    <a href="{{route('serpro.dashboard')}}" class="a-color">service providers</a>
 </div>
 <style>
 .catagorize{

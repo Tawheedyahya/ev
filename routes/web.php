@@ -7,6 +7,7 @@ use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Professionalbookcontroller;
 use App\Http\Controllers\Professionalcontroller;
 use App\Http\Controllers\Roomcontroller;
+use App\Http\Controllers\Servicebookcontroller;
 use App\Http\Controllers\Serviceprovider;
 use App\Http\Controllers\Serviceprovidercontroller;
 use App\Http\Controllers\Vendorcontroller;
@@ -121,6 +122,9 @@ Route::prefix('/eventspace/prof')->group(function(){
     Route::get('/professional/{id}',[Professionalbookcontroller::class,'professional'])->name('prof.professional');
     Route::post('/professional/booking/{id}',[Professionalbookcontroller::class,'booking'])->name('prof.book');
     Route::post('/professional/{id}/heart',[Professionalbookcontroller::class,'likes']);
+});
+Route::prefix('/eventspace/service')->group(function(){
+    Route::get('/dashboard',[Servicebookcontroller::class,'dashboard'])->name('serpro.dashboard');
 });
 
 
