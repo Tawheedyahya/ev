@@ -38,6 +38,18 @@
         <input type="number" name="seat_capacity" id="seat_capacity" class="form-control " placeholder="Enter">
     </div>
 
+    {{-- location --}}
+     <h6 class="mb-2 mt-4">Locations available</h6>
+
+    <div>
+        <select name="location" id="location-avail" class="form-control">location
+        <option value="">select city</option>
+        @foreach ($avail as $city)
+        <option value="{{$city}}">{{$city}}</option>
+        @endforeach
+        </select>
+    </div>
+
     <button type="submit" class="btn btn-primary mt-4">search</button>
 </form>
 <script src="{{asset('manual_js/eventspace/eventspace.js')}}"></script>

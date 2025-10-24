@@ -17,4 +17,10 @@ class Serviceproviders extends Authenticatable
     public function serserplace(){
         return $this->hasMany(Serfacility::class,'serpro_id');
     }
+    public function categories(){
+        return $this->belongsTo(Servicecategory::class,'category');
+    }
+    public function blogs(){
+        return $this->hasMany(Serviceblog::class,'serviceproviderid');
+    }
 }

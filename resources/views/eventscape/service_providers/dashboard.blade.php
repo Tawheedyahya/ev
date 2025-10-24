@@ -41,9 +41,9 @@
 @section('content')
 
     @include('components.navigator', [
-        'action' => 'prof.location',
+        'action' => 'ser.location',
     ])
-    {{-- <div class="container-fluid " style="margin-top: 50px;">
+    <div class="container-fluid " style="margin-top: 50px;">
         <!-- Sidebar Toggle (Hamburger Button) -->
         <!-- Sidebar Toggle Button (mobile only) -->
         <button class="btn btn-primary m-3 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
@@ -52,22 +52,22 @@
         </button>
         <div class="venue-full row">
             <div class="filter col-md-4 col-lg-4">
-                @include('eventscape.professional.filter_form')
+                @include('eventscape.service_providers.filter_form')
             </div>
             <div class="venue_show  col-sm-12">
                 <div class="venue-show">
-                    @include('eventscape.professional.prof_show')
+                    @include('eventscape.service_providers.prof_show')
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 
 @endsection
 @push('scripts')
     <script src="{{ asset('manual_js/navigator.js') }}" defer></script>
          <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 @endpush
-@if (request()->routeIs('prof.dashboard'))
+@if (request()->routeIs('serpro.dashboard'))
     <style>
         a {
             text-decoration: none;

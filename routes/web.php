@@ -37,9 +37,11 @@ Route::prefix('/eventspace')->group(function(){
     Route::get('/venues/{id}',[Eventspacecontroller::class,'venue'])->name('card.venue');
     Route::get('/profession_filter',[Eventspacecontroller::class,'prof_location'])->name('prof.location');
     Route::get('/professiona_filer_opt',[Eventspacecontroller::class,'prof_filter'])->name('eventspace.prof.filter');
+    Route::get('/service_provider_filter',[Eventspacecontroller::class,'ser_location'])->name('ser.location');
+    Route::get('/servicer_provider_filter_opt',[Eventspacecontroller::class,'ser_filter'])->name('eventspace.ser.filter');
 });
 Route::prefix('/aboutus')->group(function(){
-    Route::get('/dashboard',[Homecontroller::class,'dashboard']);
+    Route::get('/dashboard',[Homecontroller::class,'aboutus']);
 });
 Route::prefix('/contactus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'dashboard']);
@@ -125,6 +127,7 @@ Route::prefix('/eventspace/prof')->group(function(){
 });
 Route::prefix('/eventspace/service')->group(function(){
     Route::get('/dashboard',[Servicebookcontroller::class,'dashboard'])->name('serpro.dashboard');
+    Route::get('/service_provider/{id}',[Servicebookcontroller::class,'provider'])->name('ser.service_provider');
 });
 
 
@@ -146,6 +149,6 @@ Route::prefix('/service_provider')->middleware('sercheck')->group(function(){
     Route::get('/edit_profile',[Serviceprovidercontroller::class,'profile_edit'])->name('ser.prof.edit');
     Route::post('/update/profile',[Serviceprovidercontroller::class,'profile_update'])->name('ser.prof.update');
 });
-Route::get('/about',function(){
-    return view('vr');
-});
+// Route::get('/about',function(){
+//     return view('vr');
+// });

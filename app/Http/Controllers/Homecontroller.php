@@ -21,4 +21,7 @@ class Homecontroller extends Controller
         },$venues);
         return view('home.dashboard',compact('venues'));
     }
+    public function aboutus(){
+        return view('vr');
+    }
 }
