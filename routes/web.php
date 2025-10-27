@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\Bookingcontroller;
 use App\Http\Controllers\Customercontroller;
 use App\Http\Controllers\Eventspacecontroller;
@@ -45,7 +46,7 @@ Route::prefix('/aboutus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'aboutus']);
 });
 Route::prefix('/contactus')->group(function(){
-    Route::get('/dashboard',[Homecontroller::class,'dashboard']);
+    Route::get('/dashboard',[Homecontroller::class,'contactus']);
 });
 
 Route::prefix('/customer')->group(function(){
@@ -157,3 +158,7 @@ Route::get('/password_resend/{id}',[Customercontroller::class,'forgot'])->name('
 Route::post('/r_password/{id}',[Customercontroller::class,'password_reset'])->name('overall.reset.password');
 Route::get('/r_update/reset_password',[Customercontroller::class,'update_pass']);
 Route::post('/update_pass/{id}/{v_id}/{token}',[Customercontroller::class,'set_pass'])->name('set_pass');
+Route::prefix('/admin')->group(function(){
+    Route::get('/login',[Admincontroller::class,'login']);
+    Route::post('/login',[Admincontroller::class,'log']);
+});

@@ -24,4 +24,7 @@ class Homecontroller extends Controller
     public function aboutus(){
         return view('vr');
     }
+    public function contactus(){
+        return view('contactus');
+    }
 }
