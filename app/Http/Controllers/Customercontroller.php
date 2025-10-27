@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Mail\Passwordmail;
 use App\Models\Booking;
+use App\Models\Bookprofessional;
+use App\Models\Professional;
+use App\Models\Serviceproviders;
 use App\Models\User;
 use App\Models\Venue;
+use App\Models\Venueproviders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -67,7 +71,92 @@ class Customercontroller extends Controller
     }
     public function forgot_password()
     {
-        return view("customer.forgot_password");
+        $route='customer.password_resend';
+        return view("customer.forgot_password",compact('route'));
+    }
+    public function forgot($id){
+        // echo $id;
+        $route='overall.reset.password';
+        // echo 'hi';
+        return view('reset_password',compact('route','id'));
+    }
+    public function password_reset(Request $request,$id){
+        $request->validate([
+        'email' => 'required'
+        ]);
+        $email = trim($request->input('email'));
+        if($id==1){
+            $user=Venueproviders::where('email',$email)->first();
+        }
+        if($id==2){
+            $user=Professional::where('email',$email)->first();
+        }
+        if($id==3){
+            $user=Serviceproviders::where('email',$email)->first();
+        }
+         if (!$user || $user == null) {
+            return back()->with('error', 'Email not found');
+        }
+         if ($user) {
+            $email = $user->email;
+            $token = \Str::random(60);
+            // User::where('email', $email)->update([
+            //     'password' => $token
+            // ]);
+            $user->password=Hash::make($token);
+            $user->save();
+            $url = url('/r_update/reset_password?token=' . $token . '&id=' . $user->id.'&v_id='.$id);
+            if (Mail::to($email)->send(new Passwordmail($url))) {
+                return back()->with('success', 'Resend link send to your email');
+            }
+        }
+    }
+    public function update_pass(Request $request){
+        $v_id=$request->query('v_id');
+        $id=$request->query('id');
+        $token=$request->query('token');
+        if(!$v_id||!$id||!$token){
+            return redirect()->route('err');
+        }
+        $models=[
+            1=>Venueproviders::class,
+            2=>Professional::class,
+            3=>Serviceproviders::class
+        ];
+        if(!isset($models[$v_id])){
+            return redirect()->route('err');
+        }
+        $user=$models[$v_id]::findOrFail($id);
+        if(!Hash::check($token,$user->password)){
+            return redirect()->route('err');
+            // echo 'hi';
+        }
+        // echo $token;
+        return view('new_password',compact('user','v_id','token'));
+    }
+    public function set_pass($id,$v_id,$token,Request $request){
+        $request->validate([
+            'password'=>'confirmed|required'
+        ]);
+        if(!$id||!$v_id||!$token){
+            return redirect()->route('err');
+        }
+        $models=[
+            1=>Venueproviders::class,
+            2=>Professional::class,
+            3=>Serviceproviders::class
+        ];
+         if(!isset($models[$v_id])){
+            return redirect()->route('err');
+        }
+        $user=$models[$v_id]::findOrFail($id);
+        if(!Hash::check($token,$user->password)){
+            return redirect()->route('err');
+            // echo 'hi';
+        }
+        $user->password=Hash::make($request->password);
+        $user->save();
+        return redirect('/vendor/venue_login_form')->with('success','password changed try to login');
     }
     public function password_resend(Request $request)
     {
@@ -210,5 +299,58 @@ class Customercontroller extends Controller
         $paginate=false;
         return view('customer.likedvenues',compact('venues','paginate'));
         pr($venues->toArray());
+    }
+    public function professional_book(){
+        // echo 'hi';
+        $bookings=Bookprofessional::with('professionals:companyname,id,prof_logo,name,phone')->where('user_id',Auth::id())->get();
+        // pr($bookings);
+        return view('customer.professional.dashboard',compact('bookings'));
+    }
+    public function prof_booking_cancel($id){
+        $booking=Bookprofessional::findOrFail($id);
+        if($booking){
+            $booking->status='cancelled';
+            $booking->save();
+            return back()->with('error','booking cancelled');
+        }
+    }
+public function prof_booking_date($id, Request $request)
+{
+    $booking = Bookprofessional::findOrFail($id);
+
+    $order_date = $request->input('starts_at');
+    $upto_date  = $request->input('ends_at');
+
+    // Validation check
+    if (empty($order_date) || empty($upto_date)) {
+        return back()->with('error', 'Order date and up-to date are mandatory.');
+    }
+
+    try {
+        // Normalize the format before saving
+        $order_date = date('Y-m-d H:i:s', strtotime($order_date));
+        $upto_date  = date('Y-m-d H:i:s', strtotime($upto_date));
+
+        // $booking->update([
+        //     'order_date' => $order_date,
+        //     'upto_date'  => $upto_date,
+        // ]);
+        $booking->order_date=$order_date;
+        $booking->upto_date=$upto_date;
+        $booking->save();
+
+        return back()->with('success', 'Booking dates updated successfully.');
+    } catch (\Exception $e) {
+        return back()->with('error', 'Failed to update booking dates: ' . $e->getMessage());
+    }
+}
+    public function liked_professionals(){
+           $user = Auth::user();
+
+    // Get all liked professionals
+    $likedprofessionals = $user->likedProfessionals()->select('professionals.id','professionals.name','professionals.address','professionals.companyname','professionals.prof_logo','professionals.experience','professionals.price')->get()->toArray();
+    // Debug or pass to view
+    // pr($likedprofessionals);
+    return view('eventscape.professional.liked',compact('likedprofessionals'));
     }
 }

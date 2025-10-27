@@ -29,6 +29,7 @@
                 $fromInputId = 'starts-' . $order_id;
                 $toInputId = 'ends-' . $order_id;
                 $modalId = 'orderModal-' . $order_id;
+                
             @endphp
 
             <div class="col-12 col-sm-6 col-lg-3 col-xl-2">

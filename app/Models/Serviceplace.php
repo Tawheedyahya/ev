@@ -9,4 +9,7 @@ class Serviceplace extends Model
     public function proserviceplace(){
         return $this->belongsToMany(Professional::class,'proserviceplaces','pro_id','ser_id');
     }
+        public function service_providers(){
+        return $this->belongsToMany(Serviceproviders::class,'serserviceplaces','serpro_id','serpla_id');
+    }
 }

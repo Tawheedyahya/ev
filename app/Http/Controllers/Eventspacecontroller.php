@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Occasion;
 use App\Models\Professional;
+use App\Models\Serviceproviders;
 use App\Models\Venue;
 use App\Models\Venuefacility;
 use Illuminate\Http\Request;
@@ -19,11 +20,9 @@ class Eventspacecontroller extends Controller
         $paginate = true;
         $occasions = Occasion::all();
         $venue_facilities = Venuefacility::all();
-        $location = Venue::select('venue_city')
-            ->distinct()
-            ->get()
-            ->map(fn($city) => $city->venue_city)
-            ->toArray();
+        $location =Venue::all()->pluck('venue_name')->toArray();
+        $avail=Venue::select('venue_city')->distinct('venue_city')->pluck('venue_city')->toArray();
+        // pr($avail);
 
         // Paginate instead of get()->toArray()
         $venues = Venue::with([
@@ -36,25 +35,21 @@ class Eventspacecontroller extends Controller
                 return $venue;
             });
         // pr($venues);
-        return view('eventscape.dashboard', compact('venues', 'location', 'paginate', 'occasions', 'venue_facilities'));
+        return view('eventscape.dashboard', compact('venues', 'location', 'paginate', 'occasions', 'venue_facilities','avail'));
     }
 
     public function location_filter(Request $request)
     {
         $paginate = true;
-        $location = Venue::select('venue_city')
-            ->distinct()
-            ->get()
-            ->map(fn($city) => $city->venue_city)
-            ->toArray();
+        $location =Venue::all()->pluck('venue_name')->toArray();
         Paginator::useBootstrapFive();
 
-        $location = $request->get('location', '');
+        $location = $request->get('location', '');  //i only declare as variable but it is a venue_name
 
         $venues = Venue::with([
             'venueimages' => fn($q) => $q->select('id', 'venue_id', 'doc')->oldest('id')->limit(1)
         ])
-            ->whereRaw('LOWER(venue_city) = LOWER(?)', [$location])
+            ->when($location, fn($q) => $q->where('venue_name', $location))
             ->orderByDesc('id')
             ->paginate(100000)
             ->withQueryString()            // keep ?location=... on next/prev links
@@ -254,5 +249,47 @@ class Eventspacecontroller extends Controller
     $html = view('eventscape.professional.prof_show', compact('paginate', 'professionals'))->render();
     return response()->json(['h' => $html]);
 }
+    public function ser_location(Request $request){
+        $paginate = false;
+        $company = $request->get('location', '');
+        $professionals=Serviceproviders::with(['places','categories'])->where('companyname',$company)->get();
+        $render=view('eventscape.service_providers.prof_show',compact('professionals','paginate'))->render();
+        return response()->json(['html' => $render]);
+    }
+    public function ser_filter(Request $request){
+    $places = $request->get('places');
+    $category = $request->get('category');
+    $query = DB::table('serviceproviders as sp')
+        ->join('servicecategories as sc', 'sp.category', '=', 'sc.id');
+    // pr($query);
+    // pr((array)$query);
+       if (!empty($places)) {
+         $query->join('serserviceplaces as pp', 'pp.serpro_id', '=', 'sp.id')
+              ->where('pp.serpla_id', $places);
+    }
+        if (!empty($category)) {
+        $query->where('sp.category', $category);
+    }
+      $rows = $query->select('sp.*','sc.name as profession_name')->get();
+          $professionals = $rows->map(function ($r) {
+        return [
+            'id'              => (int) $r->id,
+            'name'            => (string) $r->name,
+            'companyname'     => (string) $r->companyname,
+            'city'         => (string) $r->city,
+            // 'experience'      => isset($r->experience) ? (float) $r->experience : null,
+            // 'price'           => isset($r->price) ? (float) $r->price : null,
+            'logo'       => $r->logo ? asset($r->logo) : asset('images/placeholder.jpg'),
+            // 'email'           => (string) $r->email,
+            // 'profession_id'   => (int) $r->profession,
+            'profession_name' => $r->profession_name ?? null,
+        ];
+    });
+    // pr($professionals);
+      $paginate = false;
+      $html = view('eventscape.service_providers.prof_show', compact('paginate', 'professionals'))->render();
+      ;
+      return response()->json(['h' => $html]);
+    }
 
 }

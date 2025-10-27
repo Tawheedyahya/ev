@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admincontroller;
 use App\Http\Controllers\Bookingcontroller;
 use App\Http\Controllers\Customercontroller;
 use App\Http\Controllers\Eventspacecontroller;
@@ -7,9 +8,13 @@ use App\Http\Controllers\Homecontroller;
 use App\Http\Controllers\Professionalbookcontroller;
 use App\Http\Controllers\Professionalcontroller;
 use App\Http\Controllers\Roomcontroller;
+use App\Http\Controllers\Servicebookcontroller;
+use App\Http\Controllers\Serviceprovider;
+use App\Http\Controllers\Serviceprovidercontroller;
 use App\Http\Controllers\Vendorcontroller;
 use App\Http\Controllers\Venueprovider;
 use App\Models\Professional;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -34,12 +39,14 @@ Route::prefix('/eventspace')->group(function(){
     Route::get('/venues/{id}',[Eventspacecontroller::class,'venue'])->name('card.venue');
     Route::get('/profession_filter',[Eventspacecontroller::class,'prof_location'])->name('prof.location');
     Route::get('/professiona_filer_opt',[Eventspacecontroller::class,'prof_filter'])->name('eventspace.prof.filter');
+    Route::get('/service_provider_filter',[Eventspacecontroller::class,'ser_location'])->name('ser.location');
+    Route::get('/servicer_provider_filter_opt',[Eventspacecontroller::class,'ser_filter'])->name('eventspace.ser.filter');
 });
 Route::prefix('/aboutus')->group(function(){
-    Route::get('/dashboard',[Homecontroller::class,'dashboard']);
+    Route::get('/dashboard',[Homecontroller::class,'aboutus']);
 });
 Route::prefix('/contactus')->group(function(){
-    Route::get('/dashboard',[Homecontroller::class,'dashboard']);
+    Route::get('/dashboard',[Homecontroller::class,'contactus']);
 });
 
 Route::prefix('/customer')->group(function(){
@@ -53,9 +60,14 @@ Route::prefix('/customer')->group(function(){
     Route::post('/set_password/{id}',[Customercontroller::class,'set_password'])->name('customer.password_reset');
     Route::get('/profile',[Customercontroller::class,'profile']);
     Route::get('/liked_venues',[Customercontroller::class,'liked_venues']);
+    Route::get('/liked_professionals',[Customercontroller::class,'liked_professionals']);
     Route::delete('/booking/cancel/{id}',[Customercontroller::class,'booking_cancel'])->name('booking.cancel');
     Route::patch('/booking/date/{id}',[Customercontroller::class,'booking_date'])->name('booking.date');
     Route::get('/logout',[Customercontroller::class,'logout']);
+    // professional
+    Route::get('/professional',[Customercontroller::class,'professional_book']);
+    Route::delete('/professional/booking/cancel/{id}',[Customercontroller::class,'prof_booking_cancel'])->name('prof.booking.cancel');
+    Route::patch('/professional/booking/date/{id}',[Customercontroller::class,'prof_booking_date'])->name('prof.booking.date');
     // heart
     Route::post('/heart',[Customercontroller::class,'heart']);
 });
@@ -65,6 +77,8 @@ Route::prefix('/vendor')->group(function(){
     Route::get('/venue_register_form',[Vendorcontroller::class,'venue_register_form']);
     Route::get('/professionals_login',[Vendorcontroller::class,'professionals_login_form']);
     Route::get('/professionals_register_form',[Vendorcontroller::class,'professionals_register_form']);
+    Route::get('/service_providers_login',[Vendorcontroller::class,'service_providers_login']);
+    Route::get('/service_providers_register',[Vendorcontroller::class,'service_providers_register']);
 });
 // lovider
 Route::prefix('/venue_provider')->group(function(){
@@ -102,15 +116,49 @@ Route::prefix('/professionals')->group(function(){
     Route::get('/dashboard/edit',[Professionalcontroller::class,'edit'])->middleware(['prof'])->name('prof.profile.edit');
     Route::get('/logout',[Professionalcontroller::class,'logout'])->middleware(['prof'])->name('pf.logout');
     Route::post('/edit',[Professionalcontroller::class,'update'])->middleware(['prof'])->name('prof.prof.edit');
+    Route::get('/bookings',[Professionalcontroller::class,'bookings'])->middleware(['prof'])->name('professional.bookings');
+    Route::get('/booking/accept/{id}',[Professionalcontroller::class,'accept'])->middleware(['prof'])->name('prof.booking.approve');
+    Route::post('/booking/reject/{id}',[Professionalcontroller::class,'reject'])->middleware(['prof'])->name('prof.booking.reject');
 });
 Route::prefix('/eventspace/prof')->group(function(){
     Route::get('/dashboard',[Professionalbookcontroller::class,'dashboard'])->name('prof.dashboard');
     // Route::get('/')
     Route::get('/professional/{id}',[Professionalbookcontroller::class,'professional'])->name('prof.professional');
+    Route::post('/professional/booking/{id}',[Professionalbookcontroller::class,'booking'])->name('prof.book');
+    Route::post('/professional/{id}/heart',[Professionalbookcontroller::class,'likes']);
+});
+Route::prefix('/eventspace/service')->group(function(){
+    Route::get('/dashboard',[Servicebookcontroller::class,'dashboard'])->name('serpro.dashboard');
+    Route::get('/service_provider/{id}',[Servicebookcontroller::class,'provider'])->name('ser.service_provider');
 });
 
 
 Route::prefix('/booking')->group(function(){
     Route::post('/book/{id}',[Eventspacecontroller::class,'book'])->name('venue.book');
 });
-
+Route::prefix('/service_provider')->group(function(){
+    Route::post('/login',[Serviceprovidercontroller::class,'login'])->name('service.login');
+    Route::post('/register',[Serviceprovidercontroller::class,'register'])->name('serviceprovider.register');
+    Route::get('/verified',[Serviceprovidercontroller::class,'email']);
+});
+Route::prefix('/service_provider')->middleware('sercheck')->group(function(){
+    Route::get('/dashboard',[Serviceprovidercontroller::class,'dashboard'])->name('service.dashboard');
+    Route::get('/blogs',[Serviceprovidercontroller::class,'blogs'])->name('service.blogs');
+    Route::get('/uploads',[Serviceprovidercontroller::class,'uploads'])->name('service.uploads');
+    Route::get('/logout',[Serviceprovidercontroller::class,'logout'])->name('service.logout');
+    Route::post('/post',[Serviceprovidercontroller::class,'post'])->name('service.post');
+    Route::delete('/post/delete/{id}',[Serviceprovidercontroller::class,'delete_post'])->name('service.blog.delete');
+    Route::get('/edit_profile',[Serviceprovidercontroller::class,'profile_edit'])->name('ser.prof.edit');
+    Route::post('/update/profile',[Serviceprovidercontroller::class,'profile_update'])->name('ser.prof.update');
+});
+// Route::get('/about',function(){
+//     return view('vr');
+// });
+Route::get('/password_resend/{id}',[Customercontroller::class,'forgot'])->name('overall.password_resend');
+Route::post('/r_password/{id}',[Customercontroller::class,'password_reset'])->name('overall.reset.password');
+Route::get('/r_update/reset_password',[Customercontroller::class,'update_pass']);
+Route::post('/update_pass/{id}/{v_id}/{token}',[Customercontroller::class,'set_pass'])->name('set_pass');
+Route::prefix('/admin')->group(function(){
+    Route::get('/login',[Admincontroller::class,'login']);
+    Route::post('/login',[Admincontroller::class,'log']);
+});

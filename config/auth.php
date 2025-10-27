@@ -47,6 +47,10 @@ return [
         'prof'=>[
             'driver'=>'session',
             'provider'=>'professionals'
+        ],
+        'ser'=>[
+            'driver'=>'session',
+            'provider'=>'serviceproviders'
         ]
     ],
 
@@ -79,6 +83,10 @@ return [
         'professionals'=>[
             'driver'=>'eloquent',
             'model'=>App\Models\Professional::class
+        ],
+        'serviceproviders'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\Serviceproviders::class
         ]
 
         // 'users' => [
@@ -121,6 +129,12 @@ return [
         ],
         'professionals'=>[
             'provider' => 'professionals',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'serviceproviders'=>[
+            'provider' => 'serviceproviders',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

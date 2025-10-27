@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Professional;
 use App\Models\Professionlist;
+use App\Models\Servicecategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,5 +29,16 @@ class Vendorcontroller extends Controller
         $professional_list=Professionlist::all();
         // pr($professionals);
         return view('vendor.professionals_register_form',compact('professional_list'));
+    }
+    public function service_providers_login(){
+        if(Auth::guard('ser')->check()){
+            return redirect('/service_provider/dashboard');
+        }
+        return view('vendor.service_providers_login');
+    }
+    public function service_providers_register(){
+        $category=Servicecategory::all();
+        // pr($category);
+        return view('vendor.service_providers_register',compact('category'));
     }
 }

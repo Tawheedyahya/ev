@@ -16,11 +16,12 @@
 
             <!-- Book Event Button -->
             <div class="text-center mt-4">
-                <a class="btn btn-warning btn-lg rounded-pill shadow-sm px-4" 
+                <a class="btn btn-warning btn-lg rounded-pill shadow-sm px-4"
                    href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-calendar-check"></i> Book Event
                 </a>
             </div>
+                <button id="prof_heart" class="heart" aria-label="Like" data-id="{{Auth::id()}}"></button><span class="heart_m"></span>
         </div>
     </div>
 </div>
@@ -31,57 +32,67 @@
 @section('modal_title','Select Date & Time')
 
 @section('modal_body')
-<form action="">
-    <label class="form-label fw-semibold">Start Time</label>
-    <input type="text" name="start" id="s" placeholder="Select start" class="form-control mb-3">
+ @php
+        $route = Request::segment(4);
+    @endphp
+    <form action="{{ route('prof.book', $route) }}" method="POST" class="p-3 border rounded-3 shadow-sm bg-light">
+        @csrf
+        <div class="mb-3">
+            <label for="s" class="form-label fw-semibold text-primary">Start Date & Time</label>
+            <input type="text" name="order_date" id="s" class="form-control border-primary shadow-sm s"
+                placeholder="Select start" required style="height:45px; border-radius:10px;">
+        </div>
 
-    <label class="form-label fw-semibold">End Time</label>
-    <input type="text" name="end" id="e" placeholder="Select end" class="form-control mb-4">
+        <div class="mb-3">
+            <label for="e" class="form-label fw-semibold text-primary">End Date & Time</label>
+            <input type="text" name="upto_date" id="e" class="form-control border-primary shadow-sm e"
+                placeholder="Select end" required style="height:45px; border-radius:10px;">
+        </div>
 
-    <div class="text-end">
-        <button class="btn btn-success px-4 rounded-pill">Submit</button>
-    </div>
-</form>
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-success fw-semibold py-2" style="border-radius:10px; font-size:16px;">
+                <i class="bi bi-check-circle me-1"></i> Submit Booking
+            </button>
+        </div>
+    </form>
 
-<script>
-const modalEl = document.getElementById('exampleModal');
-modalEl.addEventListener('shown.bs.modal', function () {
-    // Start picker
-    const startPicker = flatpickr('#s', {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        altInput: true,
-        altFormat: "F j, Y (h:i K)",
-        minuteIncrement: 5,
-        minDate: "today",
-        allowInput: true,
-        disableMobile: true,
-        onChange(selectedDates) {
-            if (selectedDates[0] && endPicker) endPicker.set('minDate', selectedDates[0]);
-        }
-    });
 
-    // End picker
-    const endPicker = flatpickr('#e', {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        altInput: true,
-        altFormat: "F j, Y (h:i K)",
-        minuteIncrement: 5,
-        minDate: "today",
-        allowInput: true,
-        disableMobile: true,
-        onOpen() {
-            const startDate = startPicker.selectedDates[0];
-            if (startDate) this.set('minDate', startDate);
-        }
-    });
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
+    <script src="{{ asset('manual_js/flatpicker.js') }}" defer></script>
+    <script>
+    const heartBtn = document.querySelector(".heart");
+    const heart_msg=document.querySelector('.heart_m');
+    const url=window.location.href
+    const parts=url.split('/').filter(Boolean)
+    const v_id=parts[parts.length-1]
+    // console.log(v_id);
+    heartBtn.addEventListener("click", async() => {
+     heart_msg.textContent=''
+    if(heartBtn.dataset.id=='' || heartBtn.dataset.id==null){
+        heart_msg.textContent='Need to Login'
+        return
+    }
+    heartBtn.classList.add("active");
+
+    const origin=window.location.href+'/heart'
+    console.log(origin);
+    const response=await fetch(origin,{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+            professional_id:v_id,
+            user_id:heartBtn.dataset.id,
+            like:'yes'
+        })
+    })
+    const data=await response.json();
+    console.log(data)
 });
-</script>
-@endsection
 
-<!-- Flatpickr Styles -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    </script>
+
+@endsection

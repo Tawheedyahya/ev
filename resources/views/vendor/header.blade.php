@@ -8,7 +8,9 @@
     <a href="{{url('/vendor/professionals_login')}}" class="a-color @if (Str::Contains($route,['professionals_login','venue_register_form']))
     a-active
     @endif">professionals</a>
-    <a href="" class="a-color">service providers</a>
+    <a href="{{url('/vendor/service_providers_login')}}" class="a-color @if (Str::Contains($route,['service_providers_login','service_providers_register']))
+    a-active
+    @endif">service providers</a>
     {{-- <a href="" class="a-color">Registeration-status</a> --}}
 </div>
 <style>

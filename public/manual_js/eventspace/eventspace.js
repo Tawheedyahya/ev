@@ -30,18 +30,18 @@ $(function () {
         e.preventDefault();
 
         // 1) read location input; 2) fallback to button attribute(s)
-        let locVal = ($("#location").val() || "").trim();
-        if (!locVal || locVal=="" || locVal=='' || locVal==null) {
-            locVal =
-                $("#locationplace").text().trim().toLowerCase() ||
-                "";
-        }
+        // let locVal = ($("#location").val() || "").trim();
+        // if (!locVal || locVal=="" || locVal=='' || locVal==null) {
+        //     locVal =
+        //         $("#locationplace").text().trim().toLowerCase() ||
+        //         "";
+        // }
         const dataArr = $form.serializeArray();
         console.log(dataArr)
-        for (let i = dataArr.length - 1; i >= 0; i--) {
-            if (dataArr[i].name === "location") dataArr.splice(i, 1);
-        }
-        dataArr.push({ name: "location", value: locVal });
+        // for (let i = dataArr.length - 1; i >= 0; i--) {
+        //     if (dataArr[i].name === "location") dataArr.splice(i, 1);
+        // }
+        // dataArr.push({ name: "location", value: locVal });
 
         $.ajax({
             url: $form.attr("action"),
@@ -101,7 +101,7 @@ $(function () {
             success: function (res) {
                 $(".venues-wrap").html(res.html);
                  // controller should return: return response()->json(['html' => $viewHtml]);
-                 
+
             },
 
             // If your controller returns raw HTML instead, use:

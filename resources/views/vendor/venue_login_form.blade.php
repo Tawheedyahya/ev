@@ -18,7 +18,8 @@
                     <div class="card-body form-body">
                        @include('components.login_form',[
                         'action'=>'venue.login',
-                        'register'=>'/vendor/venue_register_form'
+                        'register'=>'/vendor/venue_register_form',
+                        'forgot'=>'/password_resend/1'
                        ])
                     </div>
                 </div>

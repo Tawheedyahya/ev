@@ -56,4 +56,9 @@ class User extends Authenticatable
     public function hearts(){
         return $this->belongsToMany(Venue::class,'hearts','user_id','venue_id')->withPivot('category')->withTimestamps();
     }
+    public function likedProfessionals(){
+    // change table name if you used a custom one
+    return $this->belongsToMany(Professional::class, 'professionllikes', 'user_id', 'professional_id')
+                ->withTimestamps();
+    }
 }

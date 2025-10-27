@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="card-body form-body">
-                        <form action="{{route('customer.password_resend')}}" method="POST">
+                        <form action="{{route($route)}}" method="POST">
                             @csrf
                             <!-- Email -->
                             <div class="mb-3">

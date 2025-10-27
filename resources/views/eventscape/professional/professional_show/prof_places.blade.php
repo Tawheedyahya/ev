@@ -7,9 +7,9 @@
 
     <div class="d-flex flex-wrap gap-3">
       @forelse ($service_place as $place)
-        <button 
-          type="button" 
-          class="spec-card btn d-flex align-items-center gap-2 px-3 py-2 shadow-sm" 
+        <button
+          type="button"
+          class="spec-card btn d-flex align-items-center gap-2 px-3 py-2 shadow-sm"
           data-name="{{ $place }}"
           style="background-color:#fffaf2; font-size:16px; border-radius:12px; border:1px solid #ffe9b0;">
           <i class="bi bi-geo-alt text-warning"></i>

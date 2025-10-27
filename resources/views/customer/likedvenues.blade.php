@@ -36,3 +36,18 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('manual_css/profile.css') }}">
 @endpush
+@push('scripts')
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("show");
+        }
+        $(document).ready(function() {
+            $('#redirection').change(function() {
+                const url = $(this).val()
+                if (url) {
+                    window.location.href = url;
+                }
+            })
+        })
+    </script>
+@endpush

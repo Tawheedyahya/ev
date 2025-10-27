@@ -1,25 +1,25 @@
-<div class="row">
+<div class="row row-cols-1 row-cols-md-3 g-4">
     @forelse($venues as $venue)
-        <div class="col-md-4 mb-4">
-            <a href="{{ route('card.venue', $venue) }}">
-                <div class="card h-100 shadow-sm">
+        <div class="col d-flex">
+            <div class="card shadow-sm w-100 d-flex flex-column h-100">
+                <a href="{{ route('card.venue', $venue) }}" class="text-decoration-none text-dark">
                     @if ($venue['doc'])
                         <img src="{{ asset($venue['doc']) }}" class="card-img-top" alt="{{ $venue['venue_name'] }}">
                     @else
                         <img src="{{ asset('images/no-image.png') }}" class="card-img-top" alt="No image available">
                     @endif
 
-                    <div class="card-body">
+                    <div class="card-body flex-grow-1">
                         <h5 class="card-title">{{ $venue['venue_name'] }}</h5>
                         <p class="card-text text-muted mb-1"><strong>City:</strong> {{ $venue['venue_city'] }}</p>
                         <p class="card-text">{{ $venue['description'] ?? 'No description available.' }}</p>
-                    </div></a>
-
-                    <div class="card-footer text-center">
-                           <button id="heart_btn thumb-btn" class="heartt" aria-label="Like" data-id="{{$venue['id']}}">👎</button><span id="heartMsg" class="heart_m"></span>
                     </div>
-                </div>
+                </a>
 
+                <div class="card-footer text-center mt-auto bg-white border-0 pb-3">
+                    <button class="heartt btn btn-outline-danger btn-sm" data-id="{{ $venue['id'] }}">👎 Unlike</button>
+                </div>
+            </div>
         </div>
     @empty
         <div class="col-12">
@@ -29,36 +29,74 @@
         </div>
     @endforelse
 </div>
+
 <script>
-const heartBtn = document.querySelectorAll(".heartt");
-const heart_msg=document.querySelector('.heart_m');
-heartBtn.forEach((btn) => {
-    btn.addEventListener("click", async() => {
-    // console.log('hii')
-    const v_id=btn.dataset.id
-    btn.classList.add("active");
-    // return
-    const origin=window.location.origin+'/customer/heart'
-    console.log(origin);
-    // return
-    const response=await fetch(origin,{
-        method:"POST",
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-            venue_id:v_id,
-            user_id:@json(Auth::id())
-        })
-    })
-    const data=await response.json();
-    console.log(data)
-        // remove the whole card instead of just the button
-    const card = btn.closest(".col-md-4"); // your outer wrapper
-    if (card) {
-      card.remove();}
-});
-})
+    document.addEventListener("DOMContentLoaded", () => {
+        const heartButtons = document.querySelectorAll(".heartt");
 
+        heartButtons.forEach((btn) => {
+            btn.addEventListener("click", async () => {
+                const v_id = btn.dataset.id;
+                const url = window.location.origin + '/customer/heart';
 
+                btn.disabled = true;
+                btn.innerText = "Removing...";
+
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            venue_id: v_id,
+                            user_id: @json(Auth::id())
+                        })
+                    });
+
+                    const data = await response.json();
+                    console.log(data);
+
+                    const card = btn.closest(".col");
+                    if (card) card.remove();
+                } catch (err) {
+                    console.error("Error:", err);
+                    btn.innerText = "Error";
+                    btn.disabled = false;
+                }
+            });
+        });
+    });
 </script>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+        height: 180px;
+        object-fit: cover;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+
+    .heartt {
+        font-size: 14px;
+        border-radius: 20px;
+        padding: 5px 12px;
+        transition: all 0.2s ease;
+    }
+
+    .heartt:hover {
+        transform: scale(1.05);
+    }
+</style>

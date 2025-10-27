@@ -14,7 +14,9 @@
     @else
     class="a-color"
     @endif>professionals</a>
-    <a href="#" class="a-color">service providers</a>
+    <a href="{{route('serpro.dashboard')}}" @if ($route=='service')
+    class="a-active"
+    @else class="a-color" @endif>service providers</a>
 </div>
 <style>
 .catagorize{
