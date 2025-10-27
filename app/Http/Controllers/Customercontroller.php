@@ -6,8 +6,10 @@ use App\Mail\Passwordmail;
 use App\Models\Booking;
 use App\Models\Bookprofessional;
 use App\Models\Professional;
+use App\Models\Serviceproviders;
 use App\Models\User;
 use App\Models\Venue;
+use App\Models\Venueproviders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -69,7 +71,92 @@ class Customercontroller extends Controller
     }
     public function forgot_password()
     {
-        return view("customer.forgot_password");
+        $route='customer.password_resend';
+        return view("customer.forgot_password",compact('route'));
+    }
+    public function forgot($id){
+        // echo $id;
+        $route='overall.reset.password';
+        // echo 'hi';
+        return view('reset_password',compact('route','id'));
+    }
+    public function password_reset(Request $request,$id){
+        $request->validate([
+        'email' => 'required'
+        ]);
+        $email = trim($request->input('email'));
+        if($id==1){
+            $user=Venueproviders::where('email',$email)->first();
+        }
+        if($id==2){
+            $user=Professional::where('email',$email)->first();
+        }
+        if($id==3){
+            $user=Serviceproviders::where('email',$email)->first();
+        }
+         if (!$user || $user == null) {
+            return back()->with('error', 'Email not found');
+        }
+         if ($user) {
+            $email = $user->email;
+            $token = \Str::random(60);
+            // User::where('email', $email)->update([
+            //     'password' => $token
+            // ]);
+            $user->password=Hash::make($token);
+            $user->save();
+            $url = url('/r_update/reset_password?token=' . $token . '&id=' . $user->id.'&v_id='.$id);
+            if (Mail::to($email)->send(new Passwordmail($url))) {
+                return back()->with('success', 'Resend link send to your email');
+            }
+        }
+    }
+    public function update_pass(Request $request){
+        $v_id=$request->query('v_id');
+        $id=$request->query('id');
+        $token=$request->query('token');
+        if(!$v_id||!$id||!$token){
+            return redirect()->route('err');
+        }
+        $models=[
+            1=>Venueproviders::class,
+            2=>Professional::class,
+            3=>Serviceproviders::class
+        ];
+        if(!isset($models[$v_id])){
+            return redirect()->route('err');
+        }
+        $user=$models[$v_id]::findOrFail($id);
+        if(!Hash::check($token,$user->password)){
+            return redirect()->route('err');
+            // echo 'hi';
+        }
+        // echo $token;
+        return view('new_password',compact('user','v_id','token'));
+    }
+    public function set_pass($id,$v_id,$token,Request $request){
+        $request->validate([
+            'password'=>'confirmed|required'
+        ]);
+        if(!$id||!$v_id||!$token){
+            return redirect()->route('err');
+        }
+        $models=[
+            1=>Venueproviders::class,
+            2=>Professional::class,
+            3=>Serviceproviders::class
+        ];
+         if(!isset($models[$v_id])){
+            return redirect()->route('err');
+        }
+        $user=$models[$v_id]::findOrFail($id);
+        if(!Hash::check($token,$user->password)){
+            return redirect()->route('err');
+            // echo 'hi';
+        }
+        $user->password=Hash::make($request->password);
+        $user->save();
+        return redirect('/vendor/venue_login_form')->with('success','password changed try to login');
     }
     public function password_resend(Request $request)
     {

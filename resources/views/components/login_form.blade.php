@@ -21,7 +21,7 @@
              Login
          </button>
          <a href="{{ url($register) }}">Register?</a>
-         <a href="#">Forgot password?</a>
+         <a href="{{url($forgot)}}">Forgot password?</a>
      </div>
 
  </form>

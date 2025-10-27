@@ -18,6 +18,7 @@
                     @include('components.login_form', [
                         'action' => 'professionals.login',
                         'register' => '/vendor/professionals_register_form',
+                        'forgot'=>'/password_resend/2'
                     ])
                 </div>
             </div>

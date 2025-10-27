@@ -13,6 +13,7 @@ use App\Http\Controllers\Serviceprovidercontroller;
 use App\Http\Controllers\Vendorcontroller;
 use App\Http\Controllers\Venueprovider;
 use App\Models\Professional;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
@@ -152,3 +153,7 @@ Route::prefix('/service_provider')->middleware('sercheck')->group(function(){
 // Route::get('/about',function(){
 //     return view('vr');
 // });
+Route::get('/password_resend/{id}',[Customercontroller::class,'forgot'])->name('overall.password_resend');
+Route::post('/r_password/{id}',[Customercontroller::class,'password_reset'])->name('overall.reset.password');
+Route::get('/r_update/reset_password',[Customercontroller::class,'update_pass']);
+Route::post('/update_pass/{id}/{v_id}/{token}',[Customercontroller::class,'set_pass'])->name('set_pass');

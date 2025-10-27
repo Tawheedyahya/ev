@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="card-body form-body">
-                        <form action="{{route($route)}}" method="POST">
+                        <form action="{{route($route,$id)}}" method="POST">
                             @csrf
                             <!-- Email -->
                             <div class="mb-3">
