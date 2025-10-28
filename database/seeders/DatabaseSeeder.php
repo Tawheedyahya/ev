@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $super_admins=new Superadmin();
         $super_admins->name='naga';
-        $super_admins->email='naga@gmail.com';
-        $super_admins->password=Hash::make('naga');
+        $super_admins->email='nagaa@gmail.com';
+        $super_admins->password=Hash::make('111111');
         $super_admins->save();
     }
 }

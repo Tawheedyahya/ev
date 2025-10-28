@@ -24,17 +24,17 @@
                     @foreach ($bookings as $book)
                         <tr>
                             @php
-                                $id=data_get($book,'id');
+                                $id = data_get($book, 'id');
                                 $s = data_get($book, 'status');
-                                $customer_name=data_get($book,'user.name');
-                                $customer_phone=data_get($book,'user.phone');
-                                $order_date=data_get($book,'order_date');
-                                $upto_date=data_get($book,'upto_date');
+                                $customer_name = data_get($book, 'user.name');
+                                $customer_phone = data_get($book, 'user.phone');
+                                $order_date = data_get($book, 'order_date');
+                                $upto_date = data_get($book, 'upto_date');
                             @endphp
                             <td>{{ $loop->iteration }}</td>
                             {{-- <td class="phone-device">{{ $['id'] }}</td> --}}
                             <td>{{ $customer_name }}</td>
-                            <td>{{ $customer_phone}}</td>
+                            <td>{{ $customer_phone }}</td>
                             <td>
                                 @if ($s == 'approved')
                                     <span class="badge bg-success text-uppercase">{{ $s }}</span>
@@ -60,32 +60,15 @@
                                         <li class="">
                                             <!-- Trigger -->
                                             <span class="badge badge-gradient-danger me-2" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">✗</span>
-                                            @extends('components.modal')
-                                            @section('modal_title', 'Reject_form')
-                                        @section('modal_body')
+                                                data-bs-target="#exampleModal" data-id={{ $id }}>✗</span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            @else
+                                <td class="text-secondary">user cancelled</td>
+                            @endif
 
-                                            <form action="{{ route('prof.booking.reject', $id) }}" method="POST">
-                                                @csrf
-                                                <div class="mb-3">
-                                                    <label for="rejectionNote" class="form-label">Note for Rejection</label>
-                                                    <textarea class="form-control" id="rejectionNote" name="rejection_note" rows="4"
-                                                        placeholder="Write your reason for rejection here..." required></textarea>
-                                                </div>
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn btn-danger">Submit</button>
-                                                </div>
-                                            </form>
-
-                                        @endsection
-                                    </li>
-                                </ul>
-                            </td>
-                        @else
-                            <td class="text-secondary">user cancelled</td>
-                        @endif
-
-                        {{-- <td class="text-end" style="white-space:nowrap;width:1%;">
+                            {{-- <td class="text-end" style="white-space:nowrap;width:1%;">
                                 <div class="dropdown" data-bs-display="static" data-bs-boundary="viewport">
                                     <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown"
                                         aria-expanded="false" aria-label="Actions">
@@ -106,29 +89,60 @@
                                     </ul>
                                 </div>
                             </td> --}}
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-</div>
+    </div>
 @endsection
 @include('components.cdn.jquery')
 @push('scripts')
-<script src="{{ asset('manual_js/datatables.js') }}"></script>
+    <script src="{{ asset('manual_js/datatables.js') }}"></script>
 @endpush
 @push('styles')
-<link rel="stylesheet" href="{{ asset('manual_css/datatables.css') }}">
-<style>
-    .badge-gradient-success {
-        background: linear-gradient(45deg, #28a745, #5dd39e);
-        color: #fff;
-    }
+    <link rel="stylesheet" href="{{ asset('manual_css/datatables.css') }}">
+    <style>
+        .badge-gradient-success {
+            background: linear-gradient(45deg, #28a745, #5dd39e);
+            color: #fff;
+        }
 
-    .badge-gradient-danger {
-        background: linear-gradient(45deg, #dc3545, #ff6b6b);
-        color: #fff;
-    }
-</style>
+        .badge-gradient-danger {
+            background: linear-gradient(45deg, #dc3545, #ff6b6b);
+            color: #fff;
+        }
+    </style>
 @endpush
+@extends('components.modal')
+@section('modal_title', 'Reject_form')
+@section('modal_body')
+
+    <form action="{{ route('prof.booking.reject', $id) }}" method="POST" id="rejectForm">
+        @csrf
+        <div class="mb-3">
+            <label for="rejectionNote" class="form-label">Note for Rejection</label>
+            <textarea class="form-control" id="rejectionNote" name="rejection_note" rows="4"
+                placeholder="Write your reason for rejection here..." required></textarea>
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </div>
+    </form>
+
+@endsection
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var exampleModal = document.getElementById('exampleModal');
+
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered modal
+        var id = button.getAttribute('data-id'); // Venue ID
+
+        var form = document.getElementById('rejectForm');
+        form.action = "{{ route('prof.booking.reject', ':id') }}".replace(':id', id);
+    });
+});
+</script>
+

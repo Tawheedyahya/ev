@@ -27,7 +27,7 @@ class Professionalcontroller extends Controller
         if(!Hash::check($request->input('password'),$professional->password)){
             return back()->with('error','password not match');
         }
-        if($professional->status=='rejected'){
+        if($professional->status=='disapproved'){
             return back()->with('error','your registeration is rejected sorry');
         }
         if($professional->status!='approved'){
@@ -172,8 +172,13 @@ class Professionalcontroller extends Controller
     }
     public function reject($id,Request $request){
         $booking=Bookprofessional::findOrFail($id);
+        // echo 'hi';
+        // pr($booking->toArray());
+        // return;
         $c=Bookprofessional::with('user')->where('id',$id)->first();
+        // pr($c->toArray());
         if($booking && ($booking->status=='pending' || $booking->status=='approved')){
+            // echo 'hi';return;
             $booking->notes=$request->input('rejection_note');
             $booking->status='rejected';
             $booking->save();

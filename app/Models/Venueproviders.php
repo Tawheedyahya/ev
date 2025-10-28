@@ -9,6 +9,10 @@ use Illuminate\Foundation\Auth\User;
 class Venueproviders extends User
 {
     protected $guarded=[];
+    protected $hidden=[
+        'remember_token',
+        'password'
+    ];
     public function venue(){
         return $this->hasMany(Venue::class,'venue_provider_id','id');
     }

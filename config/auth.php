@@ -51,6 +51,10 @@ return [
         'ser'=>[
             'driver'=>'session',
             'provider'=>'serviceproviders'
+        ],
+        'superadmin'=>[
+            'driver'=>'session',
+            'provider'=>'superadmins'
         ]
     ],
 
@@ -87,6 +91,10 @@ return [
         'serviceproviders'=>[
             'driver'=>'eloquent',
             'model'=>App\Models\Serviceproviders::class
+        ],
+        'superadmins'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\Superadmin::class
         ]
 
         // 'users' => [
@@ -138,7 +146,13 @@ return [
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
-        ]
+        ],
+        'superadmins'=>[
+            'provider' => 'superadmins',
+            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*

@@ -160,5 +160,16 @@ Route::get('/r_update/reset_password',[Customercontroller::class,'update_pass'])
 Route::post('/update_pass/{id}/{v_id}/{token}',[Customercontroller::class,'set_pass'])->name('set_pass');
 Route::prefix('/admin')->group(function(){
     Route::get('/login',[Admincontroller::class,'login']);
-    Route::post('/login',[Admincontroller::class,'log']);
+    Route::post('/login',[Admincontroller::class,'log'])->name('admin.login');
+});
+Route::prefix('/admin')->middleware('superadmin')->group(function(){
+    Route::get('/venue_providers',[Admincontroller::class,'venue_providers_dahaboard'])->name('ad.vn.ds');
+    Route::get('/logout',[Admincontroller::class,'logout'])->name('super_admin.logout');
+    Route::post('/venue_provider/rejection/{c_id}',[Admincontroller::class,'venue_provider_rejection'])->name('venue_provider.rejection');
+    Route::get('/venue_provider/approved/{id}/{c_id}',[Admincontroller::class,'venue_provider_approved'])->name('venue_provider.approved');
+    Route::get('/venue_providers/venues/{id}',[Admincontroller::class,'venue_provider_venues'])->name('venue_provider.venues');
+    Route::get('/venue_providers/bookings/{id}',[Admincontroller::class,'venue_provider_bookings'])->name('venue_provider.abookings');
+    Route::get('/professionals',[Admincontroller::class,'professionals_dashboard'])->name('ad.p.ds');
+    Route::get('/professionals/bookings/{id}',[Admincontroller::class,'professional_bookings'])->name('professional.abookings');
+
 });

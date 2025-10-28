@@ -12,4 +12,7 @@ class Booking extends Model
         public function venue(){
         return $this->hasMany(Venue::class,'venue_id');
     }
+    public function dubvenue(){
+        return $this->belongsTo(Venue::class,'venue_id');
+    }
 }

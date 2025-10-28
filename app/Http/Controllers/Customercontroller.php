@@ -175,7 +175,7 @@ class Customercontroller extends Controller
                 'remember_token' => $token
             ]);
             $url = url('/customer/reset_password?token=' . $token . '&id=' . $user->id);
-            if (Mail::to($email)->send(new Passwordmail($url))) {
+            if (Mail::to($email)->queue(new Passwordmail($url))) {
                 return back()->with('success', 'Resend link send to your email');
             }
         }
