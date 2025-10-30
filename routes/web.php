@@ -171,5 +171,5 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
     Route::get('/venue_providers/bookings/{id}',[Admincontroller::class,'venue_provider_bookings'])->name('venue_provider.abookings');
     Route::get('/professionals',[Admincontroller::class,'professionals_dashboard'])->name('ad.p.ds');
     Route::get('/professionals/bookings/{id}',[Admincontroller::class,'professional_bookings'])->name('professional.abookings');
-
+    Route::get('/service_providers',[Admincontroller::class,'service_providers_dahboard'])->name('ad.sp.ds');
 });

@@ -18,7 +18,7 @@
                     class="nav-link text-white  @if ($request == 'professionals') active" @else " @endif href="{{route('ad.p.ds')}}"><i
                         class="bi bi-calendar-event"></i> <span class="">professionals</span></a></li>
             <li class="nav-item"><a
-                    class="nav-link text-white  @if ($request == 'service_providers') active" @else " @endif href="{{route('service.uploads') }}"><i
+                    class="nav-link text-white  @if ($request == 'service_providers') active" @else " @endif href="{{route('ad.sp.ds') }}"><i
                         class="bi bi-journal-check"></i> <span class="">service_providers</span></a></li>
             {{-- <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'settings') active" @else " @endif href="#"><i

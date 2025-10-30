@@ -33,7 +33,7 @@
                         <td>{{$book->upto_date}}</td>
                     </tr>
                     @empty
-                    <td>no boookings</td>
+                    <p>noo bookings</p>
                     @endforelse
                 </tbody>
             </table>

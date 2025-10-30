@@ -70,7 +70,8 @@ class Admincontroller extends Controller
         // return $c_id;
         $modal=[
             1=>Venueproviders::class,
-            2=>Professional::class
+            2=>Professional::class,
+            3=>Serviceproviders::class
         ];
         if(!array_key_exists($c_id,$modal)){
             return redirect()->route('err');
@@ -98,7 +99,7 @@ class Admincontroller extends Controller
         // pr($venues_id);
       $bookings = Booking::with('dubvenue')
     ->whereIn('venue_id', $venues_id)->get();
-    // pr($bookings);
+    // pr($bookings->toArray());
 
     return view('super_admin.venue_provider_bookings',compact('bookings'));
     }
@@ -113,5 +114,12 @@ class Admincontroller extends Controller
         $bookings=Bookprofessional::with('user')->where('professional_id',$id)->get();
         // pr($bookings->toArray());
         return view('super_admin.professional_bookings',compact('bookings'));
+    }
+    public function service_providers_dahboard(){
+        // echo 'hi';
+        $service_providers=Serviceproviders::with('categories')->orderByRaw("FIELD(status,'pending','approved','disapproved')")->get();
+        // pr($service_providers->toArray());
+        return view('super_admin.service_providers_dashboard',compact('service_providers'));
+
     }
 }
