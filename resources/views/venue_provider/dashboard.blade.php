@@ -1,4 +1,4 @@
-@extends('venue_provider.venue_app')
+<!-- @extends('venue_provider.venue_app')
 
 @section('title', 'Dashboard')
 
@@ -21,10 +21,10 @@
                 </div>
             </div>
             <!-- Add more stat cards as needed -->
-        </div>
+        <!-- </div>
 
         <!-- Recent Bookings Table Example -->
-        <div class="card mt-4 shadow-sm">
+        <!-- <div class="card mt-4 shadow-sm">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <span>Recent Bookings</span>
                 <a href="#" class="btn btn-sm btn-primary">View all</a>
@@ -47,4 +47,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --> --> -->

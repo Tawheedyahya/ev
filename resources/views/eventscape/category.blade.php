@@ -8,15 +8,15 @@
     class="a-active"
    @else
    class="a-color"
-    @endif>venue providers</a>
+    @endif>Venue Providers</a>
     <a href="{{url('eventspace/prof/dashboard')}}"  @if ($route=='prof')
     class="a-active"
     @else
     class="a-color"
-    @endif>professionals</a>
+    @endif>Professionals</a>
     <a href="{{route('serpro.dashboard')}}" @if ($route=='service')
     class="a-active"
-    @else class="a-color" @endif>service providers</a>
+    @else class="a-color" @endif>Service Providers</a>
 </div>
 <style>
 .catagorize{

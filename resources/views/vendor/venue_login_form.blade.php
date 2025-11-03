@@ -13,7 +13,7 @@
                 @include('vendor.header')
                 <div class="card form-card">
                     <div class="card-header form-header">
-                        Venue providers Login
+                        Venue Providers Login
                     </div>
                     <div class="card-body form-body">
                        @include('components.login_form',[

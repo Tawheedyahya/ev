@@ -84,7 +84,7 @@ class Serviceprovidercontroller extends Controller
             $service->token=null;
             $service->email_verified_at=date('Y-m-d H:i:s');
             if($service->save()){
-                return redirect('/vendor/service_providers_login')->with('success','email_verified and try to login');
+                return redirect('/vendor/service_providers_login')->with('success','Email verified now try to Login');
             }
         }
     }
@@ -104,7 +104,7 @@ class Serviceprovidercontroller extends Controller
     }
     public function logout(){
         Auth::guard('ser')->logout();
-        return redirect('/vendor/service_providers_login')->with('error','logout successfully');
+        return redirect('/vendor/service_providers_login')->with('error','Logout successfully');
     }
     public function post(Request $request){
         $request->validate([
@@ -171,6 +171,6 @@ class Serviceprovidercontroller extends Controller
             $user->places()->sync($place);
             $user->save();
         });
-        return back()->with('success','profile updated');
+        return back()->with('success','Profile updated Sucessfully');
     }
 }

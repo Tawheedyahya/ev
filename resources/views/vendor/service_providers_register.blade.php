@@ -175,5 +175,75 @@
                 });
             });
         </script>
+
+<style>
+    /* --- Layout & Card --- */
+.form-container { padding: 28px 0 60px; }
+.form-card {
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,.08);
+  background: #fff;
+}
+.form-header {
+  background: #f7b500;
+  color: #111;
+  font-weight: 700;
+  text-align: center;
+  padding: 16px 18px;
+  font-size: 20px;
+}
+.form-body { padding: 22px 24px 26px; }
+
+/* --- Labels & Inputs --- */
+.form-label { font-weight: 600; color: #2b2b2b; margin-bottom: 6px; }
+.form-control{
+  border:1px solid #e6e9f0; background:#f6f8ff; border-radius:10px;
+  padding:10px 12px; height:44px; box-shadow:none;
+  transition:border-color .2s, box-shadow .2s, background .2s;
+}
+.form-control::placeholder{ color:#9aa3b2; }
+.form-control:focus{
+  background:#fff; border-color:#f7941d; box-shadow:0 0 0 4px rgba(247,148,29,.18); outline:none;
+}
+textarea.form-control{ min-height:110px; height:auto; resize:vertical; }
+
+/* Errors */
+.return-error{ color:#d43d3d; font-size:12px; margin-top:6px; line-height:1.3; }
+
+/* Submit row */
+.form-end{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:18px; flex-wrap:wrap; margin-top:6px;
+}
+.form-submit-btn{
+  background:#f7b500; border:0; color:#111; font-weight:700;
+  padding:10px 20px; border-radius:10px;
+  transition:transform .12s, box-shadow .2s, background .2s;
+}
+.form-submit-btn:hover{ background:#f6a300; box-shadow:0 6px 18px rgba(247,148,29,.35); transform:translateY(-1px); }
+.form-end a{ color:#1a73e8; text-decoration:none; font-weight:500; }
+.form-end a:hover{ text-decoration:underline; }
+
+/* Select2 (match inputs) */
+.select2-container{ width:100%!important; }
+.select2-container--default .select2-selection--single{
+  height:44px; border:1px solid #e6e9f0; border-radius:10px; background:#f6f8ff;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+  line-height:44px; padding-left:12px; color:#2b2b2b;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{ height:44px; right:10px; }
+.select2-container--default.select2-container--focus .select2-selection--single,
+.select2-container--default .select2-selection--single:focus{
+  border-color:#f7941d; box-shadow:0 0 0 4px rgba(247,148,29,.18); background:#fff;
+}
+
+/* Small screens */
+@media (max-width:576px){ .form-body{ padding:18px; } .form-end{ gap:12px; } }
+
+</style>
+
     @endpush
 @endsection

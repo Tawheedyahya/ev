@@ -4,7 +4,7 @@
         <i class="bi bi-list"></i>
     </button>
     <div class="p-3 d-flex align-items-center">
-        <span class="fw-bold text-white ms-2 d-none d-lg-inline title-shadow-glow ">Professional Panel</span>
+        <span class="fw-bold text-white ms-2 d-none d-lg-inline title-shadow-glow " style="font-family: Arial, Helvetica, sans-serif;" >Service Provider's Panel</span>
     </div>
     <div class="flex-grow-1">
         @php
@@ -16,7 +16,7 @@
                         class="bi bi-speedometer2"></i> <span class="">Dashboard</span></a></li>
             <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'blogs') active" @else " @endif href="{{route('service.blogs')}}"><i
-                        class="bi bi-calendar-event"></i> <span class="">Blogs</span></a></li>
+                        class="bi bi-calendar-event"></i> <span class="">Gallery</span></a></li>
             <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'uploads') active" @else " @endif href="{{route('service.uploads') }}"><i
                         class="bi bi-journal-check"></i> <span class="">uploads</span></a></li>
