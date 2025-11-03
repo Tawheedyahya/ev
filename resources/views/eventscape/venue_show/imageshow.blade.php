@@ -61,6 +61,25 @@
                     @endforelse
                 </div>
             </div>
+            @if($venue['food_provide']=='yes')
+            <div class="venue-food">
+                <h5 class="mt-3 mb-3 fw-semibold">Food card</h5>
+                <div class="spec-list d-flex flex-wrap flex-lg-wrap gap-3">
+                     <button type="button" class="spec-card btn text-start" >
+                    <div class="spec-name text-warning fw-semibold">breakfast</div>
+                    <div class="spec-cap text-muted small">{{ $venue['breakfast']==null?'not provide':'per person MYR:'.$venue['breakfast'] }}</div>
+                     </button>
+                     <button type="button" class="spec-card btn text-start" >
+                    <div class="spec-name text-warning fw-semibold">lunch</div>
+                    <div class="spec-cap text-muted small">{{ $venue['lunch']==null?'not provide':'per person MYR:'.$venue['lunch'] }}</div>
+                     </button>
+                      <button type="button" class="spec-card btn text-start" >
+                    <div class="spec-name text-warning fw-semibold">dinner</div>
+                    <div class="spec-cap text-muted small">{{ $venue['dinner']==null?'not provide':'per person MYR:'.$venue['dinner'] }}</div>
+                     </button>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
     <div class="request">

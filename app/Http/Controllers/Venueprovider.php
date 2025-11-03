@@ -170,7 +170,11 @@ class Venueprovider extends Controller
                 'amount'           => $venues_collection['amount'],
                 'appvenuefacilitie' => $venue_facilities->pluck('venue_facilities')->toArray(),
                 'occasion'         => $venue_occasion->pluck('occasion_id')->toArray(),
-                'doc'              => collect($venues_collection['venueimages'])->pluck('doc')->toArray()
+                'doc'              => collect($venues_collection['venueimages'])->pluck('doc')->toArray(),
+                'food_provide'     => $venues_collection['food_provide'],
+                'breakfast'         =>$venues_collection['breakfast'],
+                'lunch'             =>$venues_collection['lunch'],
+                'dinner'            =>$venues_collection['dinner']
             ];
             // pr($venue);
             $occasions = Occasion::all();
@@ -222,7 +226,8 @@ class Venueprovider extends Controller
                 'longitude' => 'required',
                 // 'doc' => 'required',
                 'amount' => 'required',
-                'description' => 'required'
+                'description' => 'required',
+                'food_provide'=>'required'
             ]);
             return;
         }
@@ -237,7 +242,8 @@ class Venueprovider extends Controller
             'longitude' => 'required',
             'doc' => 'required|mimes:jpg,jpeg,png|max:1024',
             'amount' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'food_provide'=>'required'
         ]);
         return;
     }
@@ -260,6 +266,16 @@ class Venueprovider extends Controller
         $venue->longitude = $request->input('longitude');
         $venue->amount = $request->input('amount');
         $venue->description = $request->input('description');
+        $venue->food_provide=$request->input('food_provide')??'no';
+        if($request->input('food_provide')=='yes'){
+            $venue->breakfast=$request->input('breakfast')??null;
+            $venue->lunch=$request->input('lunch')??null;
+            $venue->dinner=$request->input('dinner')??null;
+        }else{
+            $venue->breakfast=null;
+            $venue->lunch=null;
+            $venue->dinner=null;
+        }
         if ($venue->save()) {
             return $venue->id;
         } else {

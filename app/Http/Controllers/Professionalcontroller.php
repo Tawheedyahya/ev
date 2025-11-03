@@ -129,6 +129,7 @@ class Professionalcontroller extends Controller
             'experience'=>'required',
             'pro_service_place'=>'required',
          'prof_logo' => 'mimes:jpg,jpeg,png,gif,svg,webp|max:1536',
+         'amount'=>'required'
 
         ]);
         $professional=Professional::findOrFail(Auth::guard('prof')->user()->id);
@@ -136,6 +137,7 @@ class Professionalcontroller extends Controller
             $professional->name=$request->input('name');
             $professional->phone=$request->input('phone');
             $professional->experience=$request->input('experience');
+            $professional->amount=$request->input('amount');
             if($request->hasFile('prof_logo')){
                 $file=$request->file('prof_logo');
                 $filename=Auth::guard('prof')->user()->id.'.'.$file->getClientOriginalExtension();

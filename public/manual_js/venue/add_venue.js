@@ -30,6 +30,9 @@ $(document).ready(function () {
             // "venue_facilities[]":{
             //     required:true,
             // },
+            food_provide:{
+                required:true,
+            },
             latitude:{
                 required:true,
             },
@@ -66,6 +69,9 @@ $(document).ready(function () {
             // "venue_facilities[]":{
             //     required:"Venue facility is required"
             // },
+            food_provide:{
+                required:"Select any one yes or no"
+            },
             latitude:{
                 required:"choose map for latitude"
             },

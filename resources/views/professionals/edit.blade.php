@@ -25,6 +25,16 @@
                                     <div class="return-error" id="name-error">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Amount</label>
+                                <input type="number" step="0.01" class="form-control" id="amount" name="amount"
+                                    placeholder="Enter amount" value="{{ old('amount', $user->amount) }}">
+                                @error('amount')
+                                    <div class="return-error" id="name-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <!-- phone -->
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>

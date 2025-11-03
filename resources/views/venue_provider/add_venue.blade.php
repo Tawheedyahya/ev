@@ -90,6 +90,7 @@
                             <div class="mb-3 venue-facility-group">
                                 <label for="venue_facility" class="form-label">*Venue Facility*</label><br>
                                 @foreach ($venue_facilities as $facility)
+                                {{-- <p>{{$facility->id}}</p> --}}
                                     <label class="custom-checkbox">
                                         <input type="checkbox" name="venue_facilities[]" value="{{ $facility->id }}"
                                             @checked(collect(old('venue_facilities', $venue['appvenuefacilitie']??''))->contains($facility->id)) />
@@ -100,6 +101,48 @@
                                  @error('venue_facilities')
                                     <div class="return-error">{{ $message }}</div>
                                 @enderror
+                            </div>
+                            {{-- food --}}
+                            <div class="food_group p-2 mb-2"style="border: 2px solid orange; border-radius:10px;">
+                            <div class="mb-3" >
+                                <label class="form-label">Are you providing food?</label>
+                                <br>
+                                <input type="radio" name="food_provide" id="food_yes" value="yes"> Yes
+                                <br>
+                                <input type="radio" name="food_provide" id="food_no" value="no" > No
+                                @error('food_provide')
+                                    <div class="return-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="food_section"  style="display: none;">
+                                <div class="mb-3">
+                                    <label for="breakfast" class="form-label">Breakfast <span>(Amount per person)</span></label>
+                                    <input type="number" step="0.01" name="breakfast" id="breakfast" class="form-control"
+                                        value="{{ old('breakfast', $venue['breakfast'] ?? '') }}">
+                                    @error('breakfast')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="lunch" class="form-label">Lunch <span>(Amount per person)</span></label>
+                                    <input type="number" step="0.01" name="lunch" id="lunch" class="form-control"
+                                        value="{{ old('lunch', $venue['lunch'] ?? '') }}">
+                                    @error('lunch')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="dinner" class="form-label">Dinner <span>(Amount per person)</span></label>
+                                    <input type="number" step="0.01" name="dinner" id="dinner" class="form-control"
+                                        value="{{ old('dinner', $venue['dinner'] ?? '') }}">
+                                    @error('dinner')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                             </div>
 
                             <div class="mb-3">
@@ -210,5 +253,20 @@ $('#doc').on('change', function () {
   $('#p-img')
     .attr('src', url); // free memory after load
 });
+$('input[name="food_provide"]').change(function(){
+    if($(this).val()==='yes'){
+        $('.food_section').slideDown();
+    }else{
+        $('.food_section').slideUp();
+        $('#breakfast','#lunch','#dinner').val('');
+    }
+})
+// $if(('input[name="food_provide"]').val()=='yes'){
+//       $('.food_section').slideDown();
+// }
+if($('#breakfast').val()||$('#lunch').val()||$('#dinner').val()){
+    $('input[name="food_provide"][value="yes"]').prop('checked',true)
+    $('.food_section').show()
+}
     </script>
 @endpush
