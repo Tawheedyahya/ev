@@ -1,7 +1,7 @@
 <div class="catagorize">
     <a href="" class="a-color a-active">venue providers</a>
     <a href="javascript:void(0)" class="a-color" onclick="change(this)">professionals</a>
-    <a href="javascript:voit(0)" class="a-color" onclick="change(this)">service providers</a>
+    <a href="javascript:voit(0)" class="a-color" onclick="changee(this)">service providers</a>
     {{-- <a href="" class="a-color">Registeration-status</a> --}}
 </div>
 <style>
@@ -31,6 +31,26 @@
 </style>
 <script>
     function change(e){
-
+        $('.categoryy').load('/yahi',function(response,status,xhr){
+            if(status=='success'){
+                console.log(xhr.statusText)
+                $('.a-active').removeClass('a-active')
+                $(e).addClass('a-active')
+            }else{
+                console.log('bye', xhr.statusText);
+            }
+        })
+    }
+    function changee(e){
+        $('.categoryy').load('/ya',function(response,status,xhr){
+            if(status=='success'){
+                console.log(xhr.statusText)
+                $('.a-active').removeClass('a-active')
+                $(e).addClass('a-active')
+            }
+            else{
+                console.log('bye',xhr.statusText)
+            }
+        })
     }
 </script>

@@ -173,3 +173,5 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
     Route::get('/professionals/bookings/{id}',[Admincontroller::class,'professional_bookings'])->name('professional.abookings');
     Route::get('/service_providers',[Admincontroller::class,'service_providers_dahboard'])->name('ad.sp.ds');
 });
+Route::get('/yahi',[Homecontroller::class,'prof']);
+Route::get('/ya',[Homecontroller::class,'ser']);

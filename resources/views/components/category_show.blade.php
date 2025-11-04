@@ -1,7 +1,6 @@
-<div class="categoryy">
 <div class="category-pic">
     @foreach ($venues as $venue)
-        <a href="{{route('card.venue',$venue['id'])}}" class="card">
+        <a href="{{route($action,$venue['id'])}}" class="card">
             <img src="{{ asset($venue['doc']) }}" alt="{{ $venue['id'] }}" loading='lazy'>
             <div class="overlay">
                 <h4>{{ $venue['venue_name'] ?? 'Venue' }}</h4>
@@ -9,7 +8,6 @@
             </div>
         </a>
     @endforeach
-</div>
 </div>
 <style>
     .category-pic {
@@ -24,7 +22,6 @@
     border-radius: 15px;
     overflow: hidden;
     display: block;
-
 }
 
 .card img {
@@ -47,6 +44,8 @@
 .card:first-child {
     grid-row: span 2;  /* make first image tall */
 }
+/*  */
+
 
 /* Mobile view: stack into 1 column */
 @media (max-width: 768px) {

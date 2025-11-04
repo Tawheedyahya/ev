@@ -27,14 +27,15 @@ class Eventspacecontroller extends Controller
         // Paginate instead of get()->toArray()
         $venues = Venue::with([
             'venueimages' => fn($q) => $q->select('venue_id', 'doc')->orderBy('id')
-        ])
+            ,'provider'
+        ])->whereHas('provider',fn($q)=>$q->where('status','approved'))
             ->paginate(4) // per page
             ->through(function ($venue) {
                 $venue->doc = optional($venue->venueimages->first())->doc;
                 unset($venue->venueimages);
                 return $venue;
             });
-        // pr($venues);
+        // pr($venues->toArray());
         return view('eventscape.dashboard', compact('venues', 'location', 'paginate', 'occasions', 'venue_facilities','avail'));
     }
 
@@ -96,11 +97,12 @@ class Eventspacecontroller extends Controller
         FROM venues AS v
         JOIN appvenuefacilities AS vf ON vf.venue_id = v.id
         JOIN venuetypes AS vt         ON vt.venue_id = v.id
+        JOIN venueproviders as vp on v.venue_provider_id=vp.id
         WHERE 1=1
     ";
 
         $bindings = [];
-
+        $sql.="AND vp.status='approved'";
         // Optional occasion filter
         if (!empty($occ)) {
             $sql .= " AND vt.occasion_id IN ($occPh)";
@@ -151,7 +153,7 @@ class Eventspacecontroller extends Controller
         $venues = array_map(function ($r) {
             return (array)$r;
         }, $q);
-
+        // pr($venues);
         $html = view('eventscape.venue_show', compact('venues', 'location', 'paginate'))->render();
         return response()->json(['html' => $html]);
     }
@@ -223,12 +225,12 @@ class Eventspacecontroller extends Controller
               ->where('pp.ser_id', $places);
     }
     if (!empty($min)) {
-        $query->where('p.price', '<=', (float) $min);
+        $query->where('p.amount', '<=', (float) $min);
     }
     if (!empty($category)) {
         $query->where('pl.id', $category);
     }
-
+    $query->where('p.status','approved');
     $rows = $query->select('p.*','pl.name as profession_name')->get();
     // pr($rows);
     $professionals = $rows->map(function ($r) {
@@ -270,6 +272,7 @@ class Eventspacecontroller extends Controller
         if (!empty($category)) {
         $query->where('sp.category', $category);
     }
+    $query->where('sp.status', 'approved');
       $rows = $query->select('sp.*','sc.name as profession_name')->get();
           $professionals = $rows->map(function ($r) {
         return [

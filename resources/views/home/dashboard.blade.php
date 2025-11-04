@@ -21,17 +21,16 @@ home dashboard
     <div class="container position-absolute translate-middle start-50 top-30 " style="height: 83px">
         <div class="custom-search-bar d-flex align-items-center shadow-lg rounded-pill overflow-hidden">
 
-            {{-- Location Button --}}
+
             <button class="btn btn-warning d-flex align-items-center px-4 py-3 border-0 rounded-0 rounded-start-pill "
                 id="locationplace">
                 <i class="bi bi-geo-alt-fill me-2 location-place"></i>
             </button>
 
-            {{-- Search Input --}}
             <input type="text" class="form-control border-0 px-3 py-3" placeholder="Search..." style="flex: 1;"
                 name="location" id="location">
 
-            {{-- Search Button --}}
+
             <button class="btn btn-warning d-flex align-items-center px-4 py-3 border-0 rounded-0 rounded-end-pill"
                 id="search">
                 <i class="bi bi-search me-2"></i> SEARCH
@@ -41,7 +40,7 @@ home dashboard
     </div>
     <div class="occasions mt-5">
         <div class="occasion-heading mb-5">
-              <h2>Most viewed occasions</h2>
+              <h2>Most viewd occasions</h2>
         </div>
         <div class="occasions-body">
             @include('components.occasions')
