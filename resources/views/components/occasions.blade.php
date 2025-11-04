@@ -16,7 +16,7 @@
                          alt="Occasion"
                          class="img-fluid mb-2 img-bg"
                          style="max-width:80px;">
-                    <p>{{ $list->name }}</p>
+                    <p>{{ ucwords($list->name) }}</p>
                 </div>
             @endforeach
         </div>

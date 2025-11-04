@@ -1,7 +1,7 @@
 <div class="catagorize">
-    <a href="" class="a-color a-active">venue providers</a>
-    <a href="javascript:void(0)" class="a-color" onclick="change(this)">professionals</a>
-    <a href="javascript:voit(0)" class="a-color" onclick="changee(this)">service providers</a>
+    <a href="" class="a-color a-active">Venue Providers</a>
+    <a href="javascript:void(0)" class="a-color" onclick="change(this)">Professionals</a>
+    <a href="javascript:voit(0)" class="a-color" onclick="changee(this)">Service Providers</a>
     {{-- <a href="" class="a-color">Registeration-status</a> --}}
 </div>
 <style>
