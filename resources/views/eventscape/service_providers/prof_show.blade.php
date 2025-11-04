@@ -11,21 +11,21 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3>Company name:{{ $prof->companyname??$prof['companyname'] }}</h3>
+                        <h3>{{ ucwords($prof->companyname??$prof['companyname']) }}</h3>
                     </div>
 
                     <div class="venue-location">
                         <p>
                             <i class="bi bi-geo-alt-fill text-danger"></i>
-                            {{ $prof->city??$prof['city'] }}
+                            {{ ucwords($prof->city??$prof['city']) }}
                         </p>
                     </div>
 
                     {{-- <div class="venue-description">
-                        <p>Exp:{{ $prof->experience??$prof['experience'] }} years</p>
+                        <p>Experience:{{ ucwords($prof->experience??$prof['experience']) }} years</p>
                     </div> --}}
                     <div class="venue-profession">
-                        {{-- <p>Provider:{{$prof->categories->name??$prof->profession_name}}</p> --}}
+                        {{-- <p>Provider:{{ ucwords($prof->categories->name??$prof->profession_name)}}</p> --}}
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@
 @section('content')
     <div class="container-fluid">
         @include('venue_provider.layouts.header')
-        <h1 class="title-shadow-glow">venue form</h1>
+        <h1 class="title-shadow-glow">Venue Form</h1>
         @include('components.toast')
         <div class="row justify-content-center mt-5">
             <div class="col col-md-7">

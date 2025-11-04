@@ -2,6 +2,9 @@
 
 <div class="venues-wrap">
     @forelse ($professionals as $prof)
+    @php
+    $Profession=ucwords($prof->professionlist->name??$prof['profession_name'])
+    @endphp
         <a href="{{route('prof.professional',$prof['id'])}}">
             <div class="venue-card mb-2">
                 <div class="venue-img">
@@ -11,7 +14,7 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3>Company name:{{ $prof->companyname??$prof['companyname'] }}</h3>
+                        <h3>{{ $prof->companyname??$prof['companyname'] }}</h3>
                     </div>
 
                     <div class="venue-location">
@@ -22,10 +25,10 @@
                     </div>
 
                     <div class="venue-description">
-                        <p>Exp:{{ $prof->experience??$prof['experience'] }} years</p>
+                        <p>Experience:{{ $prof->experience??$prof['experience'] }} years</p>
                     </div>
                     <div class="venue-profession">
-                        <p>profession:{{$prof->professionlist->name??$prof['profession_name']}}</p>
+                        <p>Profession: {{$Profession}}</p>
                     </div>
                 </div>
             </div>

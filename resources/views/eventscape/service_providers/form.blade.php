@@ -14,16 +14,16 @@
         @foreach ($service_places as $ser)
             @php $f_id = 'occ-'.$ser->id; @endphp
             <input class="chip-input" type="radio" id="{{ $f_id }}" name="places" value="{{ $ser->id }}">
-            <label class="chip" for="{{ $f_id }}">{{ $ser->name }}</label>
+            <label class="chip" for="{{ $f_id }}">{{ ucwords($ser->name) }}</label>
         @endforeach
     </div>
     {{-- Amenities --}}
-    <h6 class="mb-2 mt-4">category</h6>
+    <h6 class="mb-2 mt-4">Category</h6>
     <div class="chip-group" role="group" aria-label="category">
         @foreach ($category as $cat)
             @php $fid = 'fac-'.$cat->id; @endphp
             <input class="chip-input" type="radio" id="{{ $fid }}" name="category" value="{{ $cat->id }}">
-            <label class="chip" for="{{ $fid }}">{{ $cat->name }}</label>
+            <label class="chip" for="{{ $fid }}">{{ ucwords($cat->name) }}</label>
         @endforeach
     </div>
 

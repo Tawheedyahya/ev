@@ -16,7 +16,7 @@
         @foreach ($occasions as $occasion)
             <input class="chip-input" type="radio" id="{{ $occasion->name }}" name="occasions[]"
                 value="{{ $occasion->id }}">
-            <label class="chip" for="{{ $occasion->name }}">{{ $occasion->name }}</label>
+            <label class="chip" for="{{ $occasion->name }}">{{ ucwords($occasion->name) }}</label>
         @endforeach
     </div>
     {{-- facilities --}}
@@ -27,29 +27,29 @@
         @foreach ($venue_facilities as $occasion)
             <input class="chip-input" type="checkbox" id="{{ $occasion->name }}" name="facilities[]"
                 value="{{ $occasion->id }}">
-            <label class="chip" for="{{ $occasion->name }}">{{ $occasion->name }}</label>
+            <label class="chip" for="{{ $occasion->name }}">{{ ucwords($occasion->name) }}</label>
         @endforeach
     </div>
     {{-- seat capacity --}}
 
-    <h6 class="mt-4">Seat capacity</h6>
+    <h6 class="mt-4">Seat Capacity</h6>
     <div class="mb-2">
         {{-- <label for="price_range" class="form-label">price: <span id="value">50 </span> RM</label> --}}
-        <input type="number" name="seat_capacity" id="seat_capacity" class="form-control " placeholder="Enter">
+        <input type="number" name="seat_capacity" id="seat_capacity" class="form-control " placeholder="No. of People">
     </div>
 
     {{-- location --}}
-     <h6 class="mb-2 mt-4">Locations available</h6>
+     <h6 class="mb-2 mt-4">Locations Available</h6>
 
     <div>
         <select name="location" id="location-avail" class="form-control">location
-        <option value="">select city</option>
+        <option value="">Select City</option>
         @foreach ($avail as $city)
         <option value="{{$city}}">{{$city}}</option>
         @endforeach
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-4">search</button>
+    <button type="submit" class="btn btn-primary mt-4">Search</button>
 </form>
 <script src="{{asset('manual_js/eventspace/eventspace.js')}}"></script>

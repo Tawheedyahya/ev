@@ -12,7 +12,7 @@
             @include('vendor.header')
             <div class="card form-card">
                 <div class="card-header form-header">
-                   Professionals login
+                   Professionals Login
                 </div>
                 <div class="card-body form-body">
                     @include('components.login_form', [

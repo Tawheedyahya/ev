@@ -19,7 +19,7 @@
 </style>
 
 <!-- Trigger -->
-<span class="badge badge-gradient-daznger me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">✗</span>
+<!-- <span class="badge badge-gradient-danger me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">✗</span> -->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">

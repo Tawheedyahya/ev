@@ -37,7 +37,7 @@ a {
 }
 
 a:hover {
-    color: #ffc107; /* yellow on hover */
+    /* color: #ffc107; yellow on hover */
     text-decoration: underline; /* optional */
 }
 /* span{

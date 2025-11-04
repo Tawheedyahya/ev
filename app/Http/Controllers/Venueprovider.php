@@ -52,7 +52,7 @@ class Venueprovider extends Controller
                 Mail::to($email)->queue(new Passwordmail($url));
             }
         });
-        return redirect('/vendor/venue_login_form')->with('success', 'mail send check and verified');
+        return redirect('/vendor/venue_login_form')->with('success', 'Email send check and verifiy the Email address');
     }
     public function email_verify(Request $request)
     {
@@ -65,7 +65,7 @@ class Venueprovider extends Controller
                     'remember_token' => null,
                     'email_verified_at' => now()
                 ]);
-                return redirect('/vendor/venue_login_form')->with('success', 'email verified');
+                return redirect('/vendor/venue_login_form')->with('success', 'Email Verified');
             }
         }
         return 'bye';
@@ -94,7 +94,7 @@ class Venueprovider extends Controller
             }
         }
         Auth::guard('venue_provider')->login($user);
-        return redirect('/venue_provider/dashboard')->with('success', Auth::guard('venue_provider')->user()->name . 'login successfully');
+        return redirect('/venue_provider/venues/dashbaord')->with('success', Auth::guard('venue_provider')->user()->name . ' Login Successfully');
     }
     public function logout()
     {

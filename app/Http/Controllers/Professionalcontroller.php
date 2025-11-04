@@ -22,20 +22,20 @@ class Professionalcontroller extends Controller
         ]);
         $professional=Professional::where('email',$request->input('email'))->first();
         if(!$professional ||$professional==''||$professional==null){
-            return back()->with('error','professional not found try correct email');
+            return back()->with('error','Professional not found try with Correct email');
         }
         if(!Hash::check($request->input('password'),$professional->password)){
-            return back()->with('error','password not match');
+            return back()->with('error','Password does not match');
         }
-        if($professional->status=='disapproved'){
-            return back()->with('error','your registeration is rejected sorry');
+           if($professional->status=='rejected'){
+            return back()->with('error','Sorry Your Registeration is Rejected');
         }
         if($professional->status!='approved'){
-            return back()->with('error','your registeration is pending!');
+            return back()->with('error','Your Registeration is Pending!');
         }
         if($professional->status=='approved'){
             Auth::guard('prof')->login($professional);
-            return redirect('/professionals/dashboard')->with('success','login successfully');
+            return redirect('/professionals/dashboard')->with('success','Login Successfully');
         }
     }
     public function register(Request $request)
@@ -72,7 +72,7 @@ class Professionalcontroller extends Controller
                 //   Mail::to($email)->queue(new ($url));
                 $url = url('/professionals/verified_email?token=' . $token . '&email=' . $request->input('email'));
                 Mail::to($request->input('email'))->queue(new Passwordmail($url));
-                return back()->with('successs', 'email send check and verify your mail');
+                return back()->with('successs', 'Email Send check and Verify your Email');
             }
             // return back()->with('sucess','');
         }
@@ -82,7 +82,7 @@ class Professionalcontroller extends Controller
         $email=$request->get('email');
         $professional=Professional::where('email',$email)->first();
         if($professional->token==null){
-            return redirect('/vendor/professionals_login')->with('success','email already verified');
+            return redirect('/vendor/professionals_login')->with('success','Email already Verified');
         }
         if(!$professional||$professional==null or $professional==''){
             return redirect()->route('err');
@@ -94,7 +94,7 @@ class Professionalcontroller extends Controller
         $professional->email_verified_at=date('Y-m-d H:i:s');
         $professional->token=null;
         if($professional->save()){
-            return redirect('/vendor/service_providers_login' )->with('success','email verified successfully');
+            return redirect('/vendor/service_providers_login' )->with('success','Email Verified Successfully');
         }
 
     }
@@ -120,7 +120,7 @@ class Professionalcontroller extends Controller
     }
     public function logout(){
         Auth::guard('prof')->logout();
-        return redirect('/vendor/professionals_login')->with('error','logout successfully');
+        return redirect('/vendor/professionals_login')->with('error','Logout successfully');
     }
     public function update(Request $request){
         $request->validate([
@@ -150,7 +150,7 @@ class Professionalcontroller extends Controller
             }
             $professional->save();
             $professional->proserviceplace()->sync($request->input('pro_service_place'));
-            return back()->with('success','updated successfully');
+            return back()->with('success','Updated Successfully');
         }
 
     }

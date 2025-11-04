@@ -46,7 +46,7 @@
                             </div>
                             <!-- experience -->
                             <div class="mb-3">
-                                <label for="experience" class="form-label">experience</label>
+                                <label for="experience" class="form-label">Experience</label>
                                 <input type="text" class="form-control" id="experience" name="experience"
                                     placeholder="Enter full experience" value="{{ old('experience', $user->experience) }}">
                                 @error('experience')
@@ -57,7 +57,7 @@
                                 {{-- @php
                                     $pro_service_place
                                 @endphp --}}
-                                <label for="place">service providing places</label>
+                                <label for="place">Service Providing Places</label>
                                 <select name="pro_service_place[]" id="pro_service_place" class="select_two" multiple>
                                     @forelse ($service_place as $place)
                                         <option value="{{ $place->id }}"

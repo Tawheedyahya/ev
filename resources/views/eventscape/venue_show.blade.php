@@ -2,6 +2,11 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
 <div class="venues-wrap">
     @forelse ($venues as $venue)
+    @php
+    $company_name=ucwords($venue['venue_name']);
+    $location=ucwords($venue['venue_city']);
+    $description1=ucfirst($venue['description']);
+    @endphp
         <a href="{{ route('card.venue', $venue) }}">
             <div class="venue-card mb-2">
                 <div class="venue-img">
@@ -11,18 +16,18 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3>{{ $venue['venue_name'] }}</h3>
+                        <h3>{{ $company_name }}</h3>
                     </div>
 
                     <div class="venue-location">
                         <p>
                             <i class="bi bi-geo-alt-fill text-danger"></i>
-                            {{ $venue['venue_city'] }}
+                            {{ $location }}
                         </p>
                     </div>
 
                     <div class="venue-description">
-                        <p>{{ $venue['description'] }}</p>
+                        <p>{{ $description1 }}</p>
                     </div>
                 </div>
             </div>

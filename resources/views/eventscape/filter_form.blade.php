@@ -1,7 +1,7 @@
 <!-- Offcanvas (visible on mobile; becomes static sidebar on desktop) -->
 <div class="offcanvas offcanvas-start responsive-sidebar" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="sidebarLabel">Filter</h5>
+        <h5 class="offcanvas-title" id="sidebarLabel">Sort & Choose</h5>
         <button type="button" class="btn-close d-md-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
 
