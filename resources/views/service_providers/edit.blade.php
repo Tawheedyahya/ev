@@ -2,6 +2,8 @@
 @section('title', 'Dashboard')
 @push('styles')
     <link rel="stylesheet" href="{{ asset('manual_css/form.css') }}">
+ <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+
 @endpush
 @section('content')
     @include('components.toast')
@@ -52,6 +54,24 @@
                                     <div class="return-error" id="facebook-error">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="mb-3 ">
+                                <label for="about_us" class="about_us">About your company</label>
+                                <textarea name="about_us" id="about_us" cols="30" rows="10" class="form-control">{!!old('about_us',$info->about_us??'')!!}</textarea>
+                                @error('about_us')
+                                    <div class="return-error" id="about_us-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 ">
+                                 <label for="about_us" class="about_us">Details of your company(packages etc...)</label>
+                                <textarea name="long_description" id="long_description" cols="30" rows="10" class="form-control">{!!old('long_description',$info->long_description)!!}</textarea>
+                                @error('long_description')
+                                    <div class="return-error" id="long_description-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
                             <div class="mb-3">
                                 <label for="place">service providing places</label>
                                 <select name="ser_service_place[]" id="ser_service_place" class="select_two" multiple>
@@ -95,6 +115,7 @@
                                         style="width:120px; height:120px; object-fit:cover;">
                                 @endif
                             </div>
+
                             <!-- Submit -->
                             <div class="mt-3 form-end">
                                 <button type="submit" class="btn form-submit-btn">
@@ -112,6 +133,7 @@
 @endsection
 @push('scripts')
     <script>
+        let about,long;
         $(document).ready(function() {
             $('.select_two').select2({
                 placeholder: "Select venue types",
@@ -130,6 +152,22 @@
                     );
                 }
             })
+              ClassicEditor.create(document.querySelector('#about_us'),{
+                toolbar:[
+                    'bold','italic'
+                ]
+              }).catch(error=>console.log(error))
+              ClassicEditor.create(document.querySelector('#long_description'),
+              {
+                toolbar:[
+                    'bold','italic','insertTable'
+                ]}).then(editor=>{long=editor}).catch(error=>console.log(error))
+              document.querySelector('form').addEventListener('submit',(event)=>{
+                // event.preventDefault();
+                if(long) document.querySelector('#long_description').value=long.getData(
+                )
+                console.log(long.getData())
+              })
         });
     </script>
     {{-- <script>

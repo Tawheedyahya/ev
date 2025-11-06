@@ -155,6 +155,7 @@ class Professionalcontroller extends Controller
 
     }
     public function bookings(){
+        // return 'hi';
       $bookings = Bookprofessional::with(['user:id,name,email,phone'])
     ->where('professional_id', Auth::guard('prof')->user()->id)
     ->get()->toArray();

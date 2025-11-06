@@ -7,9 +7,9 @@
 
     <div class="offcanvas-body">
         <div class="filter-form">
-            <div class="filter-form-header">
+            {{-- <div class="filter-form-header">
                 <a href=""><span>Reset all</span></a>
-            </div>
+            </div> --}}
 
             {{-- Categories --}}
             <div class="filter-form-category mt-2">

@@ -1,0 +1,83 @@
+/* === ATTRACTIVE 3D BOX FOR CKEDITOR CONTENT === */
+.editor-output {
+  background: linear-gradient(145deg, #ffffff, #f0f3f9);
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08),
+              inset 0 0 8px rgba(255,255,255,0.4);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  color: #222;
+  line-height: 1.7;
+}
+
+.editor-output:hover {
+  box-shadow: 0 10px 22px rgba(0,0,0,0.12),
+              inset 0 0 10px rgba(255,255,255,0.5);
+  transform: translateY(-2px);
+}
+
+/* Typography inside CKEditor content */
+.editor-output p {
+  margin-bottom: 1rem;
+  font-size: 15px;
+}
+
+.editor-output strong, .editor-output b {
+  color: #111;
+  font-weight: 600;
+}
+
+.editor-output em, .editor-output i {
+  color: #0066ff;
+}
+
+.editor-output h1, .editor-output h2, .editor-output h3 {
+  color: #0066ff;
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Table styling inside the box */
+.editor-output figure.table {
+  width: 100%;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.editor-output table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.editor-output th {
+  background: linear-gradient(135deg, #0066ff, #00bcd4);
+  color: white;
+  padding: 10px 14px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.editor-output td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.editor-output tr:nth-child(even) td {
+  background: #f9fbff;
+}
+
+/* Scrollbar (for tables on small screens) */
+.editor-output figure.table::-webkit-scrollbar {
+  height: 6px;
+}
+.editor-output figure.table::-webkit-scrollbar-thumb {
+  background: #b0c4de;
+  border-radius: 3px;
+}

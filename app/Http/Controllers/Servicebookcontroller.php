@@ -22,13 +22,16 @@ class Servicebookcontroller extends Controller
     }
     public function provider($id){
         // return 'hi';
-        $provider=Serviceproviders::with(['categories:id,name','places','blogs'])->findOrFail($id);
+        $provider=Serviceproviders::with(['categories:id,name','places','blogs','info'])->findOrFail($id);
+        // pr($provider->toArray());
+        $info=$provider->info;
+        unset($provider->info);
         $blogs=$provider->blogs;
         $category=$provider->categories;
-        $places=$provider->places;
+        $service_place=$provider->places;
         unset($provider['places']);
         unset($provider['categories']);
         // pr($provider->toArray());
-        return view('eventscape.service_providers.serviceprovider_show.show',compact('provider','category','places','blogs'));
+        return view('eventscape.service_providers.serviceprovider_show.show',compact('provider','category','service_place','blogs','info'));
     }
 }

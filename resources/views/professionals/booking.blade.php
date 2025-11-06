@@ -118,7 +118,7 @@
 @extends('components.modal')
 @section('modal_title', 'Reject_form')
 @section('modal_body')
-
+@if(isset($id))
     <form action="{{ route('prof.booking.reject', $id) }}" method="POST" id="rejectForm">
         @csrf
         <div class="mb-3">
@@ -130,7 +130,7 @@
             <button type="submit" class="btn btn-danger">Submit</button>
         </div>
     </form>
-
+@endif
 @endsection
 <script>
 document.addEventListener('DOMContentLoaded', function() {
