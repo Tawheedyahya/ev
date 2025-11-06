@@ -8,9 +8,9 @@
     <div class="offcanvas-body">
         <div class="filter-form">
             <div class="filter-form-header">
-                <div>
+                {{-- <div>
                     <a href=""><span>Reset all</span></a>
-                </div>
+                </div> --}}
             </div>
 
             <div class="filter-form-category">

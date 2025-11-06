@@ -21,7 +21,7 @@
                         <a class="nav-link text-dark" @if(request()->is('home*')) id="nav-active" @endif href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" @if(request()->is('eventspace*')) id="nav-active"  @endif href="{{url('/eventspace/venues_provider/dashboard')}}">Event Space</a>
+                        <a class="nav-link text-dark" @if(request()->is('eventspace*')) id="nav-active"  @endif href="{{url('/eventspace/venues_provider/dashboard')}}">Event Plan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" @if(request()->is('aboutus*')) id="nav-active"  @endif href="{{url('/aboutus/dashboard')}}">About Us</a>

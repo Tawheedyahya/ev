@@ -27,7 +27,10 @@
         @endforeach
     </div>
 
-    <button type="submit" class="btn btn-primary mt-4 w-100">Search</button>
+    <button type="submit" class="btn btn-primary mt-4">Search</button>
+    <div class="btn btn-warning mt-4">
+                <a href=""><span>Reset all</span></a>
+            </div>
 </form>
 
 {{-- <script src="{{ asset('manual_js/eventspace/eventspace.js') }}"></script>

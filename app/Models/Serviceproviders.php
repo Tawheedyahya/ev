@@ -23,4 +23,7 @@ class Serviceproviders extends Authenticatable
     public function blogs(){
         return $this->hasMany(Serviceblog::class,'serviceproviderid');
     }
+    public function info(){
+        return $this->hasOne(Seviceinfo::class,'service_provider_id');
+    }
 }

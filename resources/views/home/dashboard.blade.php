@@ -40,7 +40,7 @@ home dashboard
     </div>
     <div class="occasions mt-5">
         <div class="occasion-heading mb-5">
-              <h2>Most viewd occasions</h2>
+              <h2>Most Viewed Occasions</h2>
         </div>
         <div class="occasions-body">
             @include('components.occasions')

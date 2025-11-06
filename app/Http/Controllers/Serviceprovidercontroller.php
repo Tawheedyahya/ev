@@ -7,6 +7,7 @@ use App\Models\Serfacility;
 use App\Models\Serviceblog;
 use App\Models\Serviceplace;
 use App\Models\Serviceproviders;
+use App\Models\Seviceinfo;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,7 +93,8 @@ class Serviceprovidercontroller extends Controller
     {
         // echo 'hi';
         // return;
-        return view('service_providers.dashboard');
+        $info=Seviceinfo::find(Auth::guard('ser')->user()->id);
+        return view('service_providers.dashboard',compact('info'));
     }
     public function blogs(){
         $blogs=Serviceblog::where('serviceproviderid',Auth::guard('ser')->user()->id)->get();
@@ -134,15 +136,18 @@ class Serviceprovidercontroller extends Controller
         return back()->with('error','blog deleted');
     }
     public function  profile_edit(){
-        $user=Serviceproviders::with('places:id,name')->findOrFail(Auth::guard('ser')->user()->id);
+        $user=Serviceproviders::with(['places:id,name','info'])->findOrFail(Auth::guard('ser')->user()->id);
         // pr($user->toArray());
+        $info=$user->info;
+        // pr($info->toArray());
+        unset($user->info);
         $serfacilitis=Serfacility::where('serpro_id',Auth::guard('ser')->user()->id)->get();
         $service_place=Serviceplace::all();
         // unset($user['places']);
         // pr($service_place);
         $pro_service_place=$user->places->pluck('id')->toArray();
         // pr($pro_service_place);
-        return view('service_providers.edit',compact('user','service_place','pro_service_place'));
+        return view('service_providers.edit',compact('user','service_place','pro_service_place','info'));
     }
     public function profile_update(Request $request){
         // $feature=$request->input('feature');
@@ -170,6 +175,16 @@ class Serviceprovidercontroller extends Controller
             }
             $user->places()->sync($place);
             $user->save();
+            if($request->has('long_description')||$request->has('about_us')){
+                $u_info=Seviceinfo::find(Auth::guard('ser')->user()->id);
+                if(!$u_info||$u_info==null){
+                    $u_info=new Seviceinfo();
+                    $u_info->service_provider_id=Auth::guard('ser')->user()->id;
+                }
+                $u_info->about_us=$request->input('about_us')??null;
+                $u_info->long_description=$request->input('long_description')??null;
+                $u_info->save();
+            }
         });
         return back()->with('success','Profile updated Sucessfully');
     }
