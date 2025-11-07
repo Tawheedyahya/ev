@@ -111,6 +111,7 @@
         }
     </style>
 @endpush
+@if(isset($book))
 @extends('components.modal')
 @section('modal_title', 'Reject_form')
 @section('modal_body')
@@ -141,3 +142,4 @@
         });
     });
 </script>
+@endif

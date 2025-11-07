@@ -25,4 +25,7 @@ class Professional extends User
         return $this->belongsToMany(User::class, 'professionllikes', 'professional_id', 'user_id')
                 ->withTimestamps();
     }
+    public function info(){
+        return $this->hasOne(Profinfo::class,'professional_id');
+    }
 }

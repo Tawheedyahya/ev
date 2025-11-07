@@ -2,6 +2,7 @@
 @section('title', 'Dashboard')
 @push('styles')
     <link rel="stylesheet" href="{{ asset('manual_css/form.css') }}">
+     <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
 @endpush
 @section('content')
     @include('components.toast')
@@ -53,6 +54,23 @@
                                     <div class="return-error" id="experience-error">{{ $message }}</div>
                                 @enderror
                             </div>
+
+                            <div class="mb-3 ">
+                                <label for="about_us" class="about_us">About your company</label>
+                                <textarea name="about_us" id="l_about_us" cols="30" rows="10" class="form-control">{!!old('about_us',$info->about_us??'')!!}</textarea>
+                                @error('about_us')
+                                    <div class="return-error" id="about_us-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3 ">
+                                 <label for="about_us" class="about_us">Details of your company(packages etc...)</label>
+                                <textarea name="long_description" id="l_long_description" cols="30" rows="10" class="form-control">{!!old('long_description',$info->long_description)!!}</textarea>
+                                @error('long_description')
+                                    <div class="return-error" id="long_description-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                             <div class="mb-3">
                                 {{-- @php
                                     $pro_service_place
@@ -130,6 +148,16 @@
                 }
             })
         });
+        ClassicEditor.create(document.querySelector('#l_about_us'),{
+            toolbar:[
+                'bold','italic'
+            ]
+        })
+        ClassicEditor.create(document.querySelector('#l_long_description'),{
+            toolbar:[
+                'bold','italic','insertTable'
+            ]
+        })
     </script>
     <script src="{{ asset('manual_js/profession_register.js') }}" defer></script>
 @endpush

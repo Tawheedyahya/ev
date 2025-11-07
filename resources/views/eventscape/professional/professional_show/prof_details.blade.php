@@ -8,6 +8,7 @@
                  style="width: 150px; height: 150px; object-fit: cover;">
             <h1 class="fw-bold text-dark mb-2">{{ ucfirst($professional->name) }}</h1>
             <h4 class="text-muted">Company: {{ ucfirst($professional->company_name) }}</h4>
+            <h4 class="text-muted">Profession: {{ ucfirst($p_c) }}</h4>
         </div>
 
         <div class="border-top pt-3">

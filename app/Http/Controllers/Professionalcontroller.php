@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\Passwordmail;
 use App\Models\Bookprofessional;
 use App\Models\Professional;
+use App\Models\Profinfo;
 use App\Models\Serviceplace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -111,12 +112,14 @@ class Professionalcontroller extends Controller
         $user=Auth::guard('prof')->user();
         $service_place=Serviceplace::all();
         // pr($service_place);
-        $pro_place=Professional::with('proserviceplace')->find($user->id)->toArray();
+        $pro_place=Professional::with('proserviceplace','info')->find($user->id)->toArray();
         // pr($pro_place);
+        $info=(object)$pro_place['info'];
+        // pr($info);
         $pro_service_place=collect($pro_place['proserviceplace'])->pluck('id')->toArray();
         // pr($pro_service_place);
         // pr($user);
-        return view('professionals.edit',compact('user','pro_service_place','service_place'));
+        return view('professionals.edit',compact('user','pro_service_place','service_place','info'));
     }
     public function logout(){
         Auth::guard('prof')->logout();
@@ -129,7 +132,8 @@ class Professionalcontroller extends Controller
             'experience'=>'required',
             'pro_service_place'=>'required',
          'prof_logo' => 'mimes:jpg,jpeg,png,gif,svg,webp|max:1536',
-         'amount'=>'required'
+         'amount'=>'required',
+         'about_us'=>'required'
 
         ]);
         $professional=Professional::findOrFail(Auth::guard('prof')->user()->id);
@@ -150,6 +154,16 @@ class Professionalcontroller extends Controller
             }
             $professional->save();
             $professional->proserviceplace()->sync($request->input('pro_service_place'));
+            if($request->has('about_us')||$request->has('long_description')){
+                $u_info=Profinfo::where('professional_id',Auth::guard('prof')->user()->id)->first();
+                if(!$u_info||empty($u_info)){
+                    $u_info=new Profinfo();
+                    $u_info->professional_id=Auth::guard('prof')->user()->id;
+                }
+                $u_info->about_us=$request->input('about_us')??null;
+                $u_info->long_description=$request->input('long_description')??null;
+                $u_info->save();
+            }
             return back()->with('success','Updated Successfully');
         }
 
