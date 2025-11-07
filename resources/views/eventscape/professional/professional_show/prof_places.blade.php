@@ -1,3 +1,15 @@
+ <link rel="stylesheet" href="{{ asset('manual_css/ckeditor.css') }}">
+<div class="row mb-3">
+    <strong>About us:</strong>{!! $info->about_us !!}
+</div>
+<div class="row mb-3">
+
+    <div class="col-12 editor-output">
+        <strong>Description:</strong>
+        {!! $info->long_description !!}
+    </div>
+</div>
+
 <!-- Service Places Section -->
 <div class="container mt-5" style="max-width: 800px;">
   <div class="card border-0 shadow-sm rounded-4 p-4">

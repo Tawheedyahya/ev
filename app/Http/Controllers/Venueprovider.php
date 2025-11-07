@@ -174,7 +174,8 @@ class Venueprovider extends Controller
                 'food_provide'     => $venues_collection['food_provide'],
                 'breakfast'         =>$venues_collection['breakfast'],
                 'lunch'             =>$venues_collection['lunch'],
-                'dinner'            =>$venues_collection['dinner']
+                'dinner'            =>$venues_collection['dinner'],
+                'halal'             =>$venues_collection['halal']
             ];
             // pr($venue);
             $occasions = Occasion::all();
@@ -271,10 +272,12 @@ class Venueprovider extends Controller
             $venue->breakfast=$request->input('breakfast')??null;
             $venue->lunch=$request->input('lunch')??null;
             $venue->dinner=$request->input('dinner')??null;
+            $venue->halal=$request->input('halal')??null;
         }else{
             $venue->breakfast=null;
             $venue->lunch=null;
             $venue->dinner=null;
+            $venue->halal=null;
         }
         if ($venue->save()) {
             return $venue->id;

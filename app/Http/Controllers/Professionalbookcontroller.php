@@ -25,7 +25,19 @@ class Professionalbookcontroller extends Controller
         return view('eventscape.professional.dashboard',compact('location','professionals','paginate','service_places','category'));
     }
     public function professional($id){
-$professionals = Professional::with('proserviceplace')->findOrFail($id);
+$professionals = Professional::with('proserviceplace','professionlist','info')->findOrFail($id);
+// pr($professionals->toArray());
+$info=$professionals->info;
+unset($professionals->info);
+$suggest = Professional::with('proserviceplace','professionlist')
+    ->whereNotIn('id', [$id])->where('profession',$professionals->profession)
+    ->inRandomOrder()
+    ->take(3)
+    ->get();
+
+// pr($suggest->toArray());
+$p_c=$professionals->professionlist->name;
+// return $p_c;
     if($professionals->status=='pending'||$professionals->staus=='pending'){
         return redirect()->route('err');
     }
@@ -43,7 +55,8 @@ if ($professionals) {
             'price' => $q->price,                // Correctly accessing the 'price' property
             'proservice_place' => $q->proserviceplace->map(function($place){
                 return $place->name;
-            })->toArray() // Correctly accessing the 'proserviceplace' relationship
+            })->toArray(), // Correctly accessing the 'proserviceplace' relationship
+
         ];
     })->toArray();
     $service_place=(object)$prof[0]['proservice_place'];
@@ -57,7 +70,7 @@ if ($professionals) {
 
     // Output the result as an array
     // pr($prof);
-    return view('eventscape.professional.professional_show.show',compact('professional','service_place'));
+    return view('eventscape.professional.professional_show.show',compact('professional','service_place','suggest','p_c','info'));
 } else {
     pr('Professional not found.');
 }

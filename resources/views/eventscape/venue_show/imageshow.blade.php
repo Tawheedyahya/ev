@@ -77,6 +77,12 @@
                     <div class="spec-name text-warning fw-semibold">dinner</div>
                     <div class="spec-cap text-muted small">{{ $venue['dinner']==null?'not provide':'per person MYR:'.$venue['dinner'] }}</div>
                      </button>
+                    @if (!empty($venue['halal']) && $venue['halal'] == true)
+                        <div class="d-flex align-items-center mt-2 halal-badge">
+                            <i class="bi bi-patch-check-fill text-success me-2 fs-5"></i>
+                            <span class="fw-semibold text-success">Halal Certified</span>
+                        </div>
+                    @endif
                 </div>
             </div>
             @endif
