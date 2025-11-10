@@ -358,13 +358,15 @@
         </div> {{-- END row.g-4 --}}
 
         {{-- About Us --}}
+        @if(isset($info->about_us))
         <div class="row mb-3">
             <div class="col-12">
                 <strong>ABOUT US:</strong>
                 {!! $info->about_us !!}
             </div>
         </div>
-
+        @endif
+        @if(isset($info->about_us))
         {{-- Description --}}
         <div class="row mb-3">
             <div class="col-12 editor-output">
@@ -372,7 +374,7 @@
                 {!! $info->long_description !!}
             </div>
         </div>
-
+        @endif
         {{-- Service Places --}}
         <div class="service_places">
             <div class="container mt-5" style="max-width: 800px;">

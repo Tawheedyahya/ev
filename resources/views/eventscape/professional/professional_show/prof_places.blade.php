@@ -1,7 +1,10 @@
  <link rel="stylesheet" href="{{ asset('manual_css/ckeditor.css') }}">
+ @if (isset($info->about_us))
 <div class="row mb-3">
     <strong>About us:</strong>{!! $info->about_us !!}
 </div>
+@endif
+ @if (isset($info->about_us))
 <div class="row mb-3">
 
     <div class="col-12 editor-output">
@@ -9,6 +12,7 @@
         {!! $info->long_description !!}
     </div>
 </div>
+@endif
 
 <!-- Service Places Section -->
 <div class="container mt-5" style="max-width: 800px;">
