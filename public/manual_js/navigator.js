@@ -1,6 +1,8 @@
 const location_place=document.getElementById('locationplace')
+
 if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(show_position, error_position, { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 });
+    console.log('hii');
 }
 async function show_position(position) {
     const latitude = position.coords.latitude;
