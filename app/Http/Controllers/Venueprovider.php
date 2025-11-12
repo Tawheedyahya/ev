@@ -80,17 +80,17 @@ class Venueprovider extends Controller
         $password = trim($request->input('password'));
         $user = Venueproviders::where('email', $email)->first();
         if (!$user) {
-            return back()->with('error', 'user not found');
+            return back()->with('error', 'User not found');
         }
         if ($user) {
             if ($user->email_verified_at == '' || $user->email_verified_at == null || strlen($user->remember_token) > 0) {
-                return back()->with('error', 'email not verified');
+                return back()->with('error', 'Email not Verified');
             }
             if ($user->status == 'pending' || $user->status == 'disapproved') {
-                return back()->with('error', 'your registration is ' . $user->status);
+                return back()->with('error', 'Your Registration is ' . $user->status);
             }
             if (!Hash::check($password, $user->password)) {
-                return back()->with('error', 'password wrong');
+                return back()->with('error', 'Password Incorrect');
             }
         }
         Auth::guard('venue_provider')->login($user);

@@ -65,7 +65,7 @@
 
                             <div class="mb-3 ">
                                  <label for="about_us" class="about_us">Details of your company(packages etc...)</label>
-                                <textarea name="long_description" id="l_long_description" cols="30" rows="10" class="form-control">{!!old('long_description',$info->long_description)!!}</textarea>
+                                <textarea name="long_description" id="l_long_description" cols="30" rows="10" class="form-control">{!!old('long_description',$info->long_description??'')!!}</textarea>
                                 @error('long_description')
                                     <div class="return-error" id="long_description-error">{{ $message }}</div>
                                 @enderror

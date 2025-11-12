@@ -11,244 +11,259 @@
     <style>
         .mapbox {
             height: 360px;
-            /* width: 300px; */
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #e5e7eb;
         }
+        .form-card { border-radius: 14px; }
+        .form-header { font-weight: 600; }
+        .return-error { color: #dc3545; font-size: .9rem; margin-top: .25rem; }
     </style>
 @endpush
+
 @section('content')
     <div class="container-fluid">
-        @include('venue_provider.layouts.header')
-        <h1 class="title-shadow-glow">Venue Form</h1>
         @include('components.toast')
+
         <div class="row justify-content-center mt-5">
-            <div class="col col-md-7">
+            <div>
                 <div class="card form-card">
-                    <div class="card-header form-header title-shadow-glow">Venue details</div>
+                    <div class="card-header form-header">Venue details</div>
+
                     <div class="card-body form-body">
                         {{-- enctype needed for file uploads --}}
                         <form
-                            action="@if ($venue) {{ route('vp.venue.update', $venue['id']) }}
-                        @else
-                        {{ route('vp.venue.register') }} @endif"
+                            action="@if ($venue) {{ route('vp.venue.update', $venue['id']) }} @else {{ route('vp.venue.register') }} @endif"
                             method="POST" enctype="multipart/form-data" id="register_form">
                             @csrf
 
-                            <div class="mb-3">
-                                <label for="venue_name" class="form-label">Venue Name</label>
-                                <input type="text" name="venue_name" id="venue_name" class="form-control"
-                                    value="{{ old('venue_name', $venue['venue_name'] ?? '') }}">
-                                @error('venue_name')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            <div class="row g-3">
 
-                            <div class="mb-3">
-                                <label for="venue_type" class="form-label">Venue Type</label>
-                                <select name="venue_type[]" id="venue_type" class="form-select" multiple>
-                                    @foreach ($occasions as $occasion)
-                                        <option value="{{ $occasion->id }}" @selected(collect(old('venue_type', $venue['occasion'] ?? ''))->contains($occasion->id))>
-                                            {{ $occasion->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('venue_type')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                {{-- Row 1: Venue Name | Venue Type --}}
+                                <div class="col-md-6">
+                                    <label for="venue_name" class="form-label">Venue Name</label>
+                                    <input type="text" name="venue_name" id="venue_name" class="form-control"
+                                        value="{{ old('venue_name', $venue['venue_name'] ?? '') }}">
+                                    @error('venue_name')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div class="mb-3">
-                                <label for="venue_address" class="form-label">Venue Address</label>
-                                <input type="text" name="venue_address" id="venue_address" class="form-control"
-                                    value="{{ old('venue_address', $venue['venue_address'] ?? '') }}">
-                                @error('venue_address')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                <div class="col-md-6">
+                                    <label for="venue_type" class="form-label">Venue Type</label>
+                                    <select name="venue_type[]" id="venue_type" class="form-select" multiple>
+                                        @foreach ($occasions as $occasion)
+                                            <option value="{{ $occasion->id }}"
+                                                @selected(collect(old('venue_type', $venue['occasion'] ?? ''))->contains($occasion->id))>
+                                                {{ $occasion->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('venue_type')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div class="mb-3">
-                                <label for="venue_city" class="form-label">Venue City</label>
-                                <input type="text" name="venue_city" id="venue_city" class="form-control"
-                                    value="{{ old('venue_city', $venue['venue_city'] ?? '') }}">
-                                @error('venue_city')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                {{-- Row 2: Address (full) --}}
+                                <div class="col-12">
+                                    <label for="venue_address" class="form-label">Venue Address</label>
+                                    <input type="text" name="venue_address" id="venue_address" class="form-control"
+                                        value="{{ old('venue_address', $venue['venue_address'] ?? '') }}"
+                                        placeholder="1234 Main St">
+                                    @error('venue_address')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div class="mb-3">
-                                <label for="venue_seat_capacity" class="form-label">Venue Seat Capacity</label>
-                                <input type="number" name="venue_seat_capacity" id="venue_seat_capacity"
-                                    class="form-control"
-                                    value="{{ old('venue_seat_capacity', $venue['venue_seat_capacity'] ?? '') }}">
-                                @error('venue_seat_capacity')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
+                                {{-- Row 3: City | Seat Capacity | Amount --}}
+                                <div class="col-md-6">
+                                    <label for="venue_city" class="form-label">Venue City</label>
+                                    <input type="text" name="venue_city" id="venue_city" class="form-control"
+                                        value="{{ old('venue_city', $venue['venue_city'] ?? '') }}">
+                                    @error('venue_city')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-                            <div class="mb-3 venue-facility-group">
-                                <label for="venue_facility" class="form-label">*Venue Facility*</label><br>
-                                @foreach ($venue_facilities as $facility)
-                                    {{-- <p>{{$facility->id}}</p> --}}
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="venue_facilities[]" value="{{ $facility->id }}"
-                                            @checked(collect(old('venue_facilities', $venue['appvenuefacilitie'] ?? ''))->contains($facility->id)) />
-                                        <span class="checkmark"></span>
-                                        {{ $facility->name }}
-                                    </label>
-                                @endforeach
-                                @error('venue_facilities')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            {{-- food --}}
-                            <div class="food_group p-2 mb-2"style="border: 2px solid orange; border-radius:10px;">
-                                <div class="mb-3">
-                                    <label class="form-label">Are you providing food?</label>
-                                    <br>
-                                    <input type="radio" name="food_provide" id="food_yes" value="yes"> Yes
-                                    <br>
-                                    <input type="radio" name="food_provide" id="food_no" value="no"> No
+                                <div class="col-md-3">
+                                    <label for="venue_seat_capacity" class="form-label">Seat Capacity</label>
+                                    <input type="number" name="venue_seat_capacity" id="venue_seat_capacity"
+                                        class="form-control"
+                                        value="{{ old('venue_seat_capacity', $venue['venue_seat_capacity'] ?? '') }}">
+                                    @error('venue_seat_capacity')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="amount" class="form-label">Amount <span class="text-muted">(per day)</span></label>
+                                    <input type="number" step="0.01" name="amount" id="amount" class="form-control"
+                                        value="{{ old('amount', $venue['amount'] ?? '') }}">
+                                    @error('amount')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Row 4: Facilities (full) --}}
+                                <div class="col-12">
+                                    <label class="form-label d-block">Venue Facility</label>
+                                    <div class="d-flex flex-wrap gap-3">
+                                        @foreach ($venue_facilities as $facility)
+                                            <label class="custom-checkbox">
+                                                <input type="checkbox" name="venue_facilities[]" value="{{ $facility->id }}"
+                                                    @checked(collect(old('venue_facilities', $venue['appvenuefacilitie'] ?? ''))->contains($facility->id)) />
+                                                <span class="checkmark"></span>
+                                                {{ $facility->name }}
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    @error('venue_facilities')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Row 5: Food provide (left) | Food prices & halal (right) --}}
+                                <div class="col-md-4">
+                                    <label class="form-label d-block">Are you providing food?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="food_provide" id="food_yes" value="yes">
+                                        <label class="form-check-label" for="food_yes">Yes</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="food_provide" id="food_no" value="no">
+                                        <label class="form-check-label" for="food_no">No</label>
+                                    </div>
                                     @error('food_provide')
                                         <div class="return-error">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="food_section" style="display: none;">
-                                    <div class="mb-3">
-                                        <label for="breakfast" class="form-label">Breakfast <span>(Amount per
-                                                person)</span></label>
-                                        <input type="number" step="0.01" name="breakfast" id="breakfast"
-                                            class="form-control" value="{{ old('breakfast', $venue['breakfast'] ?? '') }}">
-                                        @error('breakfast')
-                                            <div class="return-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                <div class="col-md-8">
+                                    <div class="food_section" style="display: none;">
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <label for="breakfast" class="form-label">Breakfast
+                                                    <span class="text-muted">(per person)</span></label>
+                                                <input type="number" step="0.01" name="breakfast" id="breakfast"
+                                                    class="form-control" value="{{ old('breakfast', $venue['breakfast'] ?? '') }}">
+                                                @error('breakfast')
+                                                    <div class="return-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                    <div class="mb-3">
-                                        <label for="lunch" class="form-label">Lunch <span>(Amount per
-                                                person)</span></label>
-                                        <input type="number" step="0.01" name="lunch" id="lunch"
-                                            class="form-control" value="{{ old('lunch', $venue['lunch'] ?? '') }}">
-                                        @error('lunch')
-                                            <div class="return-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                            <div class="col-md-4">
+                                                <label for="lunch" class="form-label">Lunch
+                                                    <span class="text-muted">(per person)</span></label>
+                                                <input type="number" step="0.01" name="lunch" id="lunch"
+                                                    class="form-control" value="{{ old('lunch', $venue['lunch'] ?? '') }}">
+                                                @error('lunch')
+                                                    <div class="return-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                    <div class="mb-3">
-                                        <label for="dinner" class="form-label">Dinner <span>(Amount per
-                                                person)</span></label>
-                                        <input type="number" step="0.01" name="dinner" id="dinner"
-                                            class="form-control" value="{{ old('dinner', $venue['dinner'] ?? '') }}">
-                                        @error('dinner')
-                                            <div class="return-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                                            <div class="col-md-4">
+                                                <label for="dinner" class="form-label">Dinner
+                                                    <span class="text-muted">(per person)</span></label>
+                                                <input type="number" step="0.01" name="dinner" id="dinner"
+                                                    class="form-control" value="{{ old('dinner', $venue['dinner'] ?? '') }}">
+                                                @error('dinner')
+                                                    <div class="return-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
 
-                                    <div class="mb-3">
-                                        <label class="form-label d-block">Do You Have Halal Certificate?</label>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="halal" id="halal_yes"
-                                                value="1" @checked(($venue['halal']??null)==true)>
-                                            <label class="form-check-label" for="halal_yes">Yes</label>
+                                            <div class="col-12">
+                                                <label class="form-label d-block">Do You Have Halal Certificate?</label>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="halal" id="halal_yes"
+                                                        value="1" @checked(($venue['halal']??null)==true)>
+                                                    <label class="form-check-label" for="halal_yes">Yes</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="halal" id="halal_no"
+                                                        value="0" @checked(($venue['halal']??null)==false)>
+                                                    <label class="form-check-label" for="halal_no">No</label>
+                                                </div>
+                                                @error('halal')
+                                                    <div class="return-error">{{ $message }}</div>
+                                                @enderror
+                                            </div>
                                         </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="halal" id="halal_no"
-                                                value="0" @checked(($venue['halal']??null)==false)>
-                                            <label class="form-check-label" for="halal_no">No</label>
-                                        </div>
-
-                                        @error('halal')
-                                            <div class="return-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="amount" class="form-label">Amount <span>*per day*</span></label>
-                                <input type="number" step="0.01" name="amount" id="amount" class="form-control"
-                                    value="{{ old('amount', $venue['amount'] ?? '') }}">
-                                @error('amount')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ old('description', $venue['description'] ?? '') }}</textarea>
-                                @error('description')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="vr" class="form-label">VR URL</label>
-                                <input type="text" name="vr" id="vr" class="form-control"
-                                    value="{{ old('vr', $venue['vr'] ?? '') }}">
-                                @error('vr')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-
-                            {{-- Location (click map to set) --}}
-                            <div class="mb-3">
-                                <label class="form-label d-flex justify-content-between align-items-center">
-                                    <span>Location</span>
-                                    <small class="text-muted">Click the map to drop a pin</small>
-                                </label>
-
-                                <div id="venueMap" class="mapbox"></div>
-
-                                <div class="row mt-2 g-2">
-                                    <div class="col">
-                                        <label for="latitude" class="form-label">Latitude</label>
-                                        <input type="text" id="latitude" name="latitude" class="form-control"
-                                            value="{{ old('latitude', $venue['latitude'] ?? '') }}" readonly>
-                                        @error('latitude')
-                                            <div class="return-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col">
-                                        <label for="longitude" class="form-label">Longitude</label>
-                                        <input type="text" id="longitude" name="longitude" class="form-control"
-                                            value="{{ old('longitude', $venue['longitude'] ?? '') }}" readonly>
-                                        @error('longitude')
-                                            <div class="return-error">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-12 d-flex gap-2 mt-2">
-                                        <button type="button" id="useMyLocation"
-                                            class="btn btn-outline-secondary btn-sm">Use my location</button>
-                                        <button type="button" id="clearPin" class="btn btn-outline-danger btn-sm">Clear
-                                            pin</button>
                                     </div>
                                 </div>
-                            </div>
 
-                            {{-- Upload photos --}}
-                            <div class="mb-3 mt-3 d-flex justify-content-center align-items-center gap-2">
-                                <input type="file" name="doc" id="doc" class="visually-hidden"
-                                    accept="image/*">
-                                <label for="doc" class="btn btn-primary mb-0">
-                                    <i class="bi bi-upload me-1"></i> Upload photos
-                                </label>
-                                @error('doc')
-                                    <div class="return-error">{{ $message }}</div>
-                                @enderror
-                                {{-- <img src="{{asset("$venue['doc']")}}" alt="">
-                                 --}}
-                            </div>
-                            <img src="{{ asset($venue['doc'][0] ?? '') }}" class="venue-img img-fluid" loading="lazy"
-                                id="p-img" style="height: 180px;width:200px;">
-                            <div class="mt-3 form-end d-flex justify-content-center align-items-center">
-                                <button class="btn" style="background-color:grey;color:white;">submit</button>
-                            </div>
+                                {{-- Row 6: Description (full) --}}
+                                <div class="col-12">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea name="description" id="description" rows="6" class="form-control">{{ old('description', $venue['description'] ?? '') }}</textarea>
+                                    @error('description')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Row 7: VR URL (full) --}}
+                                <div class="col-12">
+                                    <label for="vr" class="form-label">VR URL</label>
+                                    <input type="text" name="vr" id="vr" class="form-control"
+                                        value="{{ old('vr', $venue['vr'] ?? '') }}">
+                                    @error('vr')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                {{-- Row 8: Location (map full) --}}
+                                <div class="col-12">
+                                    <label class="form-label d-flex justify-content-between align-items-center">
+                                        <span>Location</span>
+                                        <small class="text-muted">Click the map to drop a pin</small>
+                                    </label>
+                                    <div id="venueMap" class="mapbox"></div>
+                                </div>
+
+                                {{-- Row 9: Coordinates --}}
+                                <div class="col-md-6">
+                                    <label for="latitude" class="form-label">Latitude</label>
+                                    <input type="text" id="latitude" name="latitude" class="form-control"
+                                        value="{{ old('latitude', $venue['latitude'] ?? '') }}" readonly>
+                                    @error('latitude')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="longitude" class="form-label">Longitude</label>
+                                    <input type="text" id="longitude" name="longitude" class="form-control"
+                                        value="{{ old('longitude', $venue['longitude'] ?? '') }}" readonly>
+                                    @error('longitude')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12 d-flex gap-2">
+                                    <button type="button" id="useMyLocation"
+                                        class="btn btn-outline-secondary btn-sm">Use my location</button>
+                                    <button type="button" id="clearPin" class="btn btn-outline-danger btn-sm">Clear pin</button>
+                                </div>
+
+                                {{-- Row 10: Upload (left) | Preview (right) --}}
+                                <div class="col-md-6 d-flex align-items-center gap-2">
+                                    <input type="file" name="doc" id="doc" class="visually-hidden" accept="image/*">
+                                    <label for="doc" class="btn btn-primary mb-0">
+                                        <i class="bi bi-upload me-1"></i> Upload photos
+                                    </label>
+                                    @error('doc')
+                                        <div class="return-error">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <img src="{{ asset($venue['doc'][0] ?? '') }}" class="venue-img img-fluid" loading="lazy"
+                                        id="p-img" style="height: 180px;width:200px;">
+                                </div>
+
+                                {{-- Row 11: Submit --}}
+                                <div class="col-12">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+
+                            </div> {{-- /row g-3 --}}
                         </form>
                     </div>
                 </div>
@@ -262,36 +277,36 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('manual_js/leaflet.js') }}"></script>
+
     <script>
-        $('#doc').on('change', function() {
+        // Image preview
+        $('#doc').on('change', function () {
             const file = this.files && this.files[0];
             if (!file) return;
 
-            // basic validation (optional)
             if (!file.type.startsWith('image/')) {
                 alert('Please choose an image file.');
                 this.value = '';
                 return;
             }
-
             const url = URL.createObjectURL(file);
-            $('#p-img')
-                .attr('src', url); // free memory after load
+            $('#p-img').attr('src', url);
         });
-        $('input[name="food_provide"]').change(function() {
+
+        // Food section toggle
+        $('input[name="food_provide"]').on('change', function () {
             if ($(this).val() === 'yes') {
                 $('.food_section').slideDown();
             } else {
                 $('.food_section').slideUp();
-                $('#breakfast', '#lunch', '#dinner').val('');
+                $('#breakfast, #lunch, #dinner').val('');
             }
-        })
-        // $if(('input[name="food_provide"]').val()=='yes'){
-        //       $('.food_section').slideDown();
-        // }
+        });
+
+        // Show food section if values already exist
         if ($('#breakfast').val() || $('#lunch').val() || $('#dinner').val()) {
-            $('input[name="food_provide"][value="yes"]').prop('checked', true)
-            $('.food_section').show()
+            $('input[name="food_provide"][value="yes"]').prop('checked', true);
+            $('.food_section').show();
         }
     </script>
 @endpush

@@ -7,8 +7,8 @@
         @include('venue_provider.layouts.header')
         @include('components.toast')
         <div class="table-start container-fluid table-responsive">
-            <table class="table table-striped table-bordered align-middle table-responsive" id="my_table" style="width:100%">
-                <thead class="table-warning">
+            <table class="table align-middle table-responsive" id="my_table" style="width:100%">
+                <thead>
                     <tr>
                         <th>B.NO</th>
                         {{-- <th class="phone-device">B.ID</th> --}}

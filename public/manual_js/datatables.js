@@ -7,3 +7,4 @@ $(document).ready(function () {
     pageLength: 10     // default rows per page
   });
 });
+

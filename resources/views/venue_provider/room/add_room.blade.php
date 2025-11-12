@@ -4,11 +4,11 @@
 @section('content')
     <div class="container-fluid">
         @include('venue_provider.layouts.header')
-        <h1 class="title-shadow-glow">Room form</h1>
-        <a href="javascript:history.back()" class="back-btn"> <i class="bi bi-arrow-left"></i>back to rooms</a>
+        <!-- <h1 class="title-shadow-glow">Room form</h1> -->
+        <a href="javascript:history.back()" class="back-btn"> <i class="bi bi-arrow-left"></i>Back to Venues</a>
         @include('components.toast')
         <div class="row justify-content-center mt-5">
-            <div class="col col-md-7">
+            <div>
                 <div class="card form-card">
                     <div class="card-header form-header title-shadow-glow">Room details</div>
                     <div class="card-body form-body">
