@@ -182,8 +182,8 @@
 }
 
 /* give the right panel real space */
-.request{ flex: 1 1 420px; }          /* or flex:0 0 420px if you want fixed width */
-.request .card{ width:100%; }         /* stop shrink-to-fit */
+/* .request{ flex: 1 1 420px; }          or flex:0 0 420px if you want fixed width */
+/* .request .card{ width:100%; }         stop shrink-to-fit */
 
 /* the buttons row */
 .actions{ display:flex; gap:12px; width:100%; min-width:0; }

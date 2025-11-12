@@ -14,6 +14,8 @@ home dashboard
         <div class="position-absolute top-50 start-50 translate-middle text-white">
             <h1 class="fw-bold">YOUR ONE-STOP DESTINATION FOR EVENT PLANNING EXCELLENCE</h1>
             <p>Explore verified venues, trusted service providers, and skilled professionals all in one place</p>
+            <button class="btn btn-warning" style="color: white">Start as planning</button>
+            <button class="btn" style="border:2px solid white;color:white;">let us plan for you</button>
         </div>
     </div>
 
