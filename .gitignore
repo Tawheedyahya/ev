@@ -22,3 +22,10 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/public/invoices
+/public/service_blogs
+/public/service_provider_logos
+/public/verified_venue_images
+/public/venue_providers
+/public/professionals
+/public/prof_logo
