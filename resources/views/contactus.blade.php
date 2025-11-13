@@ -13,6 +13,7 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
+      font-weight: 400;
       color: #333;
       background: #fff;
     }
@@ -25,16 +26,20 @@
   } */
 
     .hero {
-      position: relative;
-      background: url('{{ asset('ev_photos/contacts_us.jpg') }}') no-repeat center center/cover;
-      height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      overflow: hidden;
-      padding-left: 0px;
-      padding-right: 50px;
-    }
+    position: relative;
+    background-image: url("{{ asset('ev_photos/contacts_us.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    padding-left: 0;
+    padding-right: 50px;
+}
 
     .hero-box {
       background: rgba(255, 255, 255, 0.92);
@@ -62,12 +67,13 @@
 
     .register-btn {
       display: inline-block;
-      background: #F7931E;
-      color: #ffffff;
+      background: #C7E9F0;
+      color: black;
+      font-style: bold;
       font-weight: 700;
       padding: 12px 25px;
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 17px;
       border: none;
       cursor: pointer;
       text-decoration: none;
@@ -75,9 +81,9 @@
       transition: 0.25s ease-in-out;
     }
 
-    .register-btn:hover {
+    /* .register-btn:hover {
       background: #e67c10;
-    }
+    } */
 
     .floating-icon {
       position: absolute;
@@ -184,58 +190,45 @@
 
     /* Why Join Us */
     .why-join-us {
-      background: #f9f9f9;
-      padding: 80px 20px;
-      text-align: center;
-    }
+  background-color: #253649; /* dark navy */
+  color: white;
+  text-align: center;
+  padding: 60px 0;
+  font-family: 'Poppins', sans-serif;
+}
 
-    .why-join-us h2 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 50px;
-      color: #1a1a1a;
-    }
+.why-join-us h4{
+  padding-bottom: 50px;
+}
 
-    .why-join-wrapper {
-      display: flex;
-      justify-content: center;
-      gap: 120px;
-      flex-wrap: wrap;
-    }
+.why-join-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 140px;
+}
 
-    .join-item {
-      text-align: center;
-      width: 200px;
-    }
+.join-item {
+  text-align: center;
+}
 
-    .join-icon {
-      width: 110px;
-      height: 110px;
-      background: #f7931d; /* same orange circle */
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px auto;
-    }
+.join-icon {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid white;
+  margin: 0 auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .join-icon i {
-      color: #fff;
-      font-size: 38px;
-    }
+.join-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    .join-item p {
-      color: #3a3a3a;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    /* Mobile responsive */
-    @media(max-width:768px) {
-      .why-join-wrapper {
-        gap: 40px;
-      }
-    }
 
     /* Testimonials */
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -322,7 +315,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 80px 100px;
+      padding: 10px 10px;
       gap: 60px;
       background: #fff;
     }
@@ -380,18 +373,16 @@
     <div class="hero-box">
       <h1>GROW YOUR<br>EVENT BUSINESS</h1>
       <p>Get more bookings</p>
-      <div style="position: relative; display: inline-block;">
-        <a href="#" class="register-btn">REGISTER AS VENDOR</a>
-        <!-- <div class="floating-icon">T</div> -->
-      </div>
+      <a href="#" class="register-btn">REGISTER AS VENDOR</a>
     </div>
-  </section>
+</section>
+
 
   <!-- Why Choose Us -->
   <section class="why-choose-us">
     <div class="image-stack">
-      <img src="{{ asset('ev_photos/ytoimg.jpg') }}" alt="Event Image 1">
-      <img src="{{ asset('ev_photos/ytoimg.jpg') }}" alt="Event Image 2">
+      <img src="{{ asset('ev_photos/ytoimg1.jpg') }}" alt="Event Image 1">
+      <img src="{{ asset('ev_photos/ytoimg2.jpg') }}" alt="Event Image 2">
     </div>
     <div class="text-content">
       <h2>Why Choose Us?</h2>
@@ -401,32 +392,37 @@
 
   <!-- Why Join Us -->
   <section class="why-join-us">
-    <h2>WHY JOIN US</h2>
+    <h4>WHY JOIN US</h4>
+
     <div class="why-join-wrapper">
-      <div class="join-item">
-        <div class="join-icon">
-          <i class="fas fa-search"></i>
+
+        <div class="join-item">
+            <div class="join-icon">
+                <img src="{{ asset('ev_photos/search.jpg') }}" alt="Search Icon">
+            </div>
+            <p>Reach more Clients</p>
         </div>
-        <p>Reach more Clients</p>
-      </div>
-      <div class="join-item">
-        <div class="join-icon">
-          <i class="fas fa-arrow-up"></i>
+
+        <div class="join-item">
+            <div class="join-icon">
+                <img src="{{ asset('ev_photos/HV.jpg') }}" alt="Higher Visibility">
+            </div>
+            <p>Higher Visibility</p>
         </div>
-        <p>Higher Visibility</p>
-      </div>
-      <div class="join-item">
-        <div class="join-icon">
-          <i class="fas fa-chart-bar"></i>
+
+        <div class="join-item">
+            <div class="join-icon">
+                <img src="{{ asset('ev_photos/Gyb.jpg') }}" alt="Grow your brand">
+            </div>
+            <p>Grow your brand</p>
         </div>
-        <p>Grow your brand</p>
-      </div>
+
     </div>
-  </section>
+</section>
 
   <!-- Testimonials -->
   <section class="testimonials" id="testimonials">
-    <h2>TESTIMONIALS</h2>
+    <h2 style="font:poppins;">TESTIMONIALS</h2>
     <div class="t-slider">
       <span class="t-fade t-left"></span>
       <div class="t-track">
@@ -532,36 +528,22 @@
       </div>
 
       <!-- Right Steps -->
-      <div style="flex:1; min-width:320px; display:grid; grid-template-columns:repeat(2, 1fr); gap:25px;">
-        <div style="background:#fff; border-radius:12px; padding:35px 20px; text-align:center; box-shadow:0 3px 20px rgba(0,0,0,0.08);">
-          <i class="fas fa-edit" style="font-size:38px; color:#f7931d; margin-bottom:15px;"></i>
-          <p style="font-size:16px; font-weight:600; margin:0;">Sign Up<br>for Free</p>
-        </div>
-
-        <div style="background:#fff; border-radius:12px; padding:35px 20px; text-align:center; box-shadow:0 3px 20px rgba(0,0,0,0.08);">
-          <i class="fas fa-address-card" style="font-size:38px; color:#f7931d; margin-bottom:15px;"></i>
-          <p style="font-size:16px; font-weight:600; margin:0;">Build Your<br>Profile</p>
-        </div>
-
-        <div style="background:#fff; border-radius:12px; padding:35px 20px; text-align:center; box-shadow:0 3px 20px rgba(0,0,0,0.08);">
-          <i class="fas fa-eye" style="font-size:38px; color:#f7931d; margin-bottom:15px;"></i>
-          <p style="font-size:16px; font-weight:600; margin:0;">Appear in<br>Searches</p>
-        </div>
-
-        <div style="background:#fff; border-radius:12px; padding:35px 20px; text-align:center; box-shadow:0 3px 20px rgba(0,0,0,0.08);">
-          <i class="fas fa-calendar-check" style="font-size:38px; color:#f7931d; margin-bottom:15px;"></i>
-          <p style="font-size:16px; font-weight:600; margin:0;">Get<br>Bookings</p>
-        </div>
-      </div>
+       <div style="flex:1; min-width:350px; display:flex; justify-content:center;">
+        <img src="{{ asset('ev_photos/Howitworks.jpg') }}" 
+         alt="How it works" 
+         style="max-width:380px; width:100%; height:auto;">
+       </div>
     </div>
   </section>
+
+
 
   <!-- Easy Section -->
   <section class="easy">
     <div class="easy-text">
       <h2>We Know You’re Busy,<br>That’s Why We Made It Easy</h2>
       <p>We know you're juggling multiple clients, setups, and timelines. That's why our platform makes it easy to manage inquiries and convert them into confirmed bookings — all in one place.</p>
-      <a href="#" class="register-btn" style="background:#f7941d; color:white; text-decoration:none; padding:12px 25px; border-radius:6px; font-weight:600; display:inline-block;">REGISTER AS VENDOR</a>
+      <a href="#" class="register-btn" style="background:#C7E9F0; color:#000000; text-decoration:none; padding:12px 25px; border-radius:6px; font-weight:600; display:inline-block;">REGISTER AS VENDOR</a>
     </div>
 
     <div style="flex-shrink:0;">

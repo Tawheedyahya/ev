@@ -3,9 +3,9 @@
 
 @section('content')
     <div class="container-fluid">
-        @include('venue_provider.layouts.header')
+        <!-- @include('venue_provider.layouts.header') -->
 
-        <div class="add-venue mb-3">
+        <div class="add-venue mb-3" style="text-align:right;">
             <a href="{{ route('vp.venue.add') }}" class="add-venue-tile" aria-label="Add a new venue">
                 <span class="btn btn-warning rounded-pill">
                     <i class="bi bi-plus-lg me-1"></i> Add venue

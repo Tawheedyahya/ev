@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="mainNav">
                 {{-- Center nav: stacks on mobile, centered on lg+ --}}
                 <ul class="navbar-nav mx-lg-auto mt-2 mt-lg-0 gap-lg-2 align-items-lg-center">
-                    <li class="nav-item">
+                    <li class="nav-item" style="margin: 10px;">
                         <a class="nav-link text-dark" @if(request()->is('home*')) id="nav-active" @endif href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="nav-item">
@@ -29,20 +29,23 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" @if(request()->is('contactus*')) id="nav-active"  @endif href="{{url('/contactus/dashboard')}}">Contact Us</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="btn  ms-lg-2 mt-2 mt-lg-0" href="{{url('/vendor/venue_login_form')}}" style="background: #F7941D;
-">Register as Vendor</a>
-                    </li>
                 </ul>
 
                 {{-- Right: user icon (stays right on lg+, stacks under menu on mobile) --}}
-                <div class="d-flex ms-lg-3 mt-2 mt-lg-0">
-          <a href="{{url('/customer/login_form')}}"
-             class="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center"
-             style="width: 40px; height: 40px; font-size: 18px;">
-            <i class="bi bi-person-fill"></i>
-          </a>
-        </div>
+  {{-- REGISTER BUTTON (moved to right) --}}
+                    <a href="{{url('/vendor/venue_login_form')}}"
+                       class="btn btn-warning me-3"
+                       style="padding: 10px 20px; font-weight:600; color:white; background-color: #F7941D">
+                       Register as Vendor
+                    </a>
+
+                    {{-- USER ICON --}}
+                    <a href="{{url('/customer/login_form')}}"
+                       class="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center"
+                       style="width: 40px; height: 40px; font-size: 18px;">
+                        <i class="bi bi-person-fill"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
