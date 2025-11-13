@@ -31,3 +31,5 @@ Thumbs.db
 /public/prof_logo
 /public/room_images
 .gitignore
+rr
+.rr.yaml

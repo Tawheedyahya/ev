@@ -1,4 +1,4 @@
-<div class="address mt-5">
+<div class="address mt-5 ms-md-5 ms-lg-5 ms-xxl-5 ms-xl-5">
     <div class="heading">
         <h1>Venue address</h1>
     </div>
