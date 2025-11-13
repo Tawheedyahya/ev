@@ -29,3 +29,5 @@ Thumbs.db
 /public/venue_providers
 /public/professionals
 /public/prof_logo
+/public/room_images
+.gitignore
