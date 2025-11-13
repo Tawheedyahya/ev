@@ -174,4 +174,4 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
     Route::get('/service_providers',[Admincontroller::class,'service_providers_dahboard'])->name('ad.sp.ds');
 });
 Route::get('/yahi',[Homecontroller::class,'prof']);
-Route::get('/yahi',[Homecontroller::class,'ser']);
+Route::get('/ya',[Homecontroller::class,'ser']);

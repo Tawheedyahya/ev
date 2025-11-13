@@ -1,7 +1,7 @@
 /* Base shell */
 .custom-search-bar {
-  border-radius: 999px;           /* pill on desktop */
-  background: #fff;
+  border-radius: 20px;           /* pill on desktop */
+  background: #F8F8F8;
   gap: 0;
 }
 
@@ -12,16 +12,19 @@
 
 /* Left/Right button corner radii for desktop */
 .custom-left-btn {
-  border-top-left-radius: 999px !important;
-  border-bottom-left-radius: 999px !important;
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 }
 .custom-right-btn {
-  border-top-right-radius: 999px !important;
-  border-bottom-right-radius: 999px !important;
+  border-top-right-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
+}
+.custom-right-btn:hover{
+     background: #EB4D4B;
 }
 
 /* Make icons align nicely */

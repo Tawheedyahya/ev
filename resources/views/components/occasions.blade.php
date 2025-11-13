@@ -14,7 +14,7 @@
                 <div class="text-center occasion-item">
                     <img src="{{ asset('occasion_icon/birthday.png') }}"
                          alt="Occasion"
-                         class="img-fluid mb-2 img-bg"
+                         class="img-fluid mb-2 img-bg lazyload"
                          style="max-width:80px;">
                     <p>{{ ucwords($list->name) }}</p>
                 </div>

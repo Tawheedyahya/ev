@@ -1,8 +1,8 @@
-<div class="container search-bar">
+<div class="container-fluid search-bar" style="width: 90%;">
   <div class="custom-search-bar d-flex align-items-center shadow-lg overflow-hidden">
     {{-- Location Button --}}
-    <button type="button" class="btn btn-warning d-flex align-items-center px-4 py-3 border-0 custom-left-btn"
-      id="locationplace" aria-label="Use my location">
+    <button type="button" class="btn  d-flex align-items-center px-4 py-3 border-0 custom-left-btn"
+      id="locationplace" aria-label="Use my location" style="background: #C7E9F0;">
       <i class="bi bi-geo-alt-fill me-2"></i>
     </button>
 
@@ -11,7 +11,7 @@
       name="location" id="location" aria-label="Search">
 
     {{-- Search Button (type="button" to avoid form submit) --}}
-    <button type="button" class="btn btn-warning d-flex align-items-center px-4 py-3 border-0 custom-right-btn"
+    <button type="button" class="btn thick-orange d-flex align-items-center px-4 py-3 border-0 custom-right-btn"
       id="search">
       <i class="bi bi-search me-2"></i>
       Search

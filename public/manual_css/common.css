@@ -93,4 +93,23 @@ a:hover {
 .thumb-btn.animate {
   animation: pop 0.3s ease;
 }
+.thick-orange{
+   background: #EB4D4B;
 
+
+}
+.light-b{
+    background: #C7E9F0;
+
+}
+.light-b:hover{
+       background: #C7E9F0;
+}
+    .underline-no:hover{
+        text-decoration: none;
+    }
+@media (max-width:768px){
+    .mobile-view-bottom{
+        margin-bottom: 20px;
+    }
+}

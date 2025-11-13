@@ -46,7 +46,7 @@
         <div class="prof-places">
             @include('eventscape.professional.professional_show.prof_places')
         </div>
-        <div class="suggest mt-4 mt-5" style="margin-top: 50px">
+        <div class="suggest mt-4 mt-5 ms-5" style="margin-top: 50px">
             <h5 class="fw-bold mb-3">Related professional</h5>
 
             <div class="cards-rail">

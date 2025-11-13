@@ -11,6 +11,7 @@ class Homecontroller extends Controller
 {
     public function dashboard(){
         $venues=Venue::with('venueimages')->get()->toArray();
+        $action='card.venue';
         $venues=array_slice($venues,0,5);
         // pr($venues);
         $venues=array_map(function($venues){
@@ -21,7 +22,7 @@ class Homecontroller extends Controller
                 'doc'=>$venues['venueimages'][0]['doc']??null
             ];
         },$venues);
-        return view('home.dashboard',compact('venues'));
+        return view('home.dashboard',compact('venues','action'));
     }
     public function aboutus(){
         return view('vr');
@@ -42,7 +43,7 @@ class Homecontroller extends Controller
                 'doc'=>$venues['prof_logo']
             ];
         },$profs);
-        return view('components.category_show',compact('venues','action'));
+        return view('home.category_show',compact('venues','action'));
     }
     public function ser(){
         $ser=Serviceproviders::where('status','approved')->get()->toArray();
@@ -57,6 +58,6 @@ class Homecontroller extends Controller
                 'doc'=>$venues['logo']
             ];
         },$sers);
-         return view('components.category_show',compact('venues','action'));
+         return view('home.category_show',compact('venues','action'));
     }
 }

@@ -25,12 +25,14 @@
 </div>
 
 {{-- VR SHOW --}}
-<div class="vr-show">
-  <div class="vrr">
-    <a href="javascript:void(0)" class="btn btn-warning vr-card" onclick="vr()">
+<div class="vr-show ">
+  <div class="vrr container">
+    <div class="vr-text ">
+    <a href="javascript:void(0)" class="btn  vr-card mb-3" onclick="vr()">
       <img data-src="{{ asset('ev_photos/vr.png') }}" alt="" style="margin-right:5px;" class="lazyload">
-      <span id="title">VR</span>
+      <span id="title" style="font-weight: 700;">VR</span>
     </a>
+
 
     @php
       use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,7 @@
     <!-- Heart Button -->
     <button id="heartBtn" class="heart" aria-label="Like" data-id="{{ $u_id }}"></button>
     <span id="heart_msg" class="heart_m"></span>
+    </div>
 
     <div class="venue-content">
       <div class="venue-header">
@@ -108,27 +111,26 @@
 
   <!-- ACTION CARD -->
   <div class="request">
-    <div class="card p-3" style="border-radius:12px;">
-      <div class="actions d-flex flex-nowrap align-items-stretch gap-3">
+    <div class="card p-3 me-5" style="border-radius:12px;">
+      <div class="actions d-flex flex-nowrap flex-column align-items-stretch gap-3 ">
         <a href="javascript:void(0)"
            id="see_price"
-           class="btn btn-warning fw-semibold py-3"
-           style="border-radius:8px;"
+           class="btn light-b fw-semibold py-3"
+           style="border-radius:8px;padding:100px"
            data-amount="{{ $venue['amount'] }}">
           See Price
         </a>
 
         <a href="javascript:void(0)"
-           class="btn btn-outline-warning fw-semibold py-3"
-           style="border-radius:8px;"
+           class="btn btn-outline-danger fw-semibold py-3"
+           style="border-radius:8px;color:black;"
            data-bs-toggle="modal"
            data-bs-target="#eventModal">
-          Check Availability
+          Add to event
         </a>
       </div>
-
-      @include('eventscape.venue_show.form')
     </div>
+    @include('eventscape.venue_show.form')
   </div>
 </div>
 

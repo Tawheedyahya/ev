@@ -8,7 +8,7 @@
     class="a-active"
    @else
    class="a-color"
-    @endif>Venue Providers</a>
+    @endif>Venues</a>
     <a href="{{url('eventspace/prof/dashboard')}}"  @if ($route=='prof')
     class="a-active"
     @else
@@ -30,17 +30,21 @@
     color:black;
     padding: 10px 20px;
     border-radius: 10px;
-    background: rgba(248, 248, 248, 1);
+    /* background: rgba(248, 248, 248, 1); */
+    /* border-color:red;
+     */
+     border: 1px solid red;
     text-decoration: none;
 }
 .a-color:hover{
     color: black;
 }
 .a-active{
-    background-color: orange;
+  background: #C7E9F0;
+  /* color: black; */
     padding: 10px 20px;
     border-radius: 10px;
-    color: #fff;
+    color:black;
 }
 </style>
 

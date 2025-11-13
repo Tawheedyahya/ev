@@ -2,7 +2,7 @@
 
 <div class="venues-wrap">
     @forelse ($professionals as $prof)
-        <a href="{{route('ser.service_provider',$prof['id'])}}">
+        <a href="{{route('ser.service_provider',$prof['id'])}}" class="underline-no">
             <div class="venue-card mb-2">
                 <div class="venue-img">
                     <img data-src="{{ $prof['logo'] ? asset($prof['logo']) : asset('images/placeholder.jpg') }}"

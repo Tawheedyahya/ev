@@ -5,7 +5,7 @@
     <div class="mb-3">
         {{-- <label for="price_range" class="form-label">price: <span id="value">50 </span> RM</label> --}}
         <input type="number" name="min" id="min_price" class="form-control min_price" placeholder="Enter min price">
-        <input type="range" class="form-range orange-range price" min="0" max="20000" step="1" id="price"
+        <input type="range" class="form-range orange-range price mt-3" min="0" max="20000" step="1" id="price"
             name="price" value="50">
     </div>
 

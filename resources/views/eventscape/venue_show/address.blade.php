@@ -12,7 +12,7 @@
                 $lon = $venue['longitude'];
             @endphp
             <a href="https://www.google.com/maps?q={{ $lat }},{{ $lon }}" target="_blank"
-                class="btn btn-warning mt-4"><i class="bi bi-geo-alt-fill me-2"></i>Click for direction</a>
+                class="btn thick-orange mt-4"><i class="bi bi-geo-alt-fill me-2"></i>Click for direction</a>
         @endif
     </div>
     <div class="manual-address card shadow-sm border-0 mt-4">

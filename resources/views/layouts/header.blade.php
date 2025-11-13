@@ -30,7 +30,8 @@
                         <a class="nav-link text-dark" @if(request()->is('contactus*')) id="nav-active"  @endif href="{{url('/contactus/dashboard')}}">Contact Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-warning ms-lg-2 mt-2 mt-lg-0" href="{{url('/vendor/venue_login_form')}}">Register as Vendor</a>
+                        <a class="btn  ms-lg-2 mt-2 mt-lg-0" href="{{url('/vendor/venue_login_form')}}" style="background: #F7941D;
+">Register as Vendor</a>
                     </li>
                 </ul>
 

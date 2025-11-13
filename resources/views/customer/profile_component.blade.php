@@ -32,7 +32,7 @@
             <option value="" style="background-color:#fffbe6;">-- Choose Category --</option>
             <option value="{{ url('/customer/profile') }}" style="background-color:#fff8cc;">Venues</option>
             <option value="{{ url('/customer/professional') }}" style="background-color:#fff3b0;">Professionals</option>
-            <option value="" style="background-color:#fff1a8;">Service Providers</option>
+            {{-- <option value="" style="background-color:#fff1a8;">Service Providers</option> --}}
         </select>
     </div>
     {{-- @include('customer.bookings') --}}

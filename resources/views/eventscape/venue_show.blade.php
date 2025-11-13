@@ -7,7 +7,7 @@
     $location=ucwords($venue['venue_city']);
     $description1=ucfirst($venue['description']);
     @endphp
-        <a href="{{ route('card.venue', $venue) }}">
+        <a href="{{ route('card.venue', $venue) }}" class="underline-no">
             <div class="venue-card mb-2">
                 <div class="venue-img">
                     <img data-src="{{ $venue['doc'] ? asset($venue['doc']) : asset('images/placeholder.jpg') }}"
@@ -16,12 +16,12 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3>{{ $company_name }}</h3>
+                        <h3 style="com-nmae">{{ $company_name }}</h3>
                     </div>
 
                     <div class="venue-location">
                         <p>
-                            <i class="bi bi-geo-alt-fill text-danger"></i>
+                            <i class="bi bi-geo-alt-fill text-danger" style="font-size:25px;"></i>
                             {{ $location }}
                         </p>
                     </div>
@@ -55,6 +55,17 @@
     </style>
 @endif
 <style>
+    .com-name{
+        font-family: Poppins;
+font-weight: 600;
+font-style: SemiBold;
+font-size: 28px;
+leading-trim: NONE;
+line-height: 100%;
+letter-spacing: 0%;
+vertical-align: bottom;
+
+    }
     .venues-wrap {
         display: flex;
         /* grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); */
@@ -82,7 +93,9 @@
     .venue-body {
         flex: 1;
     }
-
+    .underline-no:hover{
+        text-decoration: none;
+    }
     /* Mobile */
     @media (max-width: 768px) {
         .venue-card {

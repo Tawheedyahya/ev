@@ -5,7 +5,7 @@
     @php
     $Profession=ucwords($prof->professionlist->name??$prof['profession_name'])
     @endphp
-        <a href="{{route('prof.professional',$prof['id'])}}">
+        <a href="{{route('prof.professional',$prof['id'])}}" class="underline-no">
             <div class="venue-card mb-2">
                 <div class="venue-img">
                     <img data-src="{{ $prof['prof_logo'] ? asset($prof['prof_logo']) : asset('images/placeholder.jpg') }}"

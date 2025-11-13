@@ -1,4 +1,4 @@
-<div class="work-show container-fluid">
+<div class="work-show container-fluid mt-5">
     <img src="{{ asset('ev_photos/work.png') }}" alt="" id="work-png" class="img-fluid" loading="lazy">
 </div>
 <div class="girl">
@@ -10,12 +10,13 @@
 <style>
     .work-show {
         margin-top: 40px;
-        background: rgba(247, 148, 29, 1);
-        padding: 30px 10px;
+       background: #2C3E50;
+        padding: 70px 40px;
         border-radius: 20px;
         /* align-content: center;
          */
         text-align: center;
+        margin-bottom: 200px;
     }
 
     .girl {

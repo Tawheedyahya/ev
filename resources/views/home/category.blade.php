@@ -1,5 +1,5 @@
-<div class="catagorize">
-    <a href="" class="a-color a-active">Venue Providers</a>
+<div class="catagorize mb-5">
+    <a href="" class="a-color a-active">Verified Venues</a>
     <a href="javascript:void(0)" class="a-color" onclick="change(this)">Professionals</a>
     <a href="javascript:voit(0)" class="a-color" onclick="changee(this)">Service Providers</a>
     {{-- <a href="" class="a-color">Registeration-status</a> --}}
@@ -24,14 +24,14 @@
     text-align: center;
 }
 .a-active{
-    background: rgba(247, 148, 29, 1);
+    background: #C7E9F0;
     border-radius: 30px;
     /* width: 100px; */
 }
 </style>
 <script>
     function change(e){
-        $('.categoryy').load('/yahi',function(response,status,xhr){
+        $('.fetch').load('/yahi .categoryy > *',function(response,status,xhr){
             if(status=='success'){
                 console.log(xhr.statusText)
                 $('.a-active').removeClass('a-active')
@@ -42,7 +42,7 @@
         })
     }
     function changee(e){
-        $('.categoryy').load('/ya',function(response,status,xhr){
+        $('.fetch').load('/ya .categoryy > *',function(response,status,xhr){
             if(status=='success'){
                 console.log(xhr.statusText)
                 $('.a-active').removeClass('a-active')
