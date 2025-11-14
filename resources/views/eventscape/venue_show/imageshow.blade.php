@@ -126,7 +126,7 @@
            style="border-radius:8px;color:black;"
            data-bs-toggle="modal"
            data-bs-target="#eventModal">
-          Add to event
+          Book event
         </a>
       </div>
     </div>

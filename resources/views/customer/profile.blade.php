@@ -204,7 +204,7 @@
                     <div class="profile-card p-5 p-md-4">
                         <div class="d-flex justify-content-between align-items-start mb-3">
                             <span class="badge profile-badge">Profile</span>
-                            <a href="#" class="profile-edit-link">Edit</a>
+                            {{-- <a href="#" class="profile-edit-link">Edit</a> --}}
                         </div>
 
                         <div class="row align-items-center g-4">
