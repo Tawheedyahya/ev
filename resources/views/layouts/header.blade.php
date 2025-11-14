@@ -16,7 +16,7 @@
             {{-- Collapsible Nav --}}
             <div class="collapse navbar-collapse" id="mainNav">
                 {{-- Center nav: stacks on mobile, centered on lg+ --}}
-                <ul class="navbar-nav mx-lg-auto mt-2 mt-lg-0 gap-5  align-items-lg-center">
+                <ul class="navbar-nav mx-lg-auto mt-2 mt-lg-0 lg-gap-5  align-items-lg-center">
                     <li class="nav-item " style="margin: 10px;">
                         <a class="nav-link text-dark" @if(request()->is('home*')) id="nav-active" @endif href="{{ url('/') }}">Home</a>
                     </li>
