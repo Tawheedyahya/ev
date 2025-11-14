@@ -1,41 +1,58 @@
 @extends('welcome')
 @section('title', 'dashboard')
+<style>
 
+</style>
 @section('content')
     <div class="dashboard-wrap">
-        @include('components.toast')
         @include('customer.sidebar')
-
-
-        <main class="main-content container">
+        {{-- MAIN --}}
+        <main class="main-content container-fluid profile-layout" style="background-color: #F7DBB7;">
+            @include('components.toast')
             <div class="row">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="profile-card p-3 p-md-4 border rounded bg-white">
-                        <div class="row align-items-center g-5">
+                <div class="col-12 col-md-8 col-lg-8 col-xl-8 col-xxl-9 ">
+                    <div class="profile-card p-5 p-md-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge profile-badge">Profile</span>
+                            <a href="#" class="profile-edit-link">Edit</a>
+                        </div>
+
+                        <div class="row align-items-center g-4">
                             <div class="col-auto">
-                                <i class="bi bi-person-circle" style="font-size:100px;"></i>
+                                <div class="avatar-circle">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
                             </div>
                             <div class="col">
-                                <h5 class="mb-1">Name</h5>
-                                <p class="mb-0">{{ Auth::user()->name }}</p>
-                                <p class="mb-0">{{ Auth::user()->phone }}</p>
+                                <h4 class="profile-name mb-1">Name</h4>
+                                <p class="mb-0 profile-email">{{ Auth::user()->email }}</p>
+                                <p class="mb-0 profile-phone">{{ Auth::user()->phone }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {{-- Event cart style wrapper for bookings --}}
+            <section class="event-cart mt-4">
+                <div class="align-items-center mb-2">
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-md-8 col-lg-6">
+                        <h3 class="mt-4 mb-4 title-with-underline">YOUR LIKED VENUES</h3>
+                        @include('customer.card')
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-8 col-lg-6">
-            <h3 class="mt-4 mb-4 title-with-underline">YOUR LIKED VENUES</h3>
-            @include('customer.card')
-        </div>
-    </div>
 @endsection
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('manual_css/profile.css') }}">
 @endpush
+
 @push('scripts')
     <script>
         function toggleSidebar() {

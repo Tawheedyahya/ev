@@ -1,42 +1,57 @@
 @extends('welcome')
 @section('title', 'dashboard')
+<style>
 
+</style>
 @section('content')
     <div class="dashboard-wrap">
-        @include('components.toast')
         @include('customer.sidebar')
-
         {{-- MAIN --}}
-        <main class="main-content container">
+        <main class="main-content container-fluid profile-layout" style="background-color: #F7DBB7;">
+            @include('components.toast')
             <div class="row">
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="profile-card p-3 p-md-4 border rounded bg-white">
-                        <div class="row align-items-center g-5">
+                <div class="col-12 col-md-8 col-lg-8 col-xl-8 col-xxl-9 ">
+                    <div class="profile-card p-5 p-md-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge profile-badge">Profile</span>
+                            <a href="#" class="profile-edit-link">Edit</a>
+                        </div>
+
+                        <div class="row align-items-center g-4">
                             <div class="col-auto">
-                                <i class="bi bi-person-circle" style="font-size:100px;"></i>
+                                <div class="avatar-circle">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
                             </div>
                             <div class="col">
-                                <h5 class="mb-1">Name</h5>
-                                <p class="mb-0">{{ Auth::user()->name }}</p>
-                                <p class="mb-0">{{ Auth::user()->phone }}</p>
+                                <h4 class="profile-name mb-1">Name</h4>
+                                <p class="mb-0 profile-email">{{ Auth::user()->email }}</p>
+                                <p class="mb-0 profile-phone">{{ Auth::user()->phone }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {{-- Event cart style wrapper for bookings --}}
+            <section class="event-cart mt-4">
+                <div class="align-items-center mb-2">
+                    <h5 class="mb-0 event-cart-title" style="font-weight:1000;font-size:30px;">Event cart</h5>
+                    {{-- Category select under services or where you like --}}
+                    <div class="category-select-wrap py-4">
+                        <select id="redirection" class="form-select shadow-sm category-select">
+                            <option value="">-- Choose Category --</option>
+                            <option value="{{ url('/customer/login_form') }}">Venues</option>
+                            <option value="{{ url('/customer/professional') }}">Professionals</option>
+                        </select>
+                    </div>
+                    {{-- your estimation etc. can go here later if needed --}}
+                </div>
+
+                @yield('component')
+            </section>
         </main>
     </div>
-    <div class="py-5">
-        <select id="redirection" class="form-select shadow-sm"
-            style="max-width: 300px; border-radius: 8px; border: 2px solid #ffc107; font-weight: 500; color: #333;">
-            <option value="" style="background-color:#fffbe6;">-- Choose Category --</option>
-            <option value="{{ url('/customer/profile') }}" style="background-color:#fff8cc;">Venues</option>
-            <option value="{{ url('/customer/professional') }}" style="background-color:#fff3b0;">Professionals</option>
-            {{-- <option value="" style="background-color:#fff1a8;">Service Providers</option> --}}
-        </select>
-    </div>
-    {{-- @include('customer.bookings') --}}
-    @yield('component')
 @endsection
 
 @push('styles')

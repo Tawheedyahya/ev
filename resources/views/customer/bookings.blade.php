@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{asset('manual_js/eventspace/datechange.js')}}" defer></script>
 
-<div class="orders container mt-5">
+<div class="orders mt-5">
     <h4 class="mb-3">Your Bookings</h4>
     <div class="row g-3">
         @forelse ($orders as $order)
@@ -29,7 +29,7 @@
                 $fromInputId = 'starts-' . $order_id;
                 $toInputId = 'ends-' . $order_id;
                 $modalId = 'orderModal-' . $order_id;
-                
+
             @endphp
 
             <div class="col-12 col-sm-6 col-lg-3 col-xl-2">
