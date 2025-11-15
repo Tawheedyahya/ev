@@ -30,7 +30,7 @@ $professionals = Professional::with('proserviceplace','professionlist','info')->
 $info=$professionals->info;
 unset($professionals->info);
 $suggest = Professional::with('proserviceplace','professionlist')
-    ->whereNotIn('id', [$id])->where('profession',$professionals->profession)
+    ->whereNotIn('id', [$id])->where('profession',$professionals->profession)->where('status','approved')
     ->inRandomOrder()
     ->take(3)
     ->get();
