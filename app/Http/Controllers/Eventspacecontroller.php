@@ -161,7 +161,9 @@ class Eventspacecontroller extends Controller
     {
         if ($id) {
             $venue = Venue::with('venueimages', 'room', 'provider')->findOrFail($id)->toArray();
+            $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->inRandomOrder()->take(5)->get();
             // $provider=Venue::
+            // echo data_get($venue,'venueimages.0.doc');
             // pr($venue);
             $provider = $venue['provider'];
             unset($venue['provider']);
@@ -173,7 +175,7 @@ class Eventspacecontroller extends Controller
             unset($venue['venueimages']);
             // $venue=array_column($venue['venueimages'],'doc');
             // pr($venue);
-            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider'));
+            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider','suggest'));
         }
     }
     public function book($id, Request $request)
