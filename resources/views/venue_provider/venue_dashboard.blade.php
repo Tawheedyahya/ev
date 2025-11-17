@@ -67,7 +67,7 @@
 @endsection
 @include('components.cdn.jquery')
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('manual_css/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('manual_css/datatables.css') }}?v={{filemtime(public_path('manual_css/datatables.css'))}}">
 @endpush
 
 @push('scripts')

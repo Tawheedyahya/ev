@@ -102,7 +102,7 @@
     <script src="{{ asset('manual_js/datatables.js') }}"></script>
 @endpush
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('manual_css/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('manual_css/datatables.css') }}?v={{filemtime(public_path('manual_css/datatables.css'))}}">
     <style>
         .badge-gradient-success {
             background: linear-gradient(45deg, #28a745, #5dd39e);
