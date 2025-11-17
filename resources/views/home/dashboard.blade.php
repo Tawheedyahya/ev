@@ -9,7 +9,7 @@ home dashboard
     {{-- Banner Section --}}
     <div class="position-relative text-center">
         <img src="{{ asset('ev_photos/home_page.png') }}" class="img-fluid w-100" alt="Banner"
-            style="height: 614px; object-fit: cover;">
+            style="height: 614px; object-fit: cover;" loading="lazy">
 
         <div class="position-absolute top-50 start-50 translate-middle text-white">
             <h1 class="fw-bold">YOUR ONE-STOP DESTINATION FOR EVENT PLANNING EXCELLENCE</h1>

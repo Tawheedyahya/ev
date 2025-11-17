@@ -1,6 +1,6 @@
 <div class="address mt-5 ms-md-5 ms-lg-5 ms-xxl-5 ms-xl-5">
     <div class="heading">
-        <h1>Venue address</h1>
+        <h3>Venue address</h3>
     </div>
     <div class="map-img">
         <img src="{{ asset('ev_photos/map.png') }}" alt="" loading="lazy" style="width: 100%;margin-top:10px;">

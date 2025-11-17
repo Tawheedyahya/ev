@@ -9,14 +9,14 @@
 </div>
 <style>
     .work-show {
-        margin-top: 40px;
+        /* margin-top: 20px; */
        background: #2C3E50;
-        padding: 70px 40px;
+        padding: 40px 40px;
         border-radius: 20px;
         /* align-content: center;
          */
         text-align: center;
-        margin-bottom: 200px;
+        margin-bottom: 20px;
     }
 
     .girl {

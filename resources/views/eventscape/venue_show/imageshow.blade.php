@@ -47,10 +47,10 @@
 
     <div class="venue-content">
       <div class="venue-header">
-        <h1 class="mt-3">
+        <h3 class="mt-3">
           <i class="bi bi-building me-2"></i>
           {{ $venue['venue_name'] }}
-        </h1>
+        </h3>
       </div>
 
       <div class="venue-description">
@@ -58,7 +58,7 @@
       </div>
 
       <div class="venue-specifications">
-        <h5 class="mt-3 mb-3 fw-semibold">Venue Specification</h5>
+        <h3 class="mt-3 mb-3">Venue Specification</h3>
 
         <div class="spec-list d-flex flex-wrap gap-3">
           @forelse (array_slice($images, 1) as $im)

@@ -10,7 +10,7 @@
         gap: 15px;
     }
     .fetch{
-        margin-bottom: 150px;
+        margin-bottom: 10px;
     }
 
     .venue-card {
@@ -83,7 +83,7 @@
         @foreach ($venues as $venue)
             <a href="{{ route($action, $venue['id']) }}" class="venue-card">
                 <img data-src="{{ asset($venue['doc']) }}"
-                     alt="{{ $venue['venue_name'] ?? 'Venue' }}" class="lazyload">
+                     alt="{{ $venue['venue_name'] ?? 'Venue' }}" class="lazyload" loading="lazy" decoding="async">
 
                 <div class="overlay">
                     <h4>{{ $venue['venue_name'] ?? 'Venue' }}</h4>

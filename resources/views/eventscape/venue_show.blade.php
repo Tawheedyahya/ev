@@ -55,17 +55,15 @@
     </style>
 @endif
 <style>
-    .com-name{
-        font-family: Poppins;
-font-weight: 600;
-font-style: SemiBold;
-font-size: 28px;
-leading-trim: NONE;
-line-height: 100%;
-letter-spacing: 0%;
-vertical-align: bottom;
+.com-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;      /* SemiBold */
+    font-size: 28px;
+    line-height: 1.1;      /* Slight space like your image */
+    letter-spacing: 0px;
+    color: #000;           /* clean black */
+}
 
-    }
     .venues-wrap {
         display: flex;
         /* grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); */

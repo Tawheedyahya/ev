@@ -43,7 +43,7 @@
     width: 100%;      /* use full screen width */
     max-width: none;  /* remove the 1100px limit */
     margin: 30px 0 0 0;
-    padding-bottom: 70px;       /* or e.g. 0 20px if you want a little inner spacing */
+    padding-bottom: 5px;       /* or e.g. 0 20px if you want a little inner spacing */
     box-sizing: border-box;
     border-spacing: 50px;
 }

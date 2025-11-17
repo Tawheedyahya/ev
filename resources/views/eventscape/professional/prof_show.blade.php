@@ -24,12 +24,12 @@
                         </p>
                     </div>
 
-                    <div class="venue-description">
+                    {{-- <div class="venue-description">
                         <p>Experience:{{ $prof->experience??$prof['experience'] }} years</p>
-                    </div>
-                    <div class="venue-profession">
+                    </div> --}}
+                    {{-- <div class="venue-profession">
                         <p>Profession: {{$Profession}}</p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </a>
