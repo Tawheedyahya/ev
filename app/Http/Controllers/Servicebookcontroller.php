@@ -6,6 +6,7 @@ use App\Models\Servicecategory;
 use App\Models\Serviceplace;
 use App\Models\Serviceproviders;
 use Illuminate\Http\Request;
+use Illuminate\Support\ServiceProvider;
 
 class Servicebookcontroller extends Controller
 {
@@ -24,6 +25,9 @@ class Servicebookcontroller extends Controller
         // return 'hi';
         $provider=Serviceproviders::with(['categories:id,name','places','blogs','info'])->findOrFail($id);
         // pr($provider->toArray());
+        $c_id=$provider->categories->id;
+        $suggest=Serviceproviders::with(['categories:id,name','places','blogs','info'])->whereNotIn('id',[$id])->where('category',$c_id)->where('status','approved')->inRandomOrder()->take(5)->get();
+        // pr($suggest->toArray());
         $info=$provider->info;
         unset($provider->info);
         $blogs=$provider->blogs;
@@ -32,6 +36,6 @@ class Servicebookcontroller extends Controller
         unset($provider['places']);
         unset($provider['categories']);
         // pr($provider->toArray());
-        return view('eventscape.service_providers.serviceprovider_show.show',compact('provider','category','service_place','blogs','info'));
+        return view('eventscape.service_providers.serviceprovider_show.show',compact('provider','category','service_place','blogs','info','suggest'));
     }
 }

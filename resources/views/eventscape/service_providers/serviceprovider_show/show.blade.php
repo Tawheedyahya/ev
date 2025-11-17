@@ -3,6 +3,46 @@
 <link rel="stylesheet" href="{{ asset('manual_css/ckeditor.css') }}">
 @section('content')
     <style>
+        /* Horizontal rail */
+        .cards-rail {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 4px 4px 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Each card in the rail */
+        .item-card {
+            width: 220px;
+            /* desktop default width */
+            flex: 0 0 220px;
+            /* prevents wrapping */
+            scroll-snap-align: start;
+        }
+
+        /* Optional: nicer scrollbar on webkit */
+        /* .cards-rail::-webkit-scrollbar { height: 8px; }
+    .cards-rail::-webkit-scrollbar-thumb {
+      background: #d7d7d7; border-radius: 4px;
+    } */
+
+        /* Mobile: show ONE card per view, full-width feel */
+        @media (max-width: 576px) {
+            .cards-rail {
+                scroll-snap-type: x mandatory;
+                /* snap between cards */
+                gap: 16px;
+                padding-left: 8px;
+            }
+
+            .item-card {
+                flex: 0 0 90%;
+                /* ~one card per screen */
+                max-width: 90%;
+            }
+        }
+
         /* ====== Layout ====== */
         .vendor-page {
             --card-radius: 16px;
@@ -199,7 +239,7 @@
 
     @php
         use Illuminate\Support\Str;
-        $ser=data_get($provider,'categories.name');
+        $ser = data_get($provider, 'categories.name');
         $startsFrom = $provider['starts_from'] ?? 'S$315.00';
         $rating = $provider['rating'] ?? '5';
         $googleIcon = '★';
@@ -254,13 +294,13 @@
                                     </div>
                                 @endif
 
-                                 {{-- @if (!empty($service)) --}}
-                                    <div class="kv">
-                                        <span class="icon"><i class="bi bi-briefcase"></i></span>
-                                        <a href="#" class="text-decoration-none">
-                                            {{ $ser }}
-                                        </a>
-                                    </div>
+                                {{-- @if (!empty($service)) --}}
+                                <div class="kv">
+                                    <span class="icon"><i class="bi bi-briefcase"></i></span>
+                                    <a href="#" class="text-decoration-none">
+                                        {{ $ser }}
+                                    </a>
+                                </div>
                                 {{-- @endif --}}
 
                                 @if (!empty($provider['whatsapp']))
@@ -358,22 +398,22 @@
         </div> {{-- END row.g-4 --}}
 
         {{-- About Us --}}
-        @if(isset($info->about_us))
-        <div class="row mb-3">
-            <div class="col-12">
-                <strong>ABOUT US:</strong>
-                {!! $info->about_us !!}
+        @if (isset($info->about_us))
+            <div class="row mb-3">
+                <div class="col-12">
+                    <strong>ABOUT US:</strong>
+                    {!! $info->about_us !!}
+                </div>
             </div>
-        </div>
         @endif
-        @if(isset($info->about_us))
-        {{-- Description --}}
-        <div class="row mb-3">
-            <div class="col-12 editor-output">
-                <strong>DESCRIPTION:</strong>
-                {!! $info->long_description !!}
+        @if (isset($info->about_us))
+            {{-- Description --}}
+            <div class="row mb-3">
+                <div class="col-12 editor-output">
+                    <strong>DESCRIPTION:</strong>
+                    {!! $info->long_description !!}
+                </div>
             </div>
-        </div>
         @endif
         {{-- Service Places --}}
         <div class="service_places">
@@ -403,12 +443,46 @@
 
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
         </div> {{-- END service_places --}}
+        {{-- suggestion --}}
+        <section class="service_provider_suggestion mt-5">
+            <h5 class="fw-bold mb-3">Related service providers</h5>
+
+            <div class="cards-rail">
+                @forelse ($suggest as $s)
+                    <div class="card border-0 shadow-sm text-center rounded-3 item-card">
+                        <a href="{{ route('ser.service_provider', $s->id) }}" class="text-decoration-none text-dark">
+                            <img src="{{ asset($s->logo ?? 'images/default.jpg') }}" alt="{{ $s->companyname }}"
+                                class="card-img-top rounded-top" style="object-fit: cover; height: 160px;"
+                                loading="lazy">
+
+                            <div class="card-body p-2">
+                                <p class="fw-semibold mb-1 text-truncate" title="{{ $s->companyname }}">
+                                    {{ $s->companyname }}
+                                </p>
+                                <p class="text-muted small mb-1">
+                                    {{ $s->categories->name }}
+                                </p>
+                                @if (!empty($s->proserviceplace))
+                                    <p class="small text-secondary mb-0">
+                                        <i class="bi bi-geo-alt"></i>
+                                        {{ collect($s->proserviceplace)->pluck('name')->join(', ') }}
+                                    </p>
+                                @endif
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-muted">No other service provider found for this category.</p>
+                @endforelse
+            </div>
+        </section>
     </div> {{-- END container.vendor-page --}}
 
     <script>
         document.querySelectorAll('#vendorTabs .nav-link').forEach(btn => {
             btn.addEventListener('click', e => {
-                document.querySelectorAll('#vendorTabs .nav-link').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('#vendorTabs .nav-link').forEach(b => b.classList.remove(
+                    'active'));
                 e.currentTarget.classList.add('active');
                 document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
                 document.querySelector(e.currentTarget.dataset.tab).style.display = '';

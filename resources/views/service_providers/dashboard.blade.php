@@ -66,9 +66,12 @@
                         </p>
                     </div>
                 </div>
+                @if(isset($info->about_us))
                 <div class="row mb-3">
                     <strong>About us:</strong>{!! $info->about_us !!}
                 </div>
+                @endif
+                @if(isset($info->long_description))
                 <div class="row mb-3">
 
                     <div class="col-12 editor-output">
@@ -76,6 +79,7 @@
                         {!! $info->long_description !!}
                     </div>
                 </div>
+                @endif
         </div>
     </div>
     </div>
