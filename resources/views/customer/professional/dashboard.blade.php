@@ -11,6 +11,7 @@
             @forelse ($bookings as $booking)
                 @php
                     $id = data_get($booking, 'id');
+                    $venueId=data_get($booking,'professional_id');
                     $logo = data_get($booking, 'professionals.prof_logo');
                     $company_name = data_get($booking, 'professionals.companyname');
                     $name = data_get($booking, 'professionals.name');
@@ -61,6 +62,9 @@
                                     View
                                 </button>
                             @endif
+                              @include('components.ratings',[
+                        'type'=>2
+                      ])
                         </div>
                     </div>
                 </div>

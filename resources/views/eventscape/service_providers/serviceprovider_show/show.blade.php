@@ -399,7 +399,7 @@
 
         {{-- About Us --}}
         @if (isset($info->about_us))
-            <div class="row mb-3">
+            <div class="row mb-3 mt-5">
                 <div class="col-12">
                     <strong>ABOUT US:</strong>
                     {!! $info->about_us !!}

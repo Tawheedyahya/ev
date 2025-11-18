@@ -31,7 +31,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    
+
     height: 90vh;
     display: flex;
     align-items: center;
@@ -373,7 +373,7 @@
     <div class="hero-box">
       <h1>GROW YOUR<br>EVENT BUSINESS</h1>
       <p>Get more bookings</p>
-      <a href="#" class="register-btn">REGISTER AS VENDOR</a>
+      <a href="{{url('/eventspace/venues_provider/dashboard')}}" class="register-btn">REGISTER AS VENDOR</a>
     </div>
 </section>
 
@@ -529,8 +529,8 @@
 
       <!-- Right Steps -->
        <div style="flex:1; min-width:350px; display:flex; justify-content:center;">
-        <img src="{{ asset('ev_photos/Howitworks.jpg') }}" 
-         alt="How it works" 
+        <img src="{{ asset('ev_photos/Howitworks.jpg') }}"
+         alt="How it works"
          style="max-width:380px; width:100%; height:auto;">
        </div>
     </div>

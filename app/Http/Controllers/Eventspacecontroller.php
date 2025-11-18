@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Occasion;
 use App\Models\Professional;
+use App\Models\Ratingall;
 use App\Models\Serviceproviders;
+use App\Models\User;
 use App\Models\Venue;
 use App\Models\Venuefacility;
 use Illuminate\Http\Request;
@@ -160,6 +162,8 @@ class Eventspacecontroller extends Controller
     public function venue($id)
     {
         if ($id) {
+            $rating=Ratingall::with('user')->where('type',1)->where('vorp_id',$id)->get();
+            // pr($rating->toArray());
             $venue = Venue::with('venueimages', 'room', 'provider')->findOrFail($id)->toArray();
             $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->inRandomOrder()->take(5)->get();
             // $provider=Venue::
@@ -175,7 +179,7 @@ class Eventspacecontroller extends Controller
             unset($venue['venueimages']);
             // $venue=array_column($venue['venueimages'],'doc');
             // pr($venue);
-            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider','suggest'));
+            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider','suggest','rating'));
         }
     }
     public function book($id, Request $request)

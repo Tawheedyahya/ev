@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Professional;
+use App\Models\Rating;
+use App\Models\Ratingall;
 use App\Models\Serviceproviders;
 use App\Models\Venue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Homecontroller extends Controller
 {
@@ -59,5 +62,28 @@ class Homecontroller extends Controller
             ];
         },$sers);
          return view('home.category_show',compact('venues','action'));
+    }
+    public function ratings(Request $request,$id,$type){
+
+        if(!Auth::check()){
+            return redirect('/customer/login_form')->with('error','Need to Login First');
+        }
+        if(!$request->has('rating')){
+            return back()->with('error','rating is required');
+        }
+        // echo $type;
+        $user=Auth::user()->id;
+        Ratingall::updateOrCreate(
+            [
+                'user_id'=>$user,
+                'vorp_id'=>$id,
+                'type'=>$type
+            ],
+            [
+                'ratings'=>$request->input('rating'),
+                'description'=>$request->input('description')??null
+            ]
+        );
+        return back()->with('success','Ratings done for this booking');
     }
 }

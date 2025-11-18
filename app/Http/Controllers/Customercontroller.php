@@ -303,7 +303,7 @@ class Customercontroller extends Controller
     public function professional_book(){
         // echo 'hi';
         $bookings=Bookprofessional::with('professionals:companyname,id,prof_logo,name,phone')->where('user_id',Auth::id())->get();
-        // pr($bookings);
+        // pr($bookings->toArray());
         return view('customer.professional.dashboard',compact('bookings'));
     }
     public function prof_booking_cancel($id){

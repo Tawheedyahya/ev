@@ -175,3 +175,4 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
 });
 Route::get('/yahi',[Homecontroller::class,'prof']);
 Route::get('/ya',[Homecontroller::class,'ser']);
+Route::post('/ratings/{id}/{type}',[Homecontroller::class,'ratings'])->name('overall_ratings');

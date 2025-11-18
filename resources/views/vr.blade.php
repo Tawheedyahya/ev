@@ -183,7 +183,9 @@
   <div class="about-text">
     <h2>Lorem Ipsum</h2>
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, magnam, aspernatur quo asperiores, quam ut at maiores ex doloribus recusandae et neque repellat beatae esse accusamus. Inventore, sint, possimus minima adipisci rerum, explicabo quos earum culpa sapiente libero iste voluptatum aliquid fugiat? Assumenda, optio fugit. Mollitia quae provident enim velit, sit fugiat. Corrupti minus id facere laboriosam, saepe a illo eius eaque amet. Quisquam, voluptates. Accusamus mollitia, atque dolore impedit pariatur facilis doloremque alias in! Repellendus maxime iusto ipsam autem, ab recusandae, repellat ex, quos esse a atque. Assumenda rem quisquam neque a delectus aperiam cupiditate nobis facilis? Reprehenderit, iusto doloremque amet vitae alias labore fugiat dolor maxime tenetur facilis voluptates? Neque quae minima excepturi, eum, adipisci dolorem reiciendis enim tempora numquam commodi explicabo. Tempora distinctio beatae laudantium quos, maxime sit quod, dignissimos eos quas amet rerum vitae odit perferendis atque saepe quibusdam, facere exercitationem laborum ex culpa ipsa. Qui!
+      We provide a comprehensive platform dedicated to showcasing event venues across all industries. Our mission is to help venue owners enhance their visibility and connect with clients seeking spaces for weddings, corporate functions, private events, and specialised gatherings.
+Our platform is designed to present venues with clarity, structure, and professional consistency. Through high-quality profiling and streamlined discovery pathways, we ensure that clients are able to evaluate venues efficiently while venue owners benefit from broadened reach and strengthened market positioning.
+By bringing diverse event spaces into a single, trusted portal, we support informed decision-making and provide a seamless connection between venue providers and their potential clients
     </p>
   </div>
 </section>
@@ -202,7 +204,7 @@
         <div class="wsua-box">SMART VENDOR MATCHING</div>
         <div class="wsua-box">TRUSTED SERVICES</div>
       </div>
-      <a href="#" class="wsua-cta">START PLANNING</a>
+      <a href="{{url('/eventspace/venues_provider/dashboard')}}" class="wsua-cta">START PLANNING</a>
     </div>
 
     {{-- RIGHT COLUMN --}}
@@ -213,7 +215,7 @@
         <div class="wsua-box">SMART CRM TOOLS</div>
         <div class="wsua-box">FOCUS ON CREATIVITY</div>
       </div>
-      <a href="#" class="wsua-cta">REGISTER AS VENDOR</a>
+      <a href="{{url('/vendor/venue_login_form')}}" class="wsua-cta">REGISTER AS VENDOR</a>
     </div>
 
   </div>

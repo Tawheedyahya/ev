@@ -1,3 +1,12 @@
+<style>
+.toast {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 99999 !important;
+}
+</style>
+
 @if (session('success'))
 <div class="toast align-items-center text-white border-0" role="alert" style="background-color: green" aria-live="assertive" aria-atomic="true">
   <div class="d-flex">

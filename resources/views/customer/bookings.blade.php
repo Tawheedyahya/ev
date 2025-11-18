@@ -65,7 +65,11 @@
                                 View
                             </button>
                         @endif
+                      @include('components.ratings',[
+                        'type'=>1
+                      ])
                     </div>
+
                 </div>
             </div>
 

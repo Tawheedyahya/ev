@@ -14,10 +14,12 @@ home dashboard
         <div class="position-absolute top-50 start-50 translate-middle text-white">
             <h1 class="fw-bold">YOUR ONE-STOP DESTINATION FOR EVENT PLANNING EXCELLENCE</h1>
             <p>Explore verified venues, trusted service providers, and skilled professionals all in one place</p>
-            <button class="btn mobile-view-bottom"  style="color: white;background: #EB4D4B;
+            <a class="btn mobile-view-bottom"  style="color: white;background: #EB4D4B;
 
-">Start as planning</button>
-            <button class="btn" style="border:2px solid white;color:white;">let us plan for you</button>
+" href="{{url('/eventspace/venues_provider/dashboard')}}">Start as planning</a>
+            <a class="btn" style="border:2px solid white;color:white;" href="{{url('/eventspace/venues_provider/dashboard')}}">let us plan for you</a>
+            <a class="btn mobile-view-bottom"  style="color: white;background: #EB4D4B;
+" href="{{url('/customer/login_form')}}">Register as customer</a>
         </div>
     </div>
 

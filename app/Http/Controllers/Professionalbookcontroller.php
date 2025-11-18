@@ -6,6 +6,7 @@ use App\Models\Bookprofessional;
 use App\Models\Occasion;
 use App\Models\Professional;
 use App\Models\Professionlist;
+use App\Models\Ratingall;
 use App\Models\Serviceplace;
 use App\Models\User;
 use App\Models\Venuefacility;
@@ -25,6 +26,7 @@ class Professionalbookcontroller extends Controller
         return view('eventscape.professional.dashboard',compact('location','professionals','paginate','service_places','category'));
     }
     public function professional($id){
+         $rating=Ratingall::with('user')->where('type',2)->where('vorp_id',$id)->get();
 $professionals = Professional::with('proserviceplace','professionlist','info')->findOrFail($id);
 // pr($professionals->toArray());
 $info=$professionals->info;
@@ -32,7 +34,7 @@ unset($professionals->info);
 $suggest = Professional::with('proserviceplace','professionlist')
     ->whereNotIn('id', [$id])->where('profession',$professionals->profession)->where('status','approved')
     ->inRandomOrder()
-    ->take(3)
+    ->take(5)
     ->get();
 
 // pr($suggest->toArray());
@@ -70,7 +72,7 @@ if ($professionals) {
 
     // Output the result as an array
     // pr($prof);
-    return view('eventscape.professional.professional_show.show',compact('professional','service_place','suggest','p_c','info'));
+    return view('eventscape.professional.professional_show.show',compact('professional','service_place','suggest','p_c','info','rating'));
 } else {
     pr('Professional not found.');
 }

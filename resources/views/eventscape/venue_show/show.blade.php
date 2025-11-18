@@ -34,9 +34,147 @@
     max-width: 90%;
   }
 }
+/* ratings */
+/* ---- Ratings Section Wrapper ---- */
+#venue_ratings {
+  max-width: 1200px;
+  /* margin: 40px auto 0; */
+  /* padding: 0 15px; */
+}
+
+#venue_ratings > h5 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2933;
+}
+
+/* ---- Horizontal Scroll Track ---- */
+.ratings-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* nicer scrollbar on desktop */
+.ratings-track::-webkit-scrollbar {
+  height: 6px;
+}
+.ratings-track::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.7);
+  border-radius: 3px;
+}
+
+/* ---- Individual Rating Card ---- */
+.rating-box {
+  scroll-snap-align: start;
+  min-width: 280px;
+  max-width: 340px;
+  background: radial-gradient(circle at top left, #f97316 0, #1f2937 45%, #020617 100%);
+  color: #f9fafb;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle glow decoration */
+.rating-box::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.18), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* place content above glow */
+.rating-box > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Name / header line ---- */
+.rating-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rating-name::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  display: inline-block;
+}
+
+/* ---- Stars ---- */
+.rating-stars {
+  margin-bottom: 6px;
+}
+
+.rating-stars .star {
+  font-size: 1.15rem;
+  color: rgba(148, 163, 184, 0.6);
+  margin-right: 2px;
+  display: inline-block;
+}
+
+.rating-stars .star.filled {
+  color: #fde047; /* bright gold */
+}
+
+/* ---- Description ---- */
+.rating-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #e5e7eb;
+  margin-bottom: 0;
+}
+
+/* ---- No rating text ---- */
+.no-rating {
+  font-style: italic;
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+/* ---- Responsive tweaks ---- */
+@media (max-width: 992px) {
+  #venue_ratings {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .ratings-track {
+    gap: 14px;
+  }
+  .rating-box {
+    min-width: 85%;
+    max-width: 85%;
+    padding: 12px 14px;
+  }
+  .rating-stars .star {
+    font-size: 1.05rem;
+  }
+  .rating-desc {
+    font-size: 0.85rem;
+  }
+}
+
+/* end ratings */
 </style>
 @section('content')
-    <div class="" style="margin-top: 50px;">
+    <div class="container" style="margin-top: 50px;" >
         @include('components.toast')
         <div class="venue-rooms">
             @include('eventscape.venue_show.imageshow',['images'=>$images,'venue'=>$venue])
@@ -44,7 +182,7 @@
         <div class="venue-address">
             @include('eventscape.venue_show.address')
         </div>
-        <section id="venue_suggestion" style="margin-top: 50px;" class="ms-lg-5 ms-md-5 ms-xl-5 ms-xxl-5">
+        <section id="venue_suggestion" style="margin-top: 50px;" class="">
             <h5 class="fw-bold mb-3">Related Venue providers</h5>
 
             <div class="cards-rail">
@@ -79,5 +217,30 @@
                 @endforelse
             </div>
         </section>
+        <section id="venue_ratings" class="mt-5">
+            <h5 class="fw-bold mb-3">Ratings</h5>
+
+            @if(isset($rating) && $rating->count())
+                <div class="ratings-track">
+                    @foreach ($rating as $r)
+                        <div class="rating-box">
+                            <p class="rating-name">{{ $r->user->name }}</p>
+
+                            <div class="rating-stars">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <span class="star {{ $i <= $r->ratings ? 'filled' : '' }}">&#9733;</span>
+                                @endfor
+                            </div>
+
+                            <p class="rating-desc">{{ $r->description }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="no-rating">This venue has no ratings yet.</p>
+            @endif
+        </section>
+
+
     </div>
 @endsection
