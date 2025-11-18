@@ -45,7 +45,7 @@
     /* ---- Ratings Section Wrapper ---- */
     #venue_ratings {
         max-width: 1200px;
-        margin: 40px auto 0;
+        /* margin: 40px auto 0; */
         padding: 0 15px;
     }
 
@@ -159,7 +159,7 @@
     /* ---- Responsive tweaks ---- */
     @media (max-width: 992px) {
         #venue_ratings {
-            padding: 0 12px;
+            padding: 0 12px; 
         }
     }
 
@@ -192,7 +192,7 @@
         <div class="prof-places">
             @include('eventscape.professional.professional_show.prof_places')
         </div>
-        <div class="suggest mt-4 mt-5 ms-5">
+        <div class="suggest mt-4 mt-5">
             <h5 class="fw-bold mb-3 mt-5">Related professional</h5>
 
             <div class="cards-rail">

@@ -15,7 +15,7 @@
 @endif
 
 <!-- Service Places Section -->
-<div class="container mt-5" style="max-width: 800px;">
+<div class="mt-5" style="max-width: 800px;">
   <div class="card border-0 shadow-sm rounded-4 p-4">
     <h4 class="fw-bold text-dark mb-4">
       <i class="bi bi-geo-alt-fill text-warning me-2"></i> Service Places

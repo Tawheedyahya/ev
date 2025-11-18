@@ -117,7 +117,7 @@
 @endpush
 
 {{-- MAIN CONTENT --}}
-<div class="container py-5 professional-wrapper">
+<div class=" py-5 professional-wrapper">
     <div class="card professional-card">
 
         {{-- TOP SECTION --}}
