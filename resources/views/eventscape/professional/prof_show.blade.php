@@ -14,7 +14,7 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3>{{ $prof->companyname??$prof['companyname'] }}</h3>
+                        <h3  class="com-name">{{ $prof->companyname??$prof['companyname'] }}</h3>
                     </div>
 
                     <div class="venue-location">

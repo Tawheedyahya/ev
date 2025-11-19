@@ -28,8 +28,8 @@
 
                     <div class="venue-location">
                         <p class="mb-1">
-                            <i class="bi bi-geo-alt-fill text-danger" style="font-size:20px;"></i>
-                            {{ $location }}
+                            <i class="bi bi-geo-alt-fill text-danger"></i>
+                            {{ ucwords($location) }}
                         </p>
                     </div>
 

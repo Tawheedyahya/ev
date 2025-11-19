@@ -11,7 +11,7 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3>{{ ucwords($prof->companyname??$prof['companyname']) }}</h3>
+                        <h3  class="com-name">{{ ucwords($prof->companyname??$prof['companyname']) }}</h3>
                     </div>
 
                     <div class="venue-location">
