@@ -11,13 +11,13 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3  class="com-name">{{ ucwords($prof->companyname??$prof['companyname']) }}</h3>
+                        <h3  class="com-name">{{ ucwords(strtolower($prof->companyname??$prof['companyname'])) }}</h3>
                     </div>
 
                     <div class="venue-location">
-                        <p>
+                        <p style="font-size:14px;">
                             <i class="bi bi-geo-alt-fill text-danger"></i>
-                            {{ ucwords($prof->city??$prof['city']) }}
+                            {{ ucwords(strtolower($prof->city??$prof['city'])) }}
                         </p>
                     </div>
 
@@ -79,7 +79,7 @@
     .com-name {
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
-        font-size: 18px;            /* was 28px */
+        font-size: 20px;            /* was 28px */
         line-height: 1.2;
         letter-spacing: 0;
         color: #000;

@@ -23,18 +23,18 @@
                 <div class="venue-body">
                     <div class="venue-name">
                         {{-- use class instead of inline style (typo) --}}
-                        <h3 class="com-name">{{ $company_name }}</h3>
+                        <h3 class="com-name">{{ ucwords(strtolower($company_name)) }}</h3>
                     </div>
 
                     <div class="venue-location">
-                        <p class="mb-1">
+                        <p class="mb-1" style="font-size: 14px;">
                             <i class="bi bi-geo-alt-fill text-danger"></i>
-                            {{ ucwords($location) }}
+                            {{ ucwords(strtolower($location)) }}
                         </p>
                     </div>
 
                     <div class="venue-description">
-                        <p class="venue-desc-text mb-0">{{ $description1 }}</p>
+                        <p class="venue-desc-text mb-0">{{ strtolower($description1) }}</p>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
     .com-name {
         font-family: 'Poppins', sans-serif;
         font-weight: 600;
-        font-size: 18px;            /* was 28px */
+        font-size: 20px;            /* was 28px */
         line-height: 1.2;
         letter-spacing: 0;
         color: #000;
