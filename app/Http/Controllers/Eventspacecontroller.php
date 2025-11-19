@@ -31,7 +31,7 @@ class Eventspacecontroller extends Controller
             'venueimages' => fn($q) => $q->select('venue_id', 'doc')->orderBy('id')
             ,'provider'
         ])->whereHas('provider',fn($q)=>$q->where('status','approved'))
-            ->paginate(4) // per page
+            ->paginate(10) // per page
             ->through(function ($venue) {
                 $venue->doc = optional($venue->venueimages->first())->doc;
                 unset($venue->venueimages);

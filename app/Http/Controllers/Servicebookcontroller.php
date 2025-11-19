@@ -15,7 +15,7 @@ class Servicebookcontroller extends Controller
         $location=Serviceproviders::where('status','approved')->pluck('companyname')->toArray();
         $service_places=Serviceplace::all();
         $category=Servicecategory::all();
-        $professionals=Serviceproviders::with(['places','categories'])->where('status','approved')->paginate(5);
+        $professionals=Serviceproviders::with(['places','categories'])->where('status','approved')->paginate(10);
         // pr($professionals->toArray());
         $paginate=true;
         // pr($providers->toArray());
