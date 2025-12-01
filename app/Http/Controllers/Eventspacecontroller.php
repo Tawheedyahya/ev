@@ -165,10 +165,10 @@ class Eventspacecontroller extends Controller
             $rating=Ratingall::with('user')->where('type',1)->where('vorp_id',$id)->get();
             // pr($rating->toArray());
             $venue = Venue::with('venueimages', 'room', 'provider')->findOrFail($id)->toArray();
-            $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->inRandomOrder()->take(5)->get();
+            $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->where('venue_city',$venue['venue_city'])->inRandomOrder()->take(5)->get();
             // $provider=Venue::
             // echo data_get($venue,'venueimages.0.doc');
-            // pr($venue);
+            // pr($suggest->toArray());
             $provider = $venue['provider'];
             unset($venue['provider']);
             $rooms = $venue['room'];
@@ -267,6 +267,7 @@ class Eventspacecontroller extends Controller
     public function ser_filter(Request $request){
     $places = $request->get('places');
     $category = $request->get('category');
+    $price=$request->get('price');
     $query = DB::table('serviceproviders as sp')
         ->join('servicecategories as sc', 'sp.category', '=', 'sc.id');
     // pr($query);
@@ -278,6 +279,9 @@ class Eventspacecontroller extends Controller
         if (!empty($category)) {
         $query->where('sp.category', $category);
     }
+    if(!empty($price)){
+        $query->where('sp.price','<=', $price);
+    }
     $query->where('sp.status', 'approved');
       $rows = $query->select('sp.*','sc.name as profession_name')->get();
           $professionals = $rows->map(function ($r) {
@@ -287,7 +291,7 @@ class Eventspacecontroller extends Controller
             'companyname'     => (string) $r->companyname,
             'city'         => (string) $r->city,
             // 'experience'      => isset($r->experience) ? (float) $r->experience : null,
-            // 'price'           => isset($r->price) ? (float) $r->price : null,
+            'price'           => isset($r->price) ? (float) $r->price : null,
             'logo'       => $r->logo ? asset($r->logo) : asset('images/placeholder.jpg'),
             // 'email'           => (string) $r->email,
             // 'profession_id'   => (int) $r->profession,

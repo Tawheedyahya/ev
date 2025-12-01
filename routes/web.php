@@ -91,7 +91,7 @@ Route::prefix('/venue_provider')->group(function(){
     Route::get('/venues/add_venue',[Venueprovider::class,'add_venue'])->name('vp.venue.add')->middleware('venue_provider_auth');
     Route::post('/venues/add_venue',[Venueprovider::class,'register_venue'])->name('vp.venue.register')->middleware('venue_provider_auth');
     Route::get('/venues/edit_venue/{id}',[Venueprovider::class,'add_venue'])->name('vp.venue.edit')->middleware(['venue_provider_auth','venue_provider_action']);
-    Route::get('/venues/delete_venue/{id}',[Venueprovider::class,'delete_venue'])->name('vp.venue.delete')->middleware(['venue_provider_auth','venue_provider_action']);
+    Route::delete('/venues/delete_venue/{id}',[Venueprovider::class,'delete_venue'])->name('vp.venue.delete')->middleware(['venue_provider_auth','venue_provider_action']);
     Route::post('/venues/update_venue/{id}',[Venueprovider::class,'register_venue'])->name('vp.venue.update')->middleware(['venue_provider_auth','venue_provider_action']);
     // Bookings
     Route::get('/bookings/dashboard',[Bookingcontroller::class,'dashboard'])->middleware('venue_provider_auth');

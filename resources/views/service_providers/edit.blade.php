@@ -27,6 +27,15 @@
                                     <div class="return-error" id="name-error">{{ $message }}</div>
                                 @enderror
                             </div>
+                            {{-- price --}}
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="number" step="0.01" class="form-control" id="price" name="price"
+                                    placeholder="Enter amount" value="{{ old('price', $user->price) }}">
+                                @error('price')
+                                    <div class="return-error" id="price-error">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <!-- phone -->
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>

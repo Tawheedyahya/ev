@@ -1,6 +1,29 @@
 $(function () {
     const $form = $("#filter_form"); // ensure your form has id="filterform"
+     const $range = $(".price");
+    const $min = $(".min_price");
 
+    // slider -> input
+    $range.on("input change", function () {
+        $min.val(this.value);
+    });
+
+    // input -> slider (with clamping & step snapping)
+    $min.on("input change", function () {
+        const min = parseInt($range.attr("min"), 10) || 0;
+        const max = parseInt($range.attr("max"), 10) || 100;
+        const step = parseInt($range.attr("step"), 10) || 1;
+
+        let v = parseInt($(this).val().replace(/[^\d]/g, ""), 10) || min;
+        v = Math.round(v / step) * step; // snap to step
+        v = Math.min(Math.max(v, min), max); // clamp to [min, max]
+
+        $(this).val(v);
+        $range.val(v).trigger("input"); // keep everything in sync
+    });
+
+    // initialize the input with the slider's starting value
+    $min.val($range.val());
     $form.on("submit", function (e) {
         e.preventDefault();
         const dataArr = $form.serializeArray();
