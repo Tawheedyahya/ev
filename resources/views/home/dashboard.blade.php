@@ -63,9 +63,9 @@ home dashboard
     <div class="work">
         @include('home.work')
     </div>
-    <div class="testimonials">
+    {{-- <div class="testimonials">
         @include('home.testimonials')
-    </div>
+    </div> --}}
     @push('scripts')
     <script src="{{asset('manual_js/navigator.js')}}" defer></script>
     @endpush
