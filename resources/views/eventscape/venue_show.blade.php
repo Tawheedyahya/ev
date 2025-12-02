@@ -3,11 +3,29 @@
 
 <div class="venues-wrap">
     @forelse ($venues as $venue)
-        @php
-            $company_name = ucwords($venue['venue_name']);
-            $location     = ucwords($venue['venue_city']);
-            $description1 = ucfirst($venue['description']);
-        @endphp
+@php
+    // Capitalizing venue details
+    $company_name = ucwords($venue['venue_name']);
+    $location     = ucwords($venue['venue_city']);
+    $description1 = ucfirst($venue['description']);
+    $halal        = ucfirst($venue['halal']);
+
+    // Determine the food-related message and symbol
+    if ($halal == 1) {
+        $msg = "Food with halal";
+        $icon = "bi-check-circle"; // Green check symbol for halal
+        $color = "green"; // Add a green color class
+    } elseif ($venue['food_provide'] == 'yes') {
+        $msg = "Food";
+        // $icon = "✔"; // Regular check mark
+        $color = "orange"; // Default color
+    } else {
+        $msg = "";
+        $icon = ""; // No icon for "No food provided"
+        $color = ""; // No color for this case
+    }
+@endphp
+
 
         <a href="{{ route('card.venue', $venue) }}" class="underline-no">
             <div class="venue-card mb-2">
@@ -23,7 +41,7 @@
                 <div class="venue-body">
                     <div class="venue-name">
                         {{-- use class instead of inline style (typo) --}}
-                        <h3 class="com-name">{{ ucwords(strtolower($company_name)) }}</h3>
+                        <h3 class="com-name">{{ ucwords(strtolower($company_name)) }}  <span style="color: {{$color}};font-size:16px;" class="{{ $icon }}">{{ $msg }} </span></h3>
                     </div>
 
                     <div class="venue-location">
@@ -32,7 +50,6 @@
                             {{ ucwords(strtolower($location)) }}
                         </p>
                     </div>
-
                     <div class="venue-description">
                         <p class="venue-desc-text mb-0">{{ strtolower($description1) }}</p>
                     </div>

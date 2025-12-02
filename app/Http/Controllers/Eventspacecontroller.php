@@ -30,8 +30,8 @@ class Eventspacecontroller extends Controller
         $venues = Venue::with([
             'venueimages' => fn($q) => $q->select('venue_id', 'doc')->orderBy('id')
             ,'provider'
-        ])->whereHas('provider',fn($q)=>$q->where('status','approved'))
-            ->paginate(10) // per page
+        ])->whereHas('provider',fn($q)=>$q->where('status','approved'))->orderByRaw("FIELD(food_provide, 'yes','no','null')")->orderByRaw("FIELD(halal, '1','0')")
+            ->paginate(20) // per page
             ->through(function ($venue) {
                 $venue->doc = optional($venue->venueimages->first())->doc;
                 unset($venue->venueimages);
@@ -88,6 +88,7 @@ class Eventspacecontroller extends Controller
         $sql = "
         SELECT
             v.id,
+            v.halal,v.food_provide,
             v.venue_name,
             v.venue_city,
             v.description,
@@ -134,7 +135,7 @@ class Eventspacecontroller extends Controller
 
         // Group by venue-level cols (we selected one image via subquery)
         $sql .= "
-        GROUP BY v.id, v.venue_name, v.venue_city, v.description
+        GROUP BY v.id, v.venue_name, v.venue_city, v.description,v.halal,v.food_provide
     ";
 
         // Only apply HAVING when we actually filtered by facilities
@@ -147,9 +148,12 @@ class Eventspacecontroller extends Controller
             $sql .= " ORDER BY v.amount DESC, v.venue_seat_capacity ASC ";
         }
         if (!is_null($min) && $seat_capacity == null) {
-            $sql .= " ORDER BY v.amount DESC";
+            $sql .= " ORDER BY v.amount DESC,
+          FIELD(v.food_provide, 'yes', 'no', '') ASC,
+          FIELD(v.food_provide, 'null') ASC,
+          FIELD(v.halal, '1', '0')";
         }
-
+        // $sql .= " ORDER BY FIELD(v.food_provide, 'yes', 'no') ASC";
 
         $q = DB::select($sql, $bindings);
         $venues = array_map(function ($r) {
