@@ -42,6 +42,7 @@ Route::prefix('/eventspace')->group(function(){
     Route::get('/service_provider_filter',[Eventspacecontroller::class,'ser_location'])->name('ser.location');
     Route::get('/servicer_provider_filter_opt',[Eventspacecontroller::class,'ser_filter'])->name('eventspace.ser.filter');
 });
+Route::view('/terms','terms');
 Route::prefix('/aboutus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'aboutus']);
 });
@@ -172,6 +173,8 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
     Route::get('/professionals',[Admincontroller::class,'professionals_dashboard'])->name('ad.p.ds');
     Route::get('/professionals/bookings/{id}',[Admincontroller::class,'professional_bookings'])->name('professional.abookings');
     Route::get('/service_providers',[Admincontroller::class,'service_providers_dahboard'])->name('ad.sp.ds');
+    Route::get('/footer',[Admincontroller::class,'footer'])->name('ad.footer');
+    Route::post('/footer',[Admincontroller::class,'footer_submit'])->name('ad.footer.submit');
 });
 Route::get('/yahi',[Homecontroller::class,'prof']);
 Route::get('/ya',[Homecontroller::class,'ser']);

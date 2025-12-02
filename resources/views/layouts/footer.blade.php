@@ -6,29 +6,46 @@
       <!-- Left Column -->
       <div class="col-12 col-sm-6 col-md-3 text-center text-md-start">
         <ul class="list-unstyled small mb-3">
-          <li class="mb-2 fw-bold text-uppercase">Venues</li>
-          <li class="mb-2 fw-bold text-uppercase">Service Provider</li>
-          <li class="mb-2 fw-bold text-uppercase">Professionals</li>
+          <li class="mb-2 fw-bold text-uppercase"><a href="{{route('eventspace.dashboard')}}">Venues</a></li>
+          <li class="mb-2 fw-bold text-uppercase"><a href="{{route('serpro.dashboard')}}">Service Provider</a></li>
+          <li class="mb-2 fw-bold text-uppercase"><a href="{{route('prof.dashboard')}}">Professionals</a></li>
         </ul>
+        <?php
+            function format_url($url) {
+                $url = trim($url);
 
+                // If empty → return "#"
+                if (empty($url)) {
+                    return '#';
+                }
+
+                // If already starts with http or https → return as is
+                if (preg_match("/^https?:\/\//i", $url)) {
+                    return $url;
+                }
+
+                // Otherwise add https:// at the front
+                return '#';
+            }
+        ?>
         <!-- Social Icons -->
         <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-          <a href="#" class=" fs-5" aria-label="X"><i class="bi bi-x"></i></a>
-          <a href="#" class=" fs-5" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class=" fs-5" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class=" fs-5" aria-label="Vimeo"><i class="bi bi-vimeo"></i></a>
-          <a href="#" class=" fs-5" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+          <a href="@if (!empty($footer['x'])){{format_url($footer['x'])}}@else#@endif" class=" fs-5" aria-label="X"><i class="bi bi-x"></i></a>
+          <a href="@if (!empty($footer['fb'])){{format_url($footer['fb'])}}@else#@endif" class=" fs-5" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="@if (!empty($footer['ins'])){{format_url($footer['ins'])}}@else#@endif" class=" fs-5" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="@if (!empty($footer['vimeo'])){{format_url($footer['vimeo'])}}@else#@endif" class=" fs-5" aria-label="Vimeo"><i class="bi bi-vimeo"></i></a>
+          <a href="@if (!empty($footer['yt'])){{format_url($footer['yt'])}}@else#@endif" class=" fs-5" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
         </div>
       </div>
 
       <!-- Middle Column -->
       <div class="col-12 col-sm-6 col-md-3 text-center text-md-start">
         <ul class="list-unstyled small mb-0">
-          <li class="mb-2"><a href="#" class=" text-decoration-none opacity-75">Vendor Login</a></li>
-          <li class="mb-2"><a href="#" class=" text-decoration-none opacity-75">FAQ</a></li>
-          <li class="mb-2"><a href="#" class=" text-decoration-none opacity-75">Terms & Conditions</a></li>
-          <li class="mb-2"><a href="#" class=" text-decoration-none opacity-75">Privacy Policy</a></li>
-          <li class="mb-2"><a href="#" class=" text-decoration-none opacity-75">Blog</a></li>
+          <li class="mb-2"><a href="{{url('/vendor/venue_login_form')}}" class=" text-decoration-none opacity-75">Vendor Login</a></li>
+          {{-- <li class="mb-2"><a href="#" class=" text-decoration-none opacity-75">FAQ</a></li> --}}
+          <li class="mb-2"><a href="{{url('/terms')}}" class=" text-decoration-none opacity-75">Terms & Conditions</a></li>
+          <li class="mb-2"><a href="{{url('/terms')}}" class=" text-decoration-none opacity-75">Privacy Policy</a></li>
+          {{-- <li class="mb-2"><a href="#" class=" text-decoration-none opacity-75">Blog</a></li> --}}
         </ul>
       </div>
 
@@ -36,8 +53,8 @@
       <div class="col-12 col-md-6 text-center text-md-start">
         <small class="d-block opacity-75">
           By subscribing you agree to the
-          <a href="#" class=" text-decoration-underline">Terms of Use</a> &
-          <a href="#" class=" text-decoration-underline">Privacy Policy</a>.
+          <a href="{{url('/terms')}}" class=" text-decoration-underline">Terms of Use</a> &
+          <a href="{{url('/terms')}}" class=" text-decoration-underline">Privacy Policy</a>.
         </small>
       </div>
 
