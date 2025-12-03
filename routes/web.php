@@ -51,6 +51,7 @@ Route::prefix('/contactus')->group(function(){
 });
 
 Route::prefix('/customer')->group(function(){
+    Route::get('/verified_email',[Customercontroller::class,'verified']);
     Route::get('/register_form',[Customercontroller::class,'register_form']);
     Route::get('/login_form',[Customercontroller::class,'login_form']);
     Route::post('/register_form',[Customercontroller::class,'register'])->name('customer.register');
