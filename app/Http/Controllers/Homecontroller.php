@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Footer;
 use App\Models\Professional;
 use App\Models\Rating;
 use App\Models\Ratingall;
@@ -15,6 +16,8 @@ class Homecontroller extends Controller
     public function dashboard(){
         $venues=Venue::with('venueimages')->get()->toArray();
         $action='card.venue';
+        $footer=Footer::pluck('value','type');
+        // pr($footer->toArray());
         $venues=array_slice($venues,0,5);
         // pr($venues);
         $venues=array_map(function($venues){
@@ -25,7 +28,7 @@ class Homecontroller extends Controller
                 'doc'=>$venues['venueimages'][0]['doc']??null
             ];
         },$venues);
-        return view('home.dashboard',compact('venues','action'));
+        return view('home.dashboard',compact('venues','action','footer'));
     }
     public function aboutus(){
         return view('vr');

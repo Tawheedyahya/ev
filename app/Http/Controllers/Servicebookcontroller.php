@@ -30,12 +30,26 @@ class Servicebookcontroller extends Controller
         // pr($suggest->toArray());
         $info=$provider->info;
         unset($provider->info);
-        $blogs=$provider->blogs;
+        $discount=[];
+        $i=0;
+        $blogs=($provider->blogs)->map(function($b) use(&$discount){
+            if($b->type==1){
+                return $b;
+            }
+            if($b->type==2){
+                 $discount[]= [
+                    'id'=>$b->id,
+                    'discount_img'=>$b->blogimg,
+                    'description'=>$b->description
+                 ];
+            }
+        })->filter();
+        // pr($discount);
         $category=$provider->categories;
         $service_place=$provider->places;
         unset($provider['places']);
         unset($provider['categories']);
         // pr($provider->toArray());
-        return view('eventscape.service_providers.serviceprovider_show.show',compact('provider','category','service_place','blogs','info','suggest'));
+        return view('eventscape.service_providers.serviceprovider_show.show',compact('provider','category','service_place','blogs','info','suggest','discount'));
     }
 }

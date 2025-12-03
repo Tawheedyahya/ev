@@ -42,6 +42,7 @@ Route::prefix('/eventspace')->group(function(){
     Route::get('/service_provider_filter',[Eventspacecontroller::class,'ser_location'])->name('ser.location');
     Route::get('/servicer_provider_filter_opt',[Eventspacecontroller::class,'ser_filter'])->name('eventspace.ser.filter');
 });
+Route::view('/terms','terms');
 Route::prefix('/aboutus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'aboutus']);
 });
@@ -50,6 +51,7 @@ Route::prefix('/contactus')->group(function(){
 });
 
 Route::prefix('/customer')->group(function(){
+    Route::get('/verified_email',[Customercontroller::class,'verified']);
     Route::get('/register_form',[Customercontroller::class,'register_form']);
     Route::get('/login_form',[Customercontroller::class,'login_form']);
     Route::post('/register_form',[Customercontroller::class,'register'])->name('customer.register');
@@ -91,7 +93,7 @@ Route::prefix('/venue_provider')->group(function(){
     Route::get('/venues/add_venue',[Venueprovider::class,'add_venue'])->name('vp.venue.add')->middleware('venue_provider_auth');
     Route::post('/venues/add_venue',[Venueprovider::class,'register_venue'])->name('vp.venue.register')->middleware('venue_provider_auth');
     Route::get('/venues/edit_venue/{id}',[Venueprovider::class,'add_venue'])->name('vp.venue.edit')->middleware(['venue_provider_auth','venue_provider_action']);
-    Route::get('/venues/delete_venue/{id}',[Venueprovider::class,'delete_venue'])->name('vp.venue.delete')->middleware(['venue_provider_auth','venue_provider_action']);
+    Route::delete('/venues/delete_venue/{id}',[Venueprovider::class,'delete_venue'])->name('vp.venue.delete')->middleware(['venue_provider_auth','venue_provider_action']);
     Route::post('/venues/update_venue/{id}',[Venueprovider::class,'register_venue'])->name('vp.venue.update')->middleware(['venue_provider_auth','venue_provider_action']);
     // Bookings
     Route::get('/bookings/dashboard',[Bookingcontroller::class,'dashboard'])->middleware('venue_provider_auth');
@@ -172,6 +174,8 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
     Route::get('/professionals',[Admincontroller::class,'professionals_dashboard'])->name('ad.p.ds');
     Route::get('/professionals/bookings/{id}',[Admincontroller::class,'professional_bookings'])->name('professional.abookings');
     Route::get('/service_providers',[Admincontroller::class,'service_providers_dahboard'])->name('ad.sp.ds');
+    Route::get('/footer',[Admincontroller::class,'footer'])->name('ad.footer');
+    Route::post('/footer',[Admincontroller::class,'footer_submit'])->name('ad.footer.submit');
 });
 Route::get('/yahi',[Homecontroller::class,'prof']);
 Route::get('/ya',[Homecontroller::class,'ser']);

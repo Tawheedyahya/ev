@@ -199,17 +199,19 @@ class Venueprovider extends Controller
                 $re_entry = true;
                 $this->venue_images_insert($request, $venue_id, $re_entry);
             });
-            return back()->with('success','Venue updated successfully');
+            return redirect('/venue_provider/venues/dashbaord')->with('success','Venue updated successfully');
         }
         $this->validate($request);
+        $venue_id=null;
         if (!$id || $id == null) {
-            DB::transaction(function () use ($request) {
+            DB::transaction(function () use ($request,&$venue_id) {
                 $venue_id = $this->venue_details_insert($request);
                 $this->venue_types_insert($request, $venue_id);
                 $this->venue_facilities_insert($request, $venue_id);
                 $this->venue_images_insert($request, $venue_id);
+                $venue_id=$venue_id;
             });
-            return back()->with('success', 'Venue uploaded successfully');
+            return redirect('/venue_provider/venues/dashbaord')->with('success', 'Venue uploaded successfully you can add your venue rooms under room section')->with('highlight_id ',$venue_id);
         }
     }
 
