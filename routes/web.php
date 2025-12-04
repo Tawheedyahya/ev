@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\Apicontroller;
 use App\Http\Controllers\Bookingcontroller;
 use App\Http\Controllers\Customercontroller;
 use App\Http\Controllers\Eventspacecontroller;
@@ -180,3 +181,11 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
 Route::get('/yahi',[Homecontroller::class,'prof']);
 Route::get('/ya',[Homecontroller::class,'ser']);
 Route::post('/ratings/{id}/{type}',[Homecontroller::class,'ratings'])->name('overall_ratings');
+Route::prefix('/api')->group(function(){
+    Route::get('/venues_list',[Apicontroller::class,'venues_list']);
+    Route::get('/venue',[Apicontroller::class,'venue']);
+    Route::get('/prof_list',[Apicontroller::class,'prof_list']);
+    Route::get('/prof',[Apicontroller::class,'prof']);
+    Route::get('/service_list',[Apicontroller::class,'service_list']);
+    Route::get('/service',[Apicontroller::class,'service']);
+});
