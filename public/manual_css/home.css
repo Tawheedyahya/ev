@@ -1,0 +1,40 @@
+/* WRAPPER SCROLLING */
+
+.occasions-sub-body-wrapper {
+    overflow: hidden;
+    max-width: 100%;
+}
+.occasions-sub-body {
+    display: flex;
+    gap: 40px;
+    animation: scroll-left 20s linear infinite;
+}
+.occasion-item {
+    flex: 0 0 120px;
+    text-align: center;
+}
+.img-bg {
+    background-color: #FFD580;
+    padding: 10px;
+    border-radius: 80px;
+}
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* END WRAPPER SCROLLING */
+
+/* BANNER TRANSITION */
+.smooth-transition {
+    transition: all 0.5s ease-in-out;
+    will-change: transform, opacity;
+}
+.carousel-item img {
+    transition: opacity 1s ease-in-out;
+}
+/* BANNER TRANSITION END */
