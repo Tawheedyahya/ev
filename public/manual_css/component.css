@@ -1,0 +1,37 @@
+/* NORMAL BUTTON */
+.normal-btn {
+    color: white !important;
+    background: #EB4D4B !important;
+    border: 2px solid white !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 16px !important;
+    white-space: nowrap !important;
+}
+.normal-btn:hover {
+    background-color: #e94e50 !important;
+    border-color: #e94e50 !important;
+}
+.normal-btn.animated.fadeIn {
+    animation: fadeIn 1.5s ease-in-out forwards !important;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.mobile-view-bottom {
+    font-size: 16px !important;
+}
+.normal-btn.delay-4s {
+    animation-delay: 4s !important;
+}
+/* END NORMAL BUTTON */
