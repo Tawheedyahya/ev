@@ -34,8 +34,7 @@
                 {{-- Right: user icon (stays right on lg+, stacks under menu on mobile) --}}
   {{-- REGISTER BUTTON (moved to right) --}}
                     <a href="{{url('/vendor/venue_login_form')}}"
-                       class="btn btn-warning me-3 thick-orange me-5"
-                       style="padding: 10px 20px; font-weight:600; color:black">
+                       class="btn normal-btn">
                        Register as Vendor
                     </a>
 
