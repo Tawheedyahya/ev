@@ -25,7 +25,8 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['venue_name'],
                 'venue_city'=>$venues['venue_city'],
-                'doc'=>$venues['venueimages'][0]['doc']??null
+                'doc'=>$venues['venueimages'][0]['doc']??null,
+                'amount'=>$venues['amount']
             ];
         },$venues);
         return view('home.dashboard',compact('venues','action','footer'));
@@ -46,7 +47,8 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['address'],
-                'doc'=>$venues['prof_logo']
+                'doc'=>$venues['prof_logo'],
+                'amount'=>$venues['amount']
             ];
         },$profs);
         return view('home.category_show',compact('venues','action'));
@@ -61,7 +63,8 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['city'],
-                'doc'=>$venues['logo']
+                'doc'=>$venues['logo'],
+                'amount'=>$venues['price']
             ];
         },$sers);
          return view('home.category_show',compact('venues','action'));
