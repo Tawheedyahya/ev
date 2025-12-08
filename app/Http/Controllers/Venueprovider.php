@@ -211,7 +211,8 @@ class Venueprovider extends Controller
                 $this->venue_images_insert($request, $venue_id);
                 $venue_id=$venue_id;
             });
-            return redirect('/venue_provider/venues/dashbaord')->with('success', 'Venue uploaded successfully you can add your venue rooms under room section')->with('highlight_id ',$venue_id);
+            // pr($venue_id);
+            return redirect('/venue_provider/venues/dashbaord')->with('success', 'Venue uploaded successfully you can add your venue rooms under room section')->with('hightlight_id',$venue_id);
         }
     }
 
