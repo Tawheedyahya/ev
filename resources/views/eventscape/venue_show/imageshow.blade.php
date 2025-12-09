@@ -1,3 +1,37 @@
+<style>
+    .video-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 18px;
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: 0.3s ease;
+        border: none;
+    }
+
+    .video-btn:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        transform: translateY(-2px);
+    }
+
+    .video-icon {
+        font-size: 24px;
+        margin-right: 8px;
+        color: #d9534f;
+        /* Red tone - You can change */
+        transition: 0.3s ease;
+    }
+
+    .video-btn:hover .video-icon {
+        color: #b52a27;
+    }
+
+    .video-title {
+        font-weight: 700;
+        color: #333;
+    }
+</style>
 <div id="venueCarousel" class="carousel slide" data-bs-ride="false">
     <div class="carousel-inner">
         @foreach ($images as $idx => $img)
@@ -26,11 +60,11 @@
 {{-- VR SHOW --}}
 <div class="vr-show ">
     <div class="vrr container">
-        <div class="vr-text ">
-            <a href="javascript:void(0)" class="btn  vr-card mb-3" onclick="vr()">
-                <img data-src="{{ asset('ev_photos/vr.png') }}" alt="" style="margin-right:5px;"
-                    class="lazyload">
-                <span id="title" style="font-weight: 700;">VR</span>
+        {{-- <div class="parent" style="text-align:center;"> --}}
+        <div class="vr-text d-flex justify-content-end align-items-center gap-2 mt-3">
+            <a href="javascript:void(0)" class="btn vr-card video-btn " onclick="vr()">
+                <i class="bi bi-play-circle" style="font-size:24px; margin-right:5px;"></i>
+                <span id="title" style="font-weight:700;">VR</span>
             </a>
 
 
@@ -44,8 +78,13 @@
 
             <!-- Heart Button -->
             <button id="heartBtn" class="heart" aria-label="Like" data-id="{{ $u_id }}"></button>
-            <span id="heart_msg" class="heart_m"></span>
+            <span id="heart_msg" class="heart_m d-none"></span>
+            <a href="javascript:void(0)" class="btn vvr-card video-btn mb-3" onclick="vedio()">
+                <i class="bi bi-play-circle video-icon"></i>
+                <span id="v_title" class="video-title">Video</span>
+            </a>
         </div>
+        {{-- </div> --}}
 
         <div class="venue-content">
             <div class="venue-header">
@@ -72,6 +111,16 @@
                         <div class="text-muted">No rooms</div>
                     @endforelse
                 </div>
+            </div>
+
+            <div class="why">
+                <h3 class="mt-3 mb-3">Why this venue</h3>
+                <p>{{ $venue['why'] }}</p>
+            </div>
+
+            <div class="why">
+                <h3 class="mt-3 mb-3">What this venue</h3>
+                <p>{{ $venue['what'] }}</p>
             </div>
 
             @if ($venue['food_provide'] == 'yes')
@@ -289,6 +338,56 @@
                 document.querySelectorAll('.custom-arrow').forEach(el => el.style.display = '');
                 document.getElementById('title').textContent = 'VR';
                 document.querySelector('.vr-card').setAttribute('onclick', 'vr()');
+            })
+            .catch(() => location.reload());
+    }
+
+    function vedio() {
+        const url = @json($venue['vedios']);
+        if (!url || typeof url !== 'string' || !/^https?:\/\//i.test(url)) {
+            alert('There is no valid Vedio link for this venue.');
+            return;
+        }
+
+        const iframeHtml = `
+    <div id="tour" style="display:block; margin-top:10px;">
+      <iframe
+        src="${url}"
+        width="100%"
+        height="600"
+        frameborder="0"
+        allow="autoplay; fullscreen; xr-spatial-tracking; accelerometer; gyroscope"
+        allowfullscreen
+        sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock"
+        referrerpolicy="no-referrer-when-downgrade"
+        style="border:0; display:block;">
+      </iframe>
+    </div>
+  `;
+
+        document.querySelector('#venueCarousel .carousel-inner').innerHTML = iframeHtml;
+        document.querySelectorAll('.custom-arrow').forEach(el => el.style.display = 'none');
+        document.getElementById('v_title').textContent = 'Close Vedio';
+        document.querySelector('.vvr-card').setAttribute('onclick', 'close_vvr()');
+    }
+
+    function close_vvr() {
+        fetch(location.href, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(r => r.text())
+            .then(html => {
+                const tmp = document.createElement('div');
+                tmp.innerHTML = html;
+                const freshInner = tmp.querySelector('#venueCarousel .carousel-inner');
+                if (freshInner) {
+                    document.querySelector('#venueCarousel .carousel-inner').innerHTML = freshInner.innerHTML;
+                }
+                document.querySelectorAll('.custom-arrow').forEach(el => el.style.display = '');
+                document.getElementById('v_title').textContent = 'Vedio';
+                document.querySelector('.vvr-card').setAttribute('onclick', 'vedio()');
             })
             .catch(() => location.reload());
     }

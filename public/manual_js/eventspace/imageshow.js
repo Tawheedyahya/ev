@@ -53,9 +53,11 @@ console.log(v_id);
 heartBtn.addEventListener("click", async() => {
      heart_msg.textContent=''
     if(heartBtn.dataset.id=='' || heartBtn.dataset.id==null){
+        heart_msg.classList.remove('d-none');
         heart_msg.textContent='Need to Login'
         return
     }
+    heart_msg.classList.add('d-none');
     heartBtn.classList.add("active");
 
     const origin=window.location.origin+'/customer/heart'

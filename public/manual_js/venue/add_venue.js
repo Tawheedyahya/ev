@@ -104,3 +104,57 @@ $(document).ready(function () {
         },
     });
 });
+
+    
+        // Image preview
+        $('#doc').on('change', function() {
+            const file = this.files && this.files[0];
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+                alert('Please choose an image file.');
+                this.value = '';
+                return;
+            }
+            const url = URL.createObjectURL(file);
+            $('#p-img').attr('src', url);
+        });
+
+        // Food section toggle
+        $('input[name="food_provide"]').on('change', function() {
+            if ($(this).val() === 'yes') {
+                $('.food_section').slideDown();
+                $('#dinner').val("<?= $venue['dinner'] ?>").trigger('change');
+                $('#lunch').val("<?= $venue['lunch'] ?>").trigger('change');
+                $('#breakfast').val("<?= $venue['breakfast'] ?>").trigger('change');
+            } else {
+                $('.food_section').slideUp();
+                $('#breakfast, #lunch, #dinner').val('');
+            }
+        });
+        // When user changes radio
+        $('input[name="halal"]').on('change', function() {
+            if ($(this).val() == '1') {
+                $('.halal_doc').show();
+                $('#halal_doc').attr('required', true);
+            } else {
+                $('.halal_doc').hide();
+                $('#halal_doc').attr('required', false);
+            }
+        });
+
+        // Run once on page load
+        let halalValue = $('input[name="halal"]:checked').val();
+        if (halalValue == '1') {
+            $('.halal_doc').show();
+            // $('#halal_doc').attr('required', true);
+        } else {
+            $('.halal_doc').hide();
+            // $('#halal_doc').attr('required', false);
+        }
+        // Show food section if values already exist
+        if ($('#breakfast').val() || $('#lunch').val() || $('#dinner').val()) {
+            $('input[name="food_provide"][value="yes"]').prop('checked', true);
+            $('.food_section').show();
+        }
+
