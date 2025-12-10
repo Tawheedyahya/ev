@@ -20,6 +20,9 @@
             <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'service_providers') active" @else " @endif href="{{route('ad.sp.ds') }}"><i
                         class="bi bi-journal-check"></i> <span class="">service_providers</span></a></li>
+            <li class="nav-item"><a
+                    class="nav-link text-white  @if ($request == 'footer') active" @else " @endif href="{{route('ad.footer') }}"><i
+                        class="bi bi-gear"></i> <span class="">Footer</span></a></li>
             {{-- <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'settings') active" @else " @endif href="#"><i
                         class="bi bi-gear"></i> <span class="">Settings</span></a></li> --}}

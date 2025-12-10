@@ -85,7 +85,7 @@ class Roomcontroller extends Controller
                 }
             }
             $file = $request->file('room_doc');
-            $file_name = time() . Str::slug($request->input('room_name'));
+            $file_name = time() . Str::slug($request->input('room_name')).'.'.$file->getClientOriginalExtension();
             $file->move(public_path('room_images'), $file_name);
             $room->room_doc = "room_images/$file_name";
         }

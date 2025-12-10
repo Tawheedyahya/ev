@@ -2,11 +2,11 @@
     @csrf
 
     {{-- Price range --}}
-    {{-- <h6 class="mb-2">Price Range</h6>
+    <h6 class="mb-2">Price Range</h6>
     <div class="mb-3">
         <input type="number" name="min" id="min_price" class="form-control min_price" placeholder="Enter min price">
         <input type="range" class="form-range orange-range price" min="0" max="20000" step="1" id="price" name="price" value="50">
-    </div> --}}
+    </div>
 
     {{-- Occasions / Professionals --}}
 <h6 class="mb-2 mt-4">Places</h6>

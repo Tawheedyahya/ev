@@ -1,4 +1,71 @@
 @extends('welcome')
+@push('styles')
+<style>
+    .carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0,0,0,0.65); /* Dark circle */
+    background-size: 50%;
+    border-radius: 50%;
+    padding: 20px;          /* Bigger, premium look */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 60px;            /* space for button */
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: rgba(255,193,7,0.9); /* Yellow hover */
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #ffc107;        /* Yellow */
+    border-radius: 50%;
+    padding: 18px;
+    background-size: 60%;
+    filter: invert(0);                /* Keep arrow black */
+}
+
+.discount-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Make all images same size */
+.discount-img {
+    width: 100%;
+    height: 50vh;
+    border-radius: 12px;
+}
+
+
+/* Overlay at bottom */
+.discount-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+}
+@media (min-width: 768px) {
+    .discount-img {
+        height: 50vh;
+    }
+}
+
+@media (min-width: 1024px) {
+    .discount-img {
+        height: 50vh;
+    }
+}
+</style>
+@endpush
 @section('title', 'Service Provider')
 <link rel="stylesheet" href="{{ asset('manual_css/ckeditor.css') }}">
 @section('content')
@@ -285,6 +352,15 @@
                                     </div>
                                 @endif
 
+                                @if (!empty($provider['price']))
+                                    <div class="kv">
+                                        <span class="icon"><i class="bi bi-cash-stack"></i></span>
+                                        <a href="#" class="text-decoration-none" style="color: black;">
+                                            {{ $provider['price'] }} RM
+                                        </a>
+                                    </div>
+                                @endif
+
                                 @if (!empty($provider['phone']))
                                     <div class="kv">
                                         <span class="icon"><i class="bi bi-telephone"></i></span>
@@ -332,8 +408,8 @@
             <div class="col-lg-8">
                 <ul class="nav nav-tabs nav-tabs-clean mb-3" id="vendorTabs">
                     <li class="nav-item"><button class="nav-link active" data-tab="#tab-gallery">Gallery</button></li>
+                    {{-- <li class="nav-item"><button class="nav-link active" data-tab="#tab-discount">Discount</button></li> --}}
                 </ul>
-
                 <div id="tab-gallery" class="card soft mb-4 tab-pane show">
                     <div class="card-body">
                         <div class="blogs-in-gallery">
@@ -396,6 +472,43 @@
                 </div>
             </div> {{-- END col-lg-8 --}}
         </div> {{-- END row.g-4 --}}
+{{-- DISCOUNTS --}}
+{{-- DISCOUNTS --}}
+        <section class="discount-service-provider mt-5">
+            <h5 class="mb-3">Discounts</h5>
+            <div id="discountCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+                <div class="carousel-inner">
+
+                    @forelse ($discount as $key => $d)
+                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                            <div class="discount-wrapper">
+                                <img src="{{ asset($d['discount_img']) }}" class="discount-img" alt="Discount Image">
+
+                                <!-- Overlay Description -->
+                                <div class="discount-overlay">
+                                    <p>{{ $d['description'] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="carousel-item active text-center p-4">
+                            No discounts available
+                        </div>
+                    @endforelse
+
+                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#discountCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#discountCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
+            </div>
+        </section>
+
 
         {{-- About Us --}}
         @if (isset($info->about_us))
@@ -488,5 +601,6 @@
                 document.querySelector(e.currentTarget.dataset.tab).style.display = '';
             });
         });
+
     </script>
 @endsection

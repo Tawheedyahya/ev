@@ -181,11 +181,11 @@
 {{-- ABOUT TEXT --}}
 <section class="about-container">
   <div class="about-text">
-    <h2>Lorem Ipsum</h2>
+    {{-- <h2</h2> --}}
     <p>
-      We provide a comprehensive platform dedicated to showcasing event venues across all industries. Our mission is to help venue owners enhance their visibility and connect with clients seeking spaces for weddings, corporate functions, private events, and specialised gatherings.
+       We provide a comprehensive platform dedicated to showcasing event venues across all industries. Our mission is to help venue owners enhance their visibility and connect with clients seeking spaces for weddings, corporate functions, private events, and specialised gatherings.
 Our platform is designed to present venues with clarity, structure, and professional consistency. Through high-quality profiling and streamlined discovery pathways, we ensure that clients are able to evaluate venues efficiently while venue owners benefit from broadened reach and strengthened market positioning.
-By bringing diverse event spaces into a single, trusted portal, we support informed decision-making and provide a seamless connection between venue providers and their potential clients
+By bringing diverse event spaces into a single, trusted portal, we support informed decision-making and provide a seamless connection between venue providers and their potential clients.
     </p>
   </div>
 </section>

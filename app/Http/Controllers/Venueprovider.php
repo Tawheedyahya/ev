@@ -175,7 +175,10 @@ class Venueprovider extends Controller
                 'breakfast'         =>$venues_collection['breakfast'],
                 'lunch'             =>$venues_collection['lunch'],
                 'dinner'            =>$venues_collection['dinner'],
-                'halal'             =>$venues_collection['halal']
+                'halal'             =>$venues_collection['halal'],
+                'why'=>$venues_collection['why'],
+                'what'=>$venues_collection['what'],
+                'vedios'=>$venues_collection['vedios']
             ];
             // pr($venue);
             $occasions = Occasion::all();
@@ -199,17 +202,20 @@ class Venueprovider extends Controller
                 $re_entry = true;
                 $this->venue_images_insert($request, $venue_id, $re_entry);
             });
-            return back()->with('success','Venue updated successfully');
+            return redirect('/venue_provider/venues/dashbaord')->with('success','Venue updated successfully');
         }
         $this->validate($request);
+        $venue_id=null;
         if (!$id || $id == null) {
-            DB::transaction(function () use ($request) {
+            DB::transaction(function () use ($request,&$venue_id) {
                 $venue_id = $this->venue_details_insert($request);
                 $this->venue_types_insert($request, $venue_id);
                 $this->venue_facilities_insert($request, $venue_id);
                 $this->venue_images_insert($request, $venue_id);
+                $venue_id=$venue_id;
             });
-            return back()->with('success', 'Venue uploaded successfully');
+            // pr($venue_id);
+            return redirect('/venue_provider/venues/dashbaord')->with('success', 'Venue uploaded successfully you can add your venue rooms under room section')->with('hightlight_id',$venue_id);
         }
     }
 
@@ -228,7 +234,10 @@ class Venueprovider extends Controller
                 // 'doc' => 'required',
                 'amount' => 'required',
                 'description' => 'required',
-                'food_provide'=>'required'
+                'food_provide'=>'required',
+                'why'=>'required',
+                'what'=>'required',
+                'halal'=>'required_if:food_provide,yes',
             ]);
             return;
         }
@@ -244,7 +253,10 @@ class Venueprovider extends Controller
             'doc' => 'required|mimes:jpg,jpeg,png|max:1024',
             'amount' => 'required',
             'description' => 'required',
-            'food_provide'=>'required'
+            'food_provide'=>'required',
+            'why'=>'required|string',
+            'what'=>'required|string',
+            'halal'=>'required_if:food_provide,yes',
         ]);
         return;
     }
@@ -261,6 +273,9 @@ class Venueprovider extends Controller
         $venue->venue_provider_id = Auth::guard('venue_provider')->user()->id;
         $venue->vr=$request->input('vr')??null;
         $venue->venue_address = $request->input('venue_address');
+        $venue->why=$request->input('why');
+        $venue->what=$request->input('what');
+        $venue->vedios=$request->input('vedios');
         $venue->venue_city = $request->input('venue_city');
         $venue->venue_seat_capacity = $seat;
         $venue->latitude = $request->input('latitude');
@@ -278,6 +293,23 @@ class Venueprovider extends Controller
             $venue->lunch=null;
             $venue->dinner=null;
             $venue->halal=null;
+        }
+        if($request->hasFile('halal_doc')){
+            $path=public_path('halal_certificates');
+            if(!file_exists(public_path('halal_certificates'))){
+                mkdir($path,0777,true);
+            }
+            if(!empty($venue->halal_doc)&& file_exists($venue->halal_doc)){
+                unlink($venue->halal_doc);
+            }
+                                     // Upload new file
+            $file = $request->file('halal_doc');
+            $filename = $path.'/'.time() . '_' . $file->getClientOriginalName();
+            $file->move($path, $filename);
+
+            // Save filename to DB
+            $venue->halal_doc = $filename;
+                    // @unlink(public_path(''))
         }
         if ($venue->save()) {
             return $venue->id;

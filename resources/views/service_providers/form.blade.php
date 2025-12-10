@@ -21,6 +21,19 @@
                                     <div class="return-error">{{ $message }}</div>
                                 @enderror
                             </div>
+                            {{-- type --}}
+                             <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <select name="type" id="type" class="form-control" required>
+                                    <option value="">--SELECT--</option>
+                                    <option value="1">Gallary</option>
+                                    <option value="2">Discounts or Menus or Events</option>
+                                </select>
+                                {{-- <textarea name="description" class="form-control" rows="4"></textarea>
+                                @error('description')
+                                    <div class="return-error">{{ $message }}</div>
+                                @enderror --}}
+                            </div>
                             <div class="mb-3 mt-3 d-flex justify-content-center align-items-center gap-2">
                                 <input type="file" name="room_doc" id="room_doc" class="visually-hidden room_doc"
                                     accept="image/*">
@@ -59,6 +72,9 @@
                     },
                     description: {
                         required: true
+                    },
+                    type:{
+                        required:true
                     }
                 },
                 messages: {
@@ -68,6 +84,9 @@
                     description: {
                         required: 'put some description',
                         filesize:'Filesize must be less than 0.5 mb'
+                    },
+                    type:{
+                        required:'Type is required'
                     }
                 },
                 errorElement: "div",

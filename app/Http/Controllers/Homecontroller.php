@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Footer;
 use App\Models\Professional;
 use App\Models\Rating;
 use App\Models\Ratingall;
@@ -15,6 +16,8 @@ class Homecontroller extends Controller
     public function dashboard(){
         $venues=Venue::with('venueimages')->get()->toArray();
         $action='card.venue';
+        $footer=Footer::pluck('value','type');
+        // pr($footer->toArray());
         $venues=array_slice($venues,0,5);
         // pr($venues);
         $venues=array_map(function($venues){
@@ -22,10 +25,11 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['venue_name'],
                 'venue_city'=>$venues['venue_city'],
-                'doc'=>$venues['venueimages'][0]['doc']??null
+                'doc'=>$venues['venueimages'][0]['doc']??null,
+                'amount'=>$venues['amount']
             ];
         },$venues);
-        return view('home.dashboard',compact('venues','action'));
+        return view('home.dashboard',compact('venues','action','footer'));
     }
     public function aboutus(){
         return view('vr');
@@ -43,7 +47,8 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['address'],
-                'doc'=>$venues['prof_logo']
+                'doc'=>$venues['prof_logo'],
+                'amount'=>$venues['amount']
             ];
         },$profs);
         return view('home.category_show',compact('venues','action'));
@@ -58,7 +63,8 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['city'],
-                'doc'=>$venues['logo']
+                'doc'=>$venues['logo'],
+                'amount'=>$venues['price']
             ];
         },$sers);
          return view('home.category_show',compact('venues','action'));

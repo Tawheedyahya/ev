@@ -38,17 +38,58 @@ class Customercontroller extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users,email',
+            'email' => 'required|email',
             'phone' => 'required',
             'password' => 'required|confirmed',
         ]);
-        $user = new User();
-        $user->name = trim($request->input('name'));
-        $user->email = trim($request->input('email'));
-        $user->phone = trim($request->input('phone'));
-        $user->password = Hash::make(trim($request->input('password')));
-        if ($user->save()) {
-            return back()->with('success', 'registerd successfully and go back to login');
+        $token=\Str::random(20);
+        // pr($token);
+        $user=User::updateOrCreate(
+            ['email'=>$request->input('email')],
+            ['name'=>$request->input('name'),
+            'email'=>$request->input('email'),
+            'phone'=>$request->input('phone'),
+            'remember_token'=>Hash::make($token),
+            'password'=>Hash::make($request->input('password'))]
+        );
+        // pr($token);
+        $url = url('/customer/verified_email?token=' . $token . '&email=' . $request->input('email'));
+        if($user->status=='pending'){
+            Mail::to($request->input('email'))->queue(new Passwordmail($url));
+            return back()->with('success', 'registerd successfully and check the email to verify');
+        }
+        // $user = new User();
+        // $user->name = trim($request->input('name'));
+        // $user->email = trim($request->input('email'));
+        // $user->phone = trim($request->input('phone'));
+        // $user->password = Hash::make(trim($request->input('password')));
+        else{
+            return back()->with('success', 'register successfully and login ');
+        }
+    }
+    public function verified(Request $request){
+        // echo 'hi';
+        $token=trim($request->query('token'));
+        $email=$request->query('email');
+        if(empty($token)||empty($email)){
+            return redirect()->route('err');
+        }
+        $user=User::where('email',$email)->first();
+        // if(Hash::check($token,$user->remember_token)){
+        //     pr('hiiii');
+        // }
+        if(!$user){
+            return redirect()->route('err');
+        }
+        if(!Hash::check($token,$user->remember_token)){
+            // pr('hi');
+            return redirect()->route('err');
+        }
+        if($user){
+            $user->status='approved';
+            $user->remember_token=null;
+            $user->save();
+            return redirect('/customer/login_form')->with('success','mail verified');
         }
     }
     public function login(Request $request)
@@ -57,12 +98,16 @@ class Customercontroller extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
-        $email = trim($request->input('email'));
+        $email = $request->input('email');
         $password = trim($request->input('password'));
         $user = User::where('email', $email)->first();
         if ($user == null || $user == '') {
             return back()->with('error', 'user not found');
         }
+           $user = User::where('email', $email)->where('status','approved')->first();
+        if(!$user){
+        return back()->with('error','your email till not verified');
+           }
         if (!Hash::check($password, $user->password)) {
             return back()->with('error', 'password not match');
         }

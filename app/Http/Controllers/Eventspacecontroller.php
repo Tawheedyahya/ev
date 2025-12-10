@@ -30,8 +30,8 @@ class Eventspacecontroller extends Controller
         $venues = Venue::with([
             'venueimages' => fn($q) => $q->select('venue_id', 'doc')->orderBy('id')
             ,'provider'
-        ])->whereHas('provider',fn($q)=>$q->where('status','approved'))
-            ->paginate(10) // per page
+        ])->whereHas('provider',fn($q)=>$q->where('status','approved'))->orderByRaw("FIELD(food_provide, 'yes','no','null')")->orderByRaw("FIELD(halal, '1','0')")
+            ->paginate(20) // per page
             ->through(function ($venue) {
                 $venue->doc = optional($venue->venueimages->first())->doc;
                 unset($venue->venueimages);
@@ -88,6 +88,7 @@ class Eventspacecontroller extends Controller
         $sql = "
         SELECT
             v.id,
+            v.halal,v.food_provide,
             v.venue_name,
             v.venue_city,
             v.description,
@@ -134,7 +135,7 @@ class Eventspacecontroller extends Controller
 
         // Group by venue-level cols (we selected one image via subquery)
         $sql .= "
-        GROUP BY v.id, v.venue_name, v.venue_city, v.description
+        GROUP BY v.id, v.venue_name, v.venue_city, v.description,v.halal,v.food_provide
     ";
 
         // Only apply HAVING when we actually filtered by facilities
@@ -147,9 +148,12 @@ class Eventspacecontroller extends Controller
             $sql .= " ORDER BY v.amount DESC, v.venue_seat_capacity ASC ";
         }
         if (!is_null($min) && $seat_capacity == null) {
-            $sql .= " ORDER BY v.amount DESC";
+            $sql .= " ORDER BY v.amount DESC,
+          FIELD(v.food_provide, 'yes', 'no', '') ASC,
+          FIELD(v.food_provide, 'null') ASC,
+          FIELD(v.halal, '1', '0')";
         }
-
+        // $sql .= " ORDER BY FIELD(v.food_provide, 'yes', 'no') ASC";
 
         $q = DB::select($sql, $bindings);
         $venues = array_map(function ($r) {
@@ -165,10 +169,10 @@ class Eventspacecontroller extends Controller
             $rating=Ratingall::with('user')->where('type',1)->where('vorp_id',$id)->get();
             // pr($rating->toArray());
             $venue = Venue::with('venueimages', 'room', 'provider')->findOrFail($id)->toArray();
-            $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->inRandomOrder()->take(5)->get();
+            $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->where('venue_city',$venue['venue_city'])->inRandomOrder()->take(5)->get();
             // $provider=Venue::
             // echo data_get($venue,'venueimages.0.doc');
-            // pr($venue);
+            // pr($suggest->toArray());
             $provider = $venue['provider'];
             unset($venue['provider']);
             $rooms = $venue['room'];
@@ -267,6 +271,7 @@ class Eventspacecontroller extends Controller
     public function ser_filter(Request $request){
     $places = $request->get('places');
     $category = $request->get('category');
+    $price=$request->get('price');
     $query = DB::table('serviceproviders as sp')
         ->join('servicecategories as sc', 'sp.category', '=', 'sc.id');
     // pr($query);
@@ -278,6 +283,9 @@ class Eventspacecontroller extends Controller
         if (!empty($category)) {
         $query->where('sp.category', $category);
     }
+    if(!empty($price)){
+        $query->where('sp.price','<=', $price);
+    }
     $query->where('sp.status', 'approved');
       $rows = $query->select('sp.*','sc.name as profession_name')->get();
           $professionals = $rows->map(function ($r) {
@@ -287,7 +295,7 @@ class Eventspacecontroller extends Controller
             'companyname'     => (string) $r->companyname,
             'city'         => (string) $r->city,
             // 'experience'      => isset($r->experience) ? (float) $r->experience : null,
-            // 'price'           => isset($r->price) ? (float) $r->price : null,
+            'price'           => isset($r->price) ? (float) $r->price : null,
             'logo'       => $r->logo ? asset($r->logo) : asset('images/placeholder.jpg'),
             // 'email'           => (string) $r->email,
             // 'profession_id'   => (int) $r->profession,

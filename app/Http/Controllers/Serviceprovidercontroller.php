@@ -97,7 +97,7 @@ class Serviceprovidercontroller extends Controller
         return view('service_providers.dashboard',compact('info'));
     }
     public function blogs(){
-        $blogs=Serviceblog::where('serviceproviderid',Auth::guard('ser')->user()->id)->get();
+        $blogs=Serviceblog::where('serviceproviderid',Auth::guard('ser')->user()->id)->orderBy('type','desc')->get(); 
         // pr($blogs->toArray());
         return view('service_providers.show',compact('blogs'));
     }
@@ -111,7 +111,10 @@ class Serviceprovidercontroller extends Controller
     public function post(Request $request){
         $request->validate([
             'description'=>'required',
-            'room_doc'=>'required'
+            'room_doc'=>'required',
+            'type'=>'required|in:1,2'
+        ],[
+            'type.in'=>'select gallary or discounts'
         ]);
            DB::transaction(function()use($request){
             if($request->hasFile('room_doc')){
@@ -121,6 +124,7 @@ class Serviceprovidercontroller extends Controller
                 $blogs=new Serviceblog();
                 $blogs->serviceproviderid=Auth::guard('ser')->user()->id;
                 $blogs->blogimg='service_blogs/'.$file_name;
+                $blogs->type=$request->input('type');
                 $blogs->description=$request->input('description');
                 $blogs->save();
             }
@@ -155,12 +159,16 @@ class Serviceprovidercontroller extends Controller
         $request->validate([
             'name'=>'required',
             'phone'=>'required',
-            'logo'=>'mimes:png,jpg'
+            'logo'=>'mimes:png,jpg',
+            'price'=>['required','regex:/^\d{1,4}(\.\d{1,2})?$/']
+        ],[
+            'price.regex'=>'price must less than 9999.99'
         ]);
         $user=Serviceproviders::findOrFail(Auth::guard('ser')->user()->id);
         DB::transaction(function () use($request,$user){
             $place=$request->input('ser_service_place')??[];
             $user->name=$request->input('name');
+            $user->price=$request->input('price');
             $user->phone=$request->input('phone');
             $user->facebook=$request->input('facebook')??null;
             $user->instagram=$request->input('instagram')??null;

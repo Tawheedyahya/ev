@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Mail\Confirmation;
 use App\Models\Booking;
 use App\Models\Bookprofessional;
+use App\Models\Footer;
 use App\Models\Professional;
 use App\Models\Serviceproviders;
 use App\Models\Venueproviders;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -121,5 +123,32 @@ class Admincontroller extends Controller
         // pr($service_providers->toArray());
         return view('super_admin.service_providers_dashboard',compact('service_providers'));
 
+    }
+    public function footer(){
+        // $footer=Footer::all()->map(function (Footer $footer) {
+        //     return [
+        //         $footer->type=>$footer->value,
+        //     ];
+        // })->collapse();
+        // $footer=Footer::pluck('value','type');
+        $footer=Footer::all()->reduce(function($carry,$f){
+            $carry[$f->type]=$f->value;
+            return $carry;
+        },[]);
+        // pr($footer);
+        return view('super_admin.footer',compact('footer'));
+    }
+    public function footer_submit(Request $request){
+        try{
+            $types=['fb','yt','ins','vimeo','x'];
+            foreach($types as $type){
+                Footer::where('type',$type)->update([
+                   'value'=>$request->input($type)
+                ]);
+            }
+            return back()->with('success','updated footer');
+        }catch(\Exception $e){
+            return back()->with('error',$e->getMessage());
+        }
     }
 }
