@@ -228,7 +228,7 @@ class Eventspacecontroller extends Controller
     $category = $request->get('category');
 
     $query = DB::table('professionals as p')
-        ->join('professionlists as pl', 'p.profession', '=', 'pl.id');
+        ->join('professionlists as pl', 'p.profession', '=', 'pl.id')->join('profinfos as pi','pi.professional_id','=','p.id');
 
     if (!empty($places)) {
         $query->join('proserviceplaces as pp', 'pp.pro_id', '=', 'p.id')
@@ -241,7 +241,7 @@ class Eventspacecontroller extends Controller
         $query->where('pl.id', $category);
     }
     $query->where('p.status','approved');
-    $rows = $query->select('p.*','pl.name as profession_name')->get();
+    $rows = $query->select('p.*','pl.name as profession_name','pi.*')->get();
     // pr($rows);
     $professionals = $rows->map(function ($r) {
         return [
@@ -255,6 +255,7 @@ class Eventspacecontroller extends Controller
             'email'           => (string) $r->email,
             'profession_id'   => (int) $r->profession,
             'profession_name' => $r->profession_name ?? null,
+            'about_us'         =>(string)$r->about_us??null
         ];
     });
     $paginate = false;
