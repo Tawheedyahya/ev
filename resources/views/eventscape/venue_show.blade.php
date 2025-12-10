@@ -12,12 +12,12 @@
 
     // Determine the food-related message and symbol
     if ($halal == 1) {
-        $msg = "Food with halal";
-        $icon = "bi-check-circle"; // Green check symbol for halal
+        $msg = "✔Food  ✔halal verified";
+        $icon = "bi-check-circle"; // Green check $symbol for halal
         $color = "green"; // Add a green color class
     } elseif ($venue['food_provide'] == 'yes') {
-        $msg = "Food";
-        // $icon = "✔"; // Regular check mark
+        $msg = "✔Food";
+        $icon = "bi-check-circle"; // Regular check mark
         $color = "orange"; // Default color
     } else {
         $msg = "";
@@ -41,7 +41,7 @@
                 <div class="venue-body">
                     <div class="venue-name">
                         {{-- use class instead of inline style (typo) --}}
-                        <h3 class="com-name">{{ ucwords(strtolower($company_name)) }}  <span style="color: {{$color}};font-size:16px;" class="{{ $icon }}">{{ $msg }} </span></h3>
+                        <h3 class="com-name">{{ ucwords(strtolower($company_name)) }}  <span style="color: {{$color}};font-size:16px;" class="">{{ $msg }} </span></h3>
                     </div>
 
                     <div class="venue-location">

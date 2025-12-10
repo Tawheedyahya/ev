@@ -1,30 +1,74 @@
 @extends('welcome')
 @section('title')
-home dashboard
+    home dashboard
 @endsection
 @push('styles')
-    <link rel="stylesheet" href="{{asset('manual_css/text.css')}}">
+<style>
+    .overlay {
+    position: absolute; /* Position the overlay on top of the image */
+    top: 0; /* Align it to the top of the container */
+    left: 0; /* Align it to the left of the container */
+    width: 100%; /* Make it cover the entire width */
+    height: 100%; /* Make it cover the entire height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black color with 50% opacity */
+    pointer-events: none; /* Prevent the overlay from interfering with any user interactions */
+}
+</style>
+    <link rel="stylesheet" href="{{ asset('manual_css/text.css') }}">
+    <link rel="stylesheet" href="{{ asset('manual_css/home.css') }}">
 @endpush
 @section('content')
     {{-- Banner Section --}}
     <div class="position-relative text-center">
-        <img src="{{ asset('ev_photos/home_page.png') }}" class="img-fluid w-100" alt="Banner"
-            style="height: 614px; object-fit: cover;" loading="lazy">
-
-        <div class="position-absolute top-50 start-50 translate-middle text-white">
-            <h1 class="fw-bold">YOUR ONE-STOP DESTINATION FOR EVENT PLANNING EXCELLENCE</h1>
-            <p>Explore verified venues, trusted service providers, and skilled professionals all in one place</p>
-            <a class="btn mobile-view-bottom"  style="color: white;background: #EB4D4B;
-
-" href="{{url('/eventspace/venues_provider/dashboard')}}">Start as planning</a>
-            <a class="btn" style="border:2px solid white;color:white;" href="{{url('/eventspace/venues_provider/dashboard')}}">let us plan for you</a>
-            <a class="btn mobile-view-bottom"  style="color: white;background: #EB4D4B;
-" href="{{url('/customer/login_form')}}">Register as customer</a>
+        <div>
+            <div>
+                <div class="cotainer">
+                    <img src="{{ asset('ev_photos/WhatsApp Image 2025-12-05 at 11.37.07_0578476c.jpg') }}"
+                        class="img-fluid w-100 smooth-transition" alt="Banner" style="height: 90vh; object-fit: cover;"
+                        loading="lazy" decoding="async">
+                        <div class="overlay"></div>
+                </div>
+                {{-- <div class="carousel-item">
+                <img src="{{ asset('ev_photos/homebanner1.jpg') }}" class="img-fluid w-100 smooth-transition" alt="Banner"
+                    style="height: 90vh; object-fit: cover;" loading="lazy">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('ev_photos/homebanner2.jpg') }}" class="img-fluid w-100 smooth-transition" alt="Banner"
+                    style="height: 90vh; object-fit: cover;" loading="lazy">
+            </div> --}}
+            </div>
         </div>
+        <!-- Text Overlays with Animation -->
+        <div class="position-absolute top-50 start-50 translate-middle text-white animated-text">
+            <h1 class="fw-bold animated fadeIn">YOUR ONE-STOP DESTINATION FOR EVENT PLANNING EXCELLENCE</h1>
+            <p class="animated fadeIn delay-1s">Explore verified venues, trusted service providers, and skilled
+                professionals all in one place</p>
+
+            <!-- Extra content and improved buttons -->
+            <div class="cta-buttons">
+                <a class="btn normal-btn animated fadeIn delay-2s"
+                    href="{{ url('/eventspace/venues_provider/dashboard') }}">Start Planning</a>
+                <a class="btn normal-btn animated fadeIn delay-3s" href="{{ url('/customer/login_form') }}">Register as
+                    Customer</a>
+            </div>
+
+            <!-- Extra Section with Some Icons (For More Engagement) -->
+            <div class="extra-content animated fadeIn delay-4s mt-5">
+                <h3>Why Choose Us?</h3>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> Verified Venues</li>
+                    <li><i class="bi bi-check-circle"></i> Trusted Professionals</li>
+                    <li><i class="bi bi-check-circle"></i> Comprehensive Services</li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 
-        {{-- Search Section --}}
-    <div class="container-fluid position-absolute translate-middle start-50 top-30 " style="height: 83px;margin-bottom:10px;width:95%;">
+
+    {{-- Search Section --}}
+    {{-- <div class="container-fluid position-absolute translate-middle start-50 top-30 "
+        style="height: 83px;margin-bottom:10px;width:95%;">
         <div class="custom-search-bar d-flex align-items-center shadow-lg rounded-pill overflow-hidden">
 
 
@@ -44,20 +88,20 @@ home dashboard
             </button>
 
         </div>
-    </div>
+    </div> --}}
     <div class="occasions mt-3" style="width: 95%; margin: 0 auto;padding-top: 1px;">
         <div class="occasion-heading mb-5">
-              <h2 class="mt-5">Most Viewed Occasions</h2>
+            <h2 class="mt-5 title-with-underline">Most Viewed Occasions</h2>
         </div>
-        <div class="occasions-body mb-5">
+        <div class="occasions-body mb-5"    >
             @include('components.occasions')
         </div>
     </div>
     <div class="category">
         @include('home.category')
     </div>
-    <div class="category-show">
-        @include('home.category_show',['category'=>$venues])
+    <div class="category-show" style="width: 95%; margin: 0 auto;padding-top: 1px;">
+        @include('home.category_show', ['category' => $venues])
     </div>
 
     <div class="work">
@@ -67,6 +111,6 @@ home dashboard
         @include('home.testimonials')
     </div> --}}
     @push('scripts')
-    <script src="{{asset('manual_js/navigator.js')}}" defer></script>
+        <script src="{{ asset('manual_js/navigator.js') }}" defer></script>
     @endpush
 @endsection

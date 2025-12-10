@@ -25,6 +25,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     {{-- img laziness --}}
      <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+    {{-- component css --}}
+    <link rel="stylesheet" href="{{asset('manual_css/component.css')}}">
 
     <script src="{{asset('manual_js/common.js')}}" defer></script>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admincontroller;
+use App\Http\Controllers\Apicontroller;
 use App\Http\Controllers\Bookingcontroller;
 use App\Http\Controllers\Customercontroller;
 use App\Http\Controllers\Eventspacecontroller;
@@ -17,6 +18,7 @@ use App\Models\Professional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return redirect('/home/dashboard');
@@ -180,3 +182,16 @@ Route::prefix('/admin')->middleware('superadmin')->group(function(){
 Route::get('/yahi',[Homecontroller::class,'prof']);
 Route::get('/ya',[Homecontroller::class,'ser']);
 Route::post('/ratings/{id}/{type}',[Homecontroller::class,'ratings'])->name('overall_ratings');
+Route::prefix('/api')->group(function(){
+    Route::get('/venues_list',[Apicontroller::class,'venues_list']);
+    Route::get('/venue',[Apicontroller::class,'venue']);
+    Route::get('/prof_list',[Apicontroller::class,'prof_list']);
+    Route::get('/prof',[Apicontroller::class,'prof']);
+    Route::get('/service_list',[Apicontroller::class,'service_list']);
+    Route::get('/service',[Apicontroller::class,'service']);
+});
+
+Route::get('/s3',function(Request $request){
+    $file=Storage::disk('s3')->files('');
+    return $file;
+});
