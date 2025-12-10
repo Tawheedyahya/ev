@@ -18,6 +18,7 @@ use App\Models\Professional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return redirect('/home/dashboard');
@@ -189,3 +190,16 @@ Route::prefix('/api')->group(function(){
     Route::get('/service_list',[Apicontroller::class,'service_list']);
     Route::get('/service',[Apicontroller::class,'service']);
 });
+
+
+Route::get('/s3', function () {
+
+    $files = Storage::disk('s3')->files('');
+
+    $urls = array_map(function ($file) {
+        return Storage::disk('s3')->url($file);
+    }, $files);
+
+    return $urls;
+});
+

@@ -96,9 +96,9 @@
             </table>
         </div>
     </div>
-    @if (session('highlight_id'))
+    @if (session('hightlight_id'))
         <script>
-            window.hightlight = "{{ session('highlight_id') }}"
+            window.hightlight = "{{ session('hightlight_id') }}"
             console.log(window.hightlight)
         </script>
     @endif
