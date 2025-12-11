@@ -73,7 +73,7 @@ class Professionalcontroller extends Controller
                 //   Mail::to($email)->queue(new ($url));
                 $url = url('/professionals/verified_email?token=' . $token . '&email=' . $request->input('email'));
                 Mail::to($request->input('email'))->queue(new Passwordmail($url));
-                return back()->with('successs', 'Email Send check and Verify your Email');
+                return back()->with('success', 'Email Send check and Verify your Email');
             }
             // return back()->with('sucess','');
         }

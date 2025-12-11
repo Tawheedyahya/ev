@@ -1,5 +1,15 @@
 {{-- img laziness --}}
-
+<style>
+        .venue-desc-text {
+        font-size: 0.85rem !important;
+        color: #555 !important;
+        /* Optional: clamp to 2 lines so card doesn’t become too tall */
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+</style>
 <div class="venues-wrap">
     @forelse ($professionals as $prof)
     @php
@@ -14,13 +24,23 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3  class="com-name">{{ ucwords(strtolower($prof->companyname??$prof['companyname'])) }}</h3>
+                        <h3 class="com-name">
+                                {{ ucwords(strtolower($prof->companyname ?? $prof['companyname'])) }}
+                            <span class="profession-name" style="color:#555">
+                                {{ ucwords(strtolower($prof->professionlist->name ?? '')) }}
+                            </span>
+                        </h3>
                     </div>
 
                     <div class="venue-location">
                         <p style="font-size: 14px;">
                             <i class="bi bi-geo-alt-fill text-danger"></i>
                             {{ ucwords(strtolower($prof->address??$prof['address'])) }}
+                        </p>
+                    </div>
+                    <div class="venue-description">
+                        <p class="venue-desc-text" style="margin-top: -10px;">
+                            {!! ucwords(strtolower($prof->info->about_us ?? $prof['about_us'])) !!}
                         </p>
                     </div>
 
