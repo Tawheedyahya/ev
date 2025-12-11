@@ -18,7 +18,7 @@ class Homecontroller extends Controller
         $action='card.venue';
         $footer=Footer::pluck('value','type');
         // pr($footer->toArray());
-        $venues=array_slice($venues,0,5);
+        $venues=array_slice($venues,0,20);
         // pr($venues);
         $venues=array_map(function($venues){
             return [
@@ -39,7 +39,7 @@ class Homecontroller extends Controller
     }
     public function prof(){
         $prof=Professional::where('status','approved')->get()->toArray();
-        $profs=array_slice($prof,0,5);
+        $profs=array_slice($prof,0,20);
         // pr($profs);
         $action='prof.professional';
         $venues=array_map(function($venues){
@@ -55,7 +55,7 @@ class Homecontroller extends Controller
     }
     public function ser(){
         $ser=Serviceproviders::where('status','approved')->get()->toArray();
-        $sers=array_slice($ser,0,5);
+        $sers=array_slice($ser,0,20);
         // pr($sers);
         $action='ser.service_provider';
         $venues=array_map(function($venues){

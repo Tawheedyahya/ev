@@ -57,7 +57,7 @@
 
                             <div class="mb-3 ">
                                 <label for="about_us" class="about_us">About your company</label>
-                                <textarea name="about_us" id="l_about_us" cols="30" rows="10" class="form-control">{!!old('about_us',$info->about_us??'')!!}</textarea>
+                                <textarea name="about_us" id="" cols="30" rows="3" class="form-control">{!!old('about_us',$info->about_us??'')!!}</textarea>
                                 @error('about_us')
                                     <div class="return-error" id="about_us-error">{{ $message }}</div>
                                 @enderror

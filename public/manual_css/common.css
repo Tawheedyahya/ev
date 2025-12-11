@@ -47,7 +47,7 @@ a:hover {
 /* heart */
 /* Heart button styling */
 
-#heartBtn.heart {
+#heartBtn.heart,#prof_heart.heart {
     width: 40px;
     height: 40px;
     border: none;
@@ -65,29 +65,29 @@ a:hover {
     margin: 0 10px; /* Adjust (10px) to your preference */
 }
 @media(min-width:800px){
-    #heartBtn.heart{
+    #heartBtn.heart,#prof_heart.heart{
         padding: 10px;
     }
 }
 
 /* Heart icon */
-#heartBtn.heart::before {
+#heartBtn.heart::before,#prof_heart.heart::before {
     content: "\2665";
     color: #ff2e2e;
     transition: 0.3s ease;
 }
 
 /* Hover animation */
-#heartBtn.heart:hover {
+#heartBtn.heart:hover,#prof_heart.heart:hover {
     box-shadow: 0 6px 16px rgba(255, 0, 0, 0.45);
     transform: scale(1.05);
 }
 
 /* Active (clicked) */
-#heartBtn.heart.active::before {
+#heartBtn.heart.active::before,#prof_heart.heart.active::before {
     color: #c00000;
 }
-#heart_msg.heart_m {
+#heart_msg.heart_m,#prof_hearty.heart_m {
     margin:0px 8px;
     font-size: 16px;
     color: #ff2e2e;           /* red tone to match heart */
