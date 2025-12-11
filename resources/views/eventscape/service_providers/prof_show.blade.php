@@ -11,7 +11,11 @@
 
                 <div class="venue-body">
                     <div class="venue-name">
-                        <h3  class="com-name">{{ ucwords(strtolower($prof->companyname??$prof['companyname'])) }}</h3>
+                        <h3  class="com-name">{{ ucwords(strtolower($prof->companyname??$prof['companyname'])) }}
+                             <span class="profession-name" style="color:#555">
+                                {{ ucwords(strtolower($prof->categories->name ?? '')) }}
+                            </span>
+                        </h3>
                     </div>
 
                     <div class="venue-location">

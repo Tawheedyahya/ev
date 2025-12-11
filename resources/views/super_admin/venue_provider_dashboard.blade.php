@@ -131,6 +131,7 @@
             background: linear-gradient(45deg, #dc3545, #ff6b6b);
             color: #fff;
         }
+        
     </style>
 @endpush
 

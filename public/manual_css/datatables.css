@@ -111,3 +111,26 @@ table.dataTable.stripe tbody tr:nth-child(odd) {
   font-size: 14px;
   padding-top: 10px;
 }
+        .badge-gradient-success {
+            background: linear-gradient(45deg, #28a745, #5dd39e);
+            color: #fff;
+        }
+
+        .badge-gradient-danger {
+            background: linear-gradient(45deg, #dc3545, #ff6b6b);
+            color: #fff;
+        }
+
+        /* FIX: dropdown hiding under table */
+        .dataTables_wrapper {
+            overflow: visible !important;
+        }
+
+        table.dataTable {
+            overflow: visible !important;
+        }
+
+        .dropdown-menu {
+            z-index: 999999 !important;
+            position: absolute !important;
+        }

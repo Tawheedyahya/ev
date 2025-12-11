@@ -10,13 +10,21 @@
     <!-- Occasion items wrapper -->
     <div class="occasions-sub-body-wrapper">
         <div class="occasions-sub-body">
-            @foreach ($lists as $list)
+            @php
+                $l = [
+    ['name' => 'Marriage', 'bi' => 'bi-heart-fill'],
+    ['name' => 'Engagement', 'bi' => 'bi-gem'],
+    ['name' => 'Birthday Party', 'bi' => 'bi-gift-fill'],
+    ['name' => 'Reception', 'bi' => 'bi-people-fill'],
+    ['name' => 'Social Gathering', 'bi' => 'bi-emoji-smile'],
+    ['name' => 'Corporate Party', 'bi' => 'bi-briefcase-fill'],
+    ['name' => 'Anniversary', 'bi' => 'bi-heart-pulse-fill'],
+];
+            @endphp
+            @foreach ($l as $list)
                 <div class="text-center occasion-item">
-                    <img src="{{ asset('occasion_icon/birthday.png') }}"
-                         alt="Occasion"
-                         class="img-fluid mb-2 img-bg lazyload"
-                         style="max-width:80px;">
-                    <p>{{ ucwords($list->name) }}</p>
+                     <i class="bi {{ $list['bi'] }}" style="font-size:40px; color:#ff5722;"></i>
+                    <p>{{ ucwords($list['name']) }}</p>
                 </div>
             @endforeach
         </div>
