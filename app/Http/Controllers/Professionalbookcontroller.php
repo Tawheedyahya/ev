@@ -19,7 +19,7 @@ class Professionalbookcontroller extends Controller
     {
         $location=Professional::where('status','approved')->pluck('companyname')->toArray();
         $service_places=Serviceplace::all();
-        $professionals=Professional::with('professionlist')->where('status','approved')->paginate(10);
+        $professionals=Professional::with(['professionlist','info'])->where('status','approved')->paginate(20);
         $category=Professionlist::all();
         // pr($professionals->toArray());
         $paginate=true;

@@ -18,14 +18,15 @@ class Homecontroller extends Controller
         $action='card.venue';
         $footer=Footer::pluck('value','type');
         // pr($footer->toArray());
-        $venues=array_slice($venues,0,5);
+        $venues=array_slice($venues,0,20);
         // pr($venues);
         $venues=array_map(function($venues){
             return [
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['venue_name'],
                 'venue_city'=>$venues['venue_city'],
-                'doc'=>$venues['venueimages'][0]['doc']??null
+                'doc'=>$venues['venueimages'][0]['doc']??null,
+                'amount'=>$venues['amount']
             ];
         },$venues);
         return view('home.dashboard',compact('venues','action','footer'));
@@ -38,7 +39,7 @@ class Homecontroller extends Controller
     }
     public function prof(){
         $prof=Professional::where('status','approved')->get()->toArray();
-        $profs=array_slice($prof,0,5);
+        $profs=array_slice($prof,0,20);
         // pr($profs);
         $action='prof.professional';
         $venues=array_map(function($venues){
@@ -46,14 +47,15 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['address'],
-                'doc'=>$venues['prof_logo']
+                'doc'=>$venues['prof_logo'],
+                'amount'=>$venues['amount']
             ];
         },$profs);
         return view('home.category_show',compact('venues','action'));
     }
     public function ser(){
         $ser=Serviceproviders::where('status','approved')->get()->toArray();
-        $sers=array_slice($ser,0,5);
+        $sers=array_slice($ser,0,20);
         // pr($sers);
         $action='ser.service_provider';
         $venues=array_map(function($venues){
@@ -61,7 +63,8 @@ class Homecontroller extends Controller
                 'id'=>$venues['id'],
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['city'],
-                'doc'=>$venues['logo']
+                'doc'=>$venues['logo'],
+                'amount'=>$venues['price']
             ];
         },$sers);
          return view('home.category_show',compact('venues','action'));
