@@ -19,7 +19,7 @@ class Homecontroller extends Controller
         $footer=Footer::pluck('value','type');
         // pr($footer->toArray());
         $venues=array_slice($venues,0,20);
-        // pr($venues);
+        // pr($venues);z
         $venues=array_map(function($venues){
             return [
                 'id'=>$venues['id'],

@@ -12,13 +12,13 @@
 
     // Determine the food-related message and symbol
     if ($halal == 1) {
-        $msg = "✔Food  ✔halal verified";
+        $msg = "✔Food  ✔Halal Verified";
         $icon = "bi-check-circle"; // Green check $symbol for halal
         $color = "green"; // Add a green color class
     } elseif ($venue['food_provide'] == 'yes') {
         $msg = "✔Food";
         $icon = "bi-check-circle"; // Regular check mark
-        $color = "orange"; // Default color
+        $color = "green"; // Default color
     } else {
         $msg = "";
         $icon = ""; // No icon for "No food provided"
@@ -51,7 +51,7 @@
                         </p>
                     </div>
                     <div class="venue-description">
-                        <p class="venue-desc-text mb-0">{{ strtolower($description1) }}</p>
+                        <p class="venue-desc-text mb-0">{{ ucfirst(strtolower($description1)) }}</p>
                     </div>
                 </div>
             </div>

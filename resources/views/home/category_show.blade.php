@@ -1,233 +1,242 @@
 <style>
-    /* ==================================== */
-    /* GENERAL LAYOUT (Grid) */
-    /* ==================================== */
-    .categoryy {
-        width: 100%;
-    }
 
-    /* UPDATED: Changed to a uniform 3-column grid */
+/* ============================= */
+/* OUTER BACKGROUND */
+/* ============================= */
+.fetch {
+    background: linear-gradient(135deg, #ffffff, #fff7f1);
+    padding: 25px;
+    border-radius: 18px;
+}
+
+/* ============================= */
+/* GRID – DESKTOP */
+/* ============================= */
+.category-pic {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+/* ============================= */
+/* CARD BASE */
+/* ============================= */
+.venue-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    text-decoration: none;
+    height: 340px;
+    transition: 0.35s ease;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.venue-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.2);
+}
+
+/* ============================= */
+/* IMAGE */
+/* ============================= */
+.venue-card-img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.venue-card-img-container img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill !important; /* FULL STRETCH */
+    object-position: top center !important;
+    display: block;
+    transition: 0.45s ease;
+}
+
+.venue-card:hover img {
+    transform: scale(1.08);
+}
+
+/* ============================= */
+/* OVERLAY LAYER */
+/* ============================= */
+.overlay-layer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.7),
+        rgba(0,0,0,0.15)
+    );
+    z-index: 2;
+}
+
+/* ============================= */
+/* EV TAG */
+/* ============================= */
+.venue-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 4;
+    padding: 7px 12px;
+    background: linear-gradient(135deg, #00BFFF, #0074cc);
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* ============================= */
+/* CARD CONTENT */
+/* ============================= */
+.venue-card-content {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    right: 18px;
+    z-index: 5;
+    color: #fff;
+    padding: 0;
+}
+
+.venue-card-content h4 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 0 0 4px;
+    text-transform: capitalize;
+    color: #fff;
+}
+
+.venue-card-content .location {
+    margin: 0;
+    font-size: 0.88rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #e6e6e6;
+}
+
+/* ============================= */
+/* PRICE OVERLAY – NEW DESIGN */
+/* ============================= */
+.price-overlay {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    z-index: 6;
+
+    /* Glassmorphism premium badge */
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+
+    padding: 10px 18px;
+    border-radius: 14px;
+
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* FIX PRICE OVERLAY POSITION ON MOBILE */
+@media (max-width: 768px) {
+    .price-overlay {
+        bottom: 10px !important;
+        right: 10px !important;
+
+        padding: 8px 14px !important;
+        font-size: 1.05rem !important;
+
+        border-radius: 12px !important;
+        backdrop-filter: blur(5px) !important;
+    }
+}
+
+/* ============================= */
+/* RESPONSIVE – TABLET */
+/* ============================= */
+@media (max-width: 992px) {
     .category-pic {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Three equal columns */
-        grid-auto-rows: auto;
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================= */
+/* MOBILE – HORIZONTAL SCROLL */
+/* ============================= */
+@media (max-width: 768px) {
+
+    .category-pic {
+        display: flex !important;
+        overflow-x: auto;
+        gap: 14px;
+        padding-bottom: 10px;
+        scroll-snap-type: x mandatory;
+        white-space: nowrap;
     }
 
-    .fetch {
-        margin-bottom: 20px;
-        padding: 10px;
-    }
-
-    /* REMOVED: Styling for the first card to be large (grid-row: span 2) */
-    .category-pic .venue-card:first-child {
-        grid-row: auto;
-    }
-
-    /* ==================================== */
-    /* VENUE CARD STYLES */
-    /* ==================================== */
-    .venue-card {
-        border-radius: 8px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        background: #fff;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
-        text-decoration: none;
-        color: #333;
-        height: 100%; /* Ensures all cards stretch to the same height */
-    }
-
-    .venue-card:hover {
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        transform: translateY(-3px);
-    }
-
-    /* Image Container */
-    .venue-card-img-container {
-        position: relative;
-        padding-top: 60%;
-        overflow: hidden;
-    }
-
-    .venue-card img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.3s ease;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .venue-card:hover img {
-        transform: scale(1.05);
-    }
-
-    /* === TAG BASE STYLES === */
-    .venue-tag {
-        position: absolute;
-        top: 0;
-        left: 0;
-        color: white;
-        padding: 6px 12px;
-        font-size: 0.85rem;
-        font-weight: 600;
-        z-index: 10;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        /* Matches the card's top-left corner radius */
-        border-top-left-radius: 8px;
-        /* Custom clip path for the slanted bottom-right edge */
-        clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
-    }
-
-    /* === NEW CLASS: EV VISA TAG (Light Blue Gradient) - CORRECT STYLE === */
-    .ev-visa-tag {
-        background: linear-gradient(135deg, #00BFFF, #1E90FF); /* Light blue to a slightly darker blue */
-    }
-
-    /* The existing tag styles (kept for reference) */
-    .new-venue-tag {
-        background: linear-gradient(135deg, #8a48ff, #007bff);
-    }
-    .super-venue-tag {
-        background: linear-gradient(135deg, #FF69B4, #8a48ff);
-    }
-    .most-viewed-tag {
-        background: linear-gradient(135deg, #FFA500, #FF4500);
-    }
-
-    /* Content Area */
-    .venue-card-content {
-        padding: 15px;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .venue-card-content h4 {
-        margin: 0 0 5px;
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #000;
-    }
-
-    .venue-card-content p.location {
-        margin: 0 0 10px;
-        font-size: 0.9rem;
-        color: #666;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    /* Tags/Labels */
-    .venue-card-tag {
-        display: inline-block;
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 4px;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        background-color: #e0f7fa;
-        color: #007bb5;
-    }
-
-    /* Remove the old overlay styles */
-    .venue-card .overlay {
+    .category-pic::-webkit-scrollbar {
         display: none;
     }
 
-    /* ==================================== */
-    /* Responsive: Adjust layout for smaller screens */
-    /* ==================================== */
-    @media (max-width: 992px) {
-        .category-pic {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .venue-card-img-container {
-            padding-top: 55%;
-        }
+    .venue-card {
+        flex: 0 0 82%;
+        height: 300px;
+        scroll-snap-align: start;
     }
-
-    @media (max-width: 768px) {
-        .category-pic {
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        .venue-card-img-container {
-            padding-top: 50%;
-        }
-    }
+}
 </style>
+
+
 
 <div class="fetch">
     <div class="categoryy">
         <div class="category-pic">
-            @foreach ($venues as $index => $venue)
+
+            @foreach ($venues as $venue)
                 <a href="{{ route($action, $venue['id']) }}" class="venue-card">
 
                     <div class="venue-card-img-container">
 
-                        {{-- TEMPORARILY UNCONDITIONAL: Check if the tag appears at all --}}
-
-                            <span class="venue-tag ev-visa-tag">
-                                EV Visa Approved
-                            </span>
-
-
-                        {{-- The original "New Venue" tag logic should be restored here if needed,
-                             but for "EV Visa Approved" this block is now correct. --}}
-
-                        {{-- Assuming $venue['doc'] holds the image path --}}
                         <img data-src="{{ asset($venue['doc']) }}"
-                            alt="{{ $venue['venue_name'] ?? 'Venue' }}" class="lazyload" loading="lazy" decoding="async">
+                             class="lazyload"
+                             alt="{{ $venue['venue_name'] }}">
+
+                        <div class="overlay-layer"></div>
+
+                        <span class="venue-tag">EV Visa Approved</span>
 
                     </div>
 
                     <div class="venue-card-content">
-                        {{-- Top content block (name and location) --}}
-                        <div>
-                            <h4>{{ $venue['venue_name'] ?? 'Venue' }}</h4>
-                            <p class="location"><i class="bi bi-geo-alt-fill"></i> {{ $venue['venue_city'] ?? 'Location' }}</p>
-
-                            {{-- Example for tags --}}
-                            {{-- You'll need an array of tags in your $venue data --}}
-                            {{-- @if (!empty($venue['tags']))
-                                <div style="margin-bottom: 10px;">
-                                @foreach ($venue['tags'] as $tag)
-                                    <span class="venue-card-tag">{{ $tag }}</span>
-                                @endforeach
-                                </div>
-                            @endif --}}
-                        </div>
-
-                        {{-- Bottom content block (pricing and capacity) --}}
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px;">
-                            <span style="font-weight: bold; color: #d9534f; font-size: 1.1rem;">
-                                RM{{ $venue['amount'] ?? 'N/A' }}
-                                {{-- <!-- {{ $venue['unit'] ?? '/hour' }} --> --}}
-                            </span>
-                            {{-- Example capacity details --}}
-                            <!-- <div style="font-size: 0.85rem; color: #666; display: flex; gap: 10px;">
-                                <span title="Capacity"><i class="bi bi-people-fill"></i> {{ $venue['capacity'] ?? '100' }}</span>
-                                <span title="Rooms Available"><i class="bi bi-house-fill"></i> {{ $venue['rooms'] ?? '3' }}</span>
-                            </div> -->
-                        </div>
+                        <h4>{{ ucwords($venue['venue_name']) }}</h4>
+                        <p class="location">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            {{ ucwords($venue['venue_city']) }}
+                        </p>
                     </div>
+
+                    <span class="price-overlay">
+                        RM{{ $venue['amount'] }}
+                    </span>
+
                 </a>
             @endforeach
+
         </div>
     </div>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async></script>
