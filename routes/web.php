@@ -190,23 +190,3 @@ Route::prefix('/api')->group(function(){
     Route::get('/service_list',[Apicontroller::class,'service_list']);
     Route::get('/service',[Apicontroller::class,'service']);
 });
-
-<<<<<<< HEAD
-
-Route::get('/s3', function () {
-
-    $files = Storage::disk('s3')->files('');
-
-    $urls = array_map(function ($file) {
-        return Storage::disk('s3')->url($file);
-    }, $files);
-
-    return $urls;
-});
-
-=======
-Route::get('/s3',function(Request $request){
-    $file=Storage::disk('s3')->files('');
-    return $file;
-});
->>>>>>> master
