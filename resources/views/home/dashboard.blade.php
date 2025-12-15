@@ -1,116 +1,165 @@
 @extends('welcome')
 @section('title')
-    home dashboard
+    Home Dashboard
 @endsection
+
 @push('styles')
 <style>
-    .overlay {
-    position: absolute; /* Position the overlay on top of the image */
-    top: 0; /* Align it to the top of the container */
-    left: 0; /* Align it to the left of the container */
-    width: 100%; /* Make it cover the entire width */
-    height: 100%; /* Make it cover the entire height */
-    background-color: rgba(0, 0, 0, 0.5); /* Black color with 50% opacity */
-    pointer-events: none; /* Prevent the overlay from interfering with any user interactions */
+
+/* =========================================
+   HERO BANNER — EXACT WTC LOOK
+========================================= */
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 85vh;
+    overflow: hidden;
+}
+
+.hero-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-banner .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+}
+
+/* CENTER CONTENT — PROPER WTC POSITION */
+.hero-content {
+    position: absolute;
+    top: 45%; /* Corrected height */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 55%; /* WTC uses 50–60% width */
+}
+
+/* MAIN HEADING — MATCH WTC SIZE */
+.hero-content h1 {
+    font-size: 30px; /* Reduced */
+    font-weight: 600;
+    color: white;
+    line-height: 1.25;
+    margin-bottom: 18px;
+    text-transform: none; /* Remove all caps */
+}
+
+/* SUBTEXT */
+.hero-content p {
+    font-size: 18px;
+    color: #e6e6e6;
+    margin-bottom: 28px;
+}
+
+/* BUTTONS ROW */
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+/* BUTTON STYLE EXACT LIKE WTC */
+.outline-btn1 {
+    text-align: center;
+    background: linear-gradient(90deg, #ff6a00, #f7b733);
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 15px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outline-btn {
+    border: 2px solid #fff;
+    padding: 10px 28px; /* Reduced */
+    border-radius: 30px;
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: 0.3s ease-in-out;
+}
+
+.outline-btn:hover {
+    background: #fff;
+    color: #000 !important;
+}
+
+/* Remove the bottom "Why Choose Us?" spacing problem */
+.extra-content {
+    margin-top: 40px;
+}
+
+.extra-content h3 {
+    font-size: 24px;
+    font-weight: 600;
 }
 </style>
-    <link rel="stylesheet" href="{{ asset('manual_css/text.css') }}">
-    <link rel="stylesheet" href="{{ asset('manual_css/home.css') }}">
 @endpush
+
 @section('content')
-    {{-- Banner Section --}}
-    <div class="position-relative text-center">
-        <div>
-            <div>
-                <div class="cotainer">
-                    <img src="{{ asset('ev_photos/WhatsApp Image 2025-12-05 at 11.37.07_0578476c.jpg') }}"
-                        class="img-fluid w-100 smooth-transition" alt="Banner" style="height: 90vh; object-fit: cover;"
-                        loading="lazy" decoding="async">
-                        <div class="overlay"></div>
-                </div>
-                {{-- <div class="carousel-item">
-                <img src="{{ asset('ev_photos/homebanner1.jpg') }}" class="img-fluid w-100 smooth-transition" alt="Banner"
-                    style="height: 90vh; object-fit: cover;" loading="lazy">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('ev_photos/homebanner2.jpg') }}" class="img-fluid w-100 smooth-transition" alt="Banner"
-                    style="height: 90vh; object-fit: cover;" loading="lazy">
-            </div> --}}
-            </div>
-        </div>
-        <!-- Text Overlays with Animation -->
-        <div class="position-absolute top-50 start-50 translate-middle text-white animated-text">
-            <h1 class="fw-bold animated fadeIn">YOUR ONE-STOP DESTINATION FOR EVENT PLANNING EXCELLENCE</h1>
-            <p class="animated fadeIn delay-1s">Explore verified venues, trusted service providers, and skilled
-                professionals all in one place</p>
 
-            <!-- Extra content and improved buttons -->
-            <div class="cta-buttons">
-                <a class="btn normal-btn animated fadeIn delay-2s"
-                    href="{{ url('/eventspace/venues_provider/dashboard') }}">Start Planning</a>
-                <a class="btn normal-btn animated fadeIn delay-3s" href="{{ url('/customer/login_form') }}">Register as
-                    Customer</a>
-            </div>
+{{-- ===============================
+     HERO BANNER SECTION
+================================= --}}
+<div class="hero-banner">
 
-            <!-- Extra Section with Some Icons (For More Engagement) -->
-            <div class="extra-content animated fadeIn delay-4s mt-5">
-                <h3>Why Choose Us?</h3>
-                <ul>
-                    <li><i class="bi bi-check-circle"></i> Verified Venues</li>
-                    <li><i class="bi bi-check-circle"></i> Trusted Professionals</li>
-                    <li><i class="bi bi-check-circle"></i> Comprehensive Services</li>
-                </ul>
-            </div>
+    <img src="{{ asset('ev_photos/view-white-guest-chairs-decorated-ceremonial-archway-open-air-sunny-day.jpg') }}"
+         alt="Banner" loading="lazy">
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+
+        <h1>Plan Exceptional Events With Confidence and Convenience</h1>
+
+        <p>Discover verified venues, reliable vendors, and skilled event specialists all in one seamless platform.</p>
+
+        <div class="cta-buttons">
+            <a class="outline-btn" href="{{ url('/eventspace/venues_provider/dashboard') }}">PLAN YOUR EVENT</a>
+            <a class="outline-btn1" href="{{ url('/customer/login_form') }}">REGISTER YOUR PROFILE</a>
         </div>
 
     </div>
 
 
-    {{-- Search Section --}}
-    {{-- <div class="container-fluid position-absolute translate-middle start-50 top-30 "
-        style="height: 83px;margin-bottom:10px;width:95%;">
-        <div class="custom-search-bar d-flex align-items-center shadow-lg rounded-pill overflow-hidden">
+</div>
 
 
-            <button class="btn d-flex  align-items-center px-4 py-3 border-0 rounded-0 rounded-start-pill "
-                id="locationplace" style="background: #C7E9F0;
-">
-                <i class="bi bi-geo-alt-fill me-2 location-place"></i>
-            </button>
 
-            <input type="text" class="form-control border-0 px-3 py-3" placeholder="Search..." style="flex: 1;"
-                name="location" id="location">
-
-
-            <button class="btn thick-orange d-flex align-items-center px-4 py-3 border-0 rounded-0 rounded-end-pill"
-                id="search" style="">
-                <i class="bi bi-search me-2"></i> SEARCH
-            </button>
-
-        </div>
+{{-- EVERYTHING BELOW THIS = UNTOUCHED CONTENT --}}
+<div class="occasions mt-3 section-padding fade-in-section" style="width: 95%; margin: 0 auto;padding-top: 1px;">
+    {{-- <div class="occasion-heading mb-5">
+        <h2 class="mt-5 title-with-underline title-animated">Most Viewed Occasions</h2>
     </div> --}}
-    <div class="occasions mt-3" style="width: 95%; margin: 0 auto;padding-top: 1px;">
-        <div class="occasion-heading mb-5">
-            <h2 class="mt-5 title-with-underline">Most Viewed Occasions</h2>
-        </div>
-        <div class="occasions-body mb-5"    >
-            @include('components.occasions')
-        </div>
+    <div class="occasions-body mb-5">
+        @include('components.occasions')
     </div>
-    <div class="category">
-        @include('home.category')
-    </div>
-    <div class="category-show" style="width: 95%; margin: 0 auto;padding-top: 1px;">
-        @include('home.category_show', ['category' => $venues])
-    </div>
+</div>
 
-    <div class="work">
-        @include('home.work')
-    </div>
-    {{-- <div class="testimonials">
-        @include('home.testimonials')
-    </div> --}}
-    @push('scripts')
-        <script src="{{ asset('manual_js/navigator.js') }}" defer></script>
-    @endpush
+<div class="category fade-in-section">
+    @include('home.category')
+</div>
+
+<div class="category-show section-padding fade-in-section" style="width: 95%; margin: 0 auto;padding-top: 1px;">
+    @include('home.category_show', ['category' => $venues])
+</div>
+
+<div class="work fade-in-section">
+    @include('home.work')
+</div>
+
 @endsection

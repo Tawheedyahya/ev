@@ -1,109 +1,170 @@
 <style>
-    /* CSS for the Sticky Header */
+/* ===========================
+   GLOBAL HEADER STYLE
+=========================== */
 .sticky-header {
     position: sticky;
-    top: 0; /* This makes the header stick to the top of the page */
-    z-index: 1000; /* Ensures the header stays on top of other elements */
-    background-color: #f8f9fa; /* Light background for header */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Shadow for a nice effect */
-    padding: 20px 0;
+    top: 0;
+    z-index: 1050;
+    background: #ffffff;
+    padding: 6px 0;
+    border-bottom: 1px solid #ececec;
 }
 
-/* Navbar Styling */
+/* NAVBAR BASE */
 .navbar {
-    padding: 0;
-    margin: 0;
+    padding: 0 !important;
 }
 
-/* Navbar List Styling */
+.navbar .container-fluid {
+    display: flex;
+    align-items: center;
+}
+
+/* LOGO */
+.navbar-brand {
+    margin-right: auto;
+}
+
+.navbar-brand img {
+    height: 55px;
+}
+
+/* DEFAULT MENU FOR DESKTOP */
+.navbar-collapse {
+    flex-grow: unset !important;
+}
+
 .navbar-nav {
-    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-right: 20px;
+}
+
+/* DESKTOP MENU LINKS */
+.navbar-nav .nav-link {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    padding: 0 !important;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+    color: #e85b27 !important;
+}
+
+/* CTA BUTTON */
+.plan-btn {
+    background: linear-gradient(90deg, #ff6a00, #f7b733);
+    color: #fff !important;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: none;
+}
+
+/* USER ICON */
+.account-icon-btn {
+    width: 42px;
+    height: 42px;
+    background: #e5e7eb;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
-    margin: 0;
-    padding: 0;
+    align-items: center;
+    font-size: 20px;
+    color: #333;
+    transition: 0.3s ease;
+    margin-left: 10px;
 }
 
-/* Navbar Item Styling */
-.nav-item {
-    margin-right: 30px;
-    transition: transform 0.3s ease;
+.account-icon-btn:hover {
+    background: #d1d5db;
 }
 
-/* Navbar Link Styling */
-.nav-link {
-    color: #343a40;
-    font-size: 16px;
-    font-weight: bold;
-    transition: color 0.3s ease, transform 0.3s ease;
+/* =============================
+   MOBILE VERSION FIX
+============================= */
+@media (max-width: 991px) {
+
+    /* Stack items vertically */
+    .navbar-collapse {
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 20px;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        width: 100%;
+        padding-left: 15px;
+        margin-bottom: 15px;
+    }
+
+    /* CTA inside menu, full width */
+    .plan-btn {
+        width: 90%;
+        margin: 10px auto;
+        text-align: center;
+        padding: 12px 0;
+        display: block;
+    }
+
+    /* USER ICON centered */
+    .account-icon-btn {
+        margin: 10px auto 15px auto;
+        width: 45px;
+        height: 45px;
+    }
+
+    /* Improve toggler spacing */
+    .navbar-toggler {
+        margin-left: auto;
+        border: none !important;
+    }
 }
 
-/* Hover Effect for Navbar Links */
-.nav-link:hover {
-    color: #007bff;
-    transform: scale(1.1);
-}
-
-/* Active Link Styling */
-#nav-active {
-    color: #007bff !important;
-    text-decoration: underline;
-}
-
-/* Button Styling */
-.normal-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 12px 24px;
-    margin: 10px;
-    border-radius: 30px;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-/* Hover effect for button */
-.normal-btn:hover {
-    background-color: #218838;
-    transform: scale(1.05);
-}
 
 </style>
 <header class="sticky-header">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid py-2 px-3">
-            <!-- Brand -->
-            <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                <img src="{{ asset('ev_photos/logo.png') }}" alt="Logo" height="50" width="100" class="img-fluid">
+        <div class="container-fluid">
+
+            <!-- LOGO -->
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <img src="{{ asset('ev_photos/logo.png') }}" alt="Logo">
             </a>
 
-            <!-- Toggler -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- MOBILE TOGGLER -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Collapsible Nav -->
+            <!-- COLLAPSE CONTENT -->
             <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav mx-lg-auto mt-2 mt-lg-0 lg-gap-5  align-items-lg-center">
-                    <li class="nav-item" style="margin: 10px;">
-                        <a class="nav-link text-dark" @if(request()->is('home*')) id="nav-active" @endif href="{{ url('/') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" @if(request()->is('eventspace*')) id="nav-active"  @endif href="{{url('/eventspace/venues_provider/dashboard')}}">Event Plan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" @if(request()->is('aboutus*')) id="nav-active"  @endif href="{{url('/aboutus/dashboard')}}">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" @if(request()->is('contactus*')) id="nav-active"  @endif href="{{url('/contactus/dashboard')}}">Contact Us</a>
-                    </li>
+
+                <ul class="navbar-nav">
+                    <li><a class="nav-link" href="{{ url('/') }}">HOME</a></li>
+                    <li><a class="nav-link" href="{{ url('/eventspace/venues_provider/dashboard') }}">EVENTS</a></li>
+                    <li><a class="nav-link" href="{{ url('/aboutus/dashboard') }}">ABOUT</a></li>
+                    <li><a class="nav-link" href="{{ url('/contactus/dashboard') }}">CONTACT</a></li>
                 </ul>
 
-                <a href="{{url('/vendor/venue_login_form')}}" class="btn normal-btn">Register as Vendor</a>
-                <a href="{{url('/customer/login_form')}}" class="bg-dark text-white rounded-circle d-flex justify-content-center align-items-center" style="width: 40px; height: 40px; font-size: 18px;">
-                    <i class="bi bi-person-fill"></i>
+                <a class="plan-btn" href="{{url('/vendor/venue_login_form')}}">REGISTER AS VENDOR</a>
+
+                <a class="account-icon-btn" href="{{url('/customer/login_form')}}">
+                    <i class="bi bi-person"></i>
                 </a>
+
             </div>
+
         </div>
     </nav>
 </header>
