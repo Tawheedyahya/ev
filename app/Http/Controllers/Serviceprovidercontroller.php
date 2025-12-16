@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\File;
 
 class Serviceprovidercontroller extends Controller
 {
@@ -97,7 +98,7 @@ class Serviceprovidercontroller extends Controller
         return view('service_providers.dashboard',compact('info'));
     }
     public function blogs(){
-        $blogs=Serviceblog::where('serviceproviderid',Auth::guard('ser')->user()->id)->orderBy('type','desc')->get(); 
+        $blogs=Serviceblog::where('serviceproviderid',Auth::guard('ser')->user()->id)->orderBy('type','desc')->get();
         // pr($blogs->toArray());
         return view('service_providers.show',compact('blogs'));
     }
@@ -175,12 +176,22 @@ class Serviceprovidercontroller extends Controller
             $user->about_us=$request->input('about_us')??null;
             $user->long_description=$request->input('long_description')??null;
             if($request->hasFile('logo')){
-                if(file_exists(public_path($user->logo))){
-                    @unlink(public_path($user->logo));
-                    $file=$request->file('logo');
-                    $file_name=Auth::guard('ser')->user()->id.'_'.time().'.'.$file->getClientOriginalExtension();
-                    $file->move(public_path('service_provider_logos'),$file_name);
-                    $user->logo='service_provider_logos/'.$file_name;
+                if ($request->hasFile('logo')) {
+                    $logoPath = public_path('service_provider_logos');
+                    // 1️⃣ Create directory if not exists
+                    if (!File::exists($logoPath)) {
+                        File::makeDirectory($logoPath, 0755, true);
+                    }
+                    // 2️⃣ Delete old logo if exists
+                    if (!empty($user->logo) && file_exists(public_path($user->logo))) {
+                        @unlink(public_path($user->logo));
+                    }
+                    // 3️⃣ Upload new logo
+                    $file = $request->file('logo');
+                    $fileName = Auth::guard('ser')->user()->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+                    $file->move($logoPath, $fileName);
+                    // 4️⃣ Save path in DB
+                    $user->logo = 'service_provider_logos/' . $fileName;
                 }
             }
             $user->places()->sync($place);
