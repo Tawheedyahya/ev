@@ -10,7 +10,7 @@
             <table class="table align-middle table-responsive" id="my_table" style="width:100%">
                 <thead>
                     <tr>
-                        <th>B.NO</th>
+                        <th>NO.</th>
                         <th>VENUE NAME</th>
                         {{-- <th class="phone-device">B.ID</th> --}}
                         <th>CUSTOMER NAME</th>
@@ -28,9 +28,9 @@
                                 $s = data_get($book, 'status');
                             @endphp
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $book->venue_name }}</td>
+                            <td>{{ ucfirst($book->venue_name) }}</td>
                             {{-- <td class="phone-device">{{ $['id'] }}</td> --}}
-                            <td>{{ $book->name }}</td>
+                            <td>{{ ucfirst($book->name) }}</td>
                             <td>{{ $book->phone }}</td>
                             <td>
                                 @if ($s == 'approved')
@@ -40,7 +40,7 @@
                                 @elseif ($s == 'cancelled')
                                     <span class="badge bg-secondary text-uppercase">{{ $book->status }}</span>
                                 @else
-                                    <span class="badge bg-warning text-uppercase">{{ $book->status }}</span>
+                                    <span class="badge bg-primary text-uppercase">{{ $book->status }}</span>
                                 @endif
                             </td>
 

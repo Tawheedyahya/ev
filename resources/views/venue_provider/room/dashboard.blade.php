@@ -8,7 +8,7 @@
         {{-- add room button --}}
         <div class="add-venue mb-3">
             <a href="{{ route('rooms.add', $id) }}" class="add-venue-tile" aria-label="Add a new venue"> {{-- merge venues id --}}
-                <span class="btn btn-warning rounded-pill">
+                <span class="btn nbg rounded-pill">
                     <i class="bi bi-plus-lg me-1"></i> Add Rooms
                 </span>
             </a>
@@ -19,8 +19,8 @@
                 <thead>
                     <tr>
 
-                        <th class="">R.NO</th>
-                        <th class="">R.ID</th>
+                        <th class="">NO.</th>
+                        {{-- <th class="">R.ID</th> --}}
                         <th>ROOM NAME</th>
                         {{-- <th>VENUE DESCRIPTION</th> --}}
                         <th>ROOM CAPACITY</th>
@@ -31,8 +31,8 @@
                     @foreach ($rooms as $room)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $room['id'] }}</td>
-                            <td>{{ $room['room_name'] }}</td>
+                            {{-- <td>{{ $room['id'] }}</td> --}}
+                            <td>{{ ucfirst($room['room_name']) }}</td>
                             <td>{{ $room['room_capacity'] }}</td>
                             <td class="text-end" style="white-space:nowrap;width:1%;">
     <div class="d-inline-flex align-items-center gap-2">

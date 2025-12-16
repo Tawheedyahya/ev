@@ -48,6 +48,9 @@ Route::view('/terms','terms');
 Route::prefix('/aboutus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'aboutus']);
 });
+Route::view('/privacy','privacy');
+
+
 Route::prefix('/contactus')->group(function(){
     Route::get('/dashboard',[Homecontroller::class,'contactus']);
 });

@@ -39,7 +39,7 @@
         <div class="row justify-content-center mt-5">
             <div>
                 <div class="card form-card">
-                    <div class="card-header form-header">Venue details</div>
+                    <div class="card-header form-header nbg">Venue details</div>
 
                     <div class="card-body form-body">
                         {{-- enctype needed for file uploads --}}
@@ -134,6 +134,7 @@
                                 </div>
 
                                 {{-- Row 5: Food provide (left) | Food prices & halal (right) --}}
+                                <div class="p-3 bg-light border rounded mt-5">
                                 <div class="col-md-4">
                                     <label class="form-label d-block">Are you providing food?</label>
                                     <div class="form-check">
@@ -211,6 +212,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </div>
 
                                 {{-- Row 6: Description (full) --}}
                                 <div class="col-12">
@@ -220,14 +222,14 @@
                                         <div class="return-error">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                 <div class="col-12">
+                                <div class="col-12">
                                     <label for="why" class="form-label">why this venue</label>
                                     <textarea name="why" id="why" rows="6" class="form-control">{{ old('why', $venue['why'] ?? '') }}</textarea>
                                     @error('why')
                                         <div class="return-error">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                 <div class="col-12">
+                                <div class="col-12">
                                     <label for="what" class="form-label">What this venue</label>
                                     <textarea name="what" id="what" rows="6" class="form-control">{{ old('what', $venue['what'] ?? '') }}</textarea>
                                     @error('what')
@@ -286,26 +288,36 @@
                                         pin</button>
                                 </div>
 
-                                {{-- Row 10: Upload (left) | Preview (right) --}}
-                                <div class="col-md-6 d-flex align-items-center gap-2">
-                                    <input type="file" name="doc" id="doc" class="visually-hidden"
-                                        accept="image/*">
-                                    <label for="doc" class="btn btn-primary mb-0">
-                                        <i class="bi bi-upload me-1"></i> Upload photos
-                                    </label>
+                                {{-- Row 10: Upload + Preview --}}
+                                <div class="row align-items-center g-3">
+
+                                    <div class="col-md-6 d-flex align-items-center gap-3">
+
+                                        {{-- Upload --}}
+                                        <input type="file" name="doc" id="doc" class="visually-hidden"
+                                            accept="image/*">
+
+                                        <label for="doc" class="btn btn-primary mb-0">
+                                            <i class="bi bi-upload me-1"></i> Upload photos
+                                        </label>
+
+                                        {{-- Preview --}}
+                                        <img src="{{ asset($venue['doc'][0] ?? '') }}"
+                                            class="venue-img img-fluid rounded border" loading="lazy" id="p-img"
+                                            style="height:180px; width:200px; object-fit:cover;">
+
+                                    </div>
                                     @error('doc')
-                                        <div class="return-error">{{ $message }}</div>
+                                        <div class="col-12">
+                                            <div class="return-error">{{ $message }}</div>
+                                        </div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
-                                    <img src="{{ asset($venue['doc'][0] ?? '') }}" class="venue-img img-fluid"
-                                        loading="lazy" id="p-img" style="height: 180px;width:200px;">
-                                </div>
-
+                                    <div class="col-md-6 offset-md-2 mt-5">
+                                        <button class="btn btn-primary">Submit</button>
+                                    </div>
                                 {{-- Row 11: Submit --}}
-                                <div class="col-12">
-                                    <button class="btn btn-primary">Submit</button>
-                                </div>
+
 
                             </div> {{-- /row g-3 --}}
                         </form>
@@ -321,5 +333,4 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{{ asset('manual_js/leaflet.js') }}"></script>
-
 @endpush

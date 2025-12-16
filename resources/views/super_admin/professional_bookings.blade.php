@@ -26,9 +26,9 @@
                         <td>{{$loop->iteration}}</td>
                         {{-- <td>{{$book->dubvenue->venue_name}}</td>
                         <td>{{$book->dubvenue->venue_city}}</td> --}}
-                        <td>{{$book->user->name}}</td>
+                        <td>{{ucfirst($book->user->name)}}</td>
                         <td>{{$book->user->phone}}</td>
-                        <td>{{$book->status}} <span class="text-danger">{{$book->notes}}</span></td>
+                        <td>{{ucfirst($book->status)}} <span class="text-danger">{{$book->notes}}</span></td>
                         <td>{{$book->order_date}}</td>
                         <td>{{$book->upto_date}}</td>
                     </tr>

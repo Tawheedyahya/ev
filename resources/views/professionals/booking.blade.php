@@ -10,7 +10,7 @@
             <table class="table align-middle table-responsive" id="my_table" style="width:100%">
                 <thead>
                     <tr>
-                        <th>B.NO</th>
+                        <th>NO</th>
                         {{-- <th class="phone-device">B.ID</th> --}}
                         <th>CUSTOMER NAME</th>
                         <th>CUSTOMER PHONE</th>
@@ -43,7 +43,7 @@
                                 @elseif ($s == 'cancelled')
                                     <span class="badge bg-secondary text-uppercase">{{ $s }}</span>
                                 @else
-                                    <span class="badge bg-warning text-uppercase">{{ $s }}</span>
+                                    <span class="badge bg-primary text-uppercase">{{ $s }}</span>
                                 @endif
                             </td>
 

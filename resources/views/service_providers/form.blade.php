@@ -4,12 +4,12 @@
 @section('content')
     <div class="container-fluid">
         @include('venue_provider.layouts.header')
-        <h1 class="title-shadow-glow">upload photos</h1>
+        {{-- <h1 class="title-shadow-glow">upload photos</h1> --}}
         @include('components.toast')
         <div class="row justify-content-center mt-5">
             <div class="col col-md-7">
                 <div class="card form-card">
-                    <div class="card-header form-header title-shadow-glow">Blogs form</div>
+                    <div class="card-header form-header nbg">Blogs form</div>
                     <div class="card-body form-body">
                         <form action="{{ route('service.post') }}" method="POST" enctype="multipart/form-data" id="blog">
                             @csrf
@@ -47,7 +47,7 @@
                             <img src="" alt="" class="show_doc img-fluid text-center d-none" height="200px"
                                 width="200px">
                             <div class="mt-3 form-end">
-                                <button type="submit" class="btn form-submit-btn">
+                                <button type="submit" class="btn btn-primary">
                                     Post
                                 </button>
                                 {{-- <a href="{{ url('vendor/professionals_login') }}">Login?</a> --}}

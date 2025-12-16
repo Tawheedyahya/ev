@@ -58,7 +58,7 @@
 
 /* CTA BUTTON */
 .plan-btn {
-    background: linear-gradient(90deg, #ff6a00, #f7b733);
+    background: #EB4D4B;
     color: #fff !important;
     padding: 10px 22px;
     border-radius: 30px;

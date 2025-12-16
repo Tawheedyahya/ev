@@ -7,7 +7,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card form-card">
-                    <div class="form-header">
+                    <div class="form-header nbg">
                         Footer setting
                     </div>
                     <div class="form-body card-body">

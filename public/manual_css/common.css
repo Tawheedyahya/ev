@@ -76,6 +76,21 @@ a:hover {
     color: #ff2e2e;
     transition: 0.3s ease;
 }
+    .section-title {
+    font-size: 1.35rem;        /* strong but not oversized */
+    font-weight: 700;          /* bold heading */
+    color: #111111;            /* near-black */
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;    /* subtle premium tightening */
+}
+
+.section-desc {
+    font-size: 0.95rem;        /* smaller than heading */
+    font-weight: 400;
+    color: #4b5563;            /* soft black / dark gray */
+    line-height: 1.65;
+    max-width: 520px;
+}
 
 /* Hover animation */
 #heartBtn.heart:hover,#prof_heart.heart:hover {
@@ -139,3 +154,12 @@ a:hover {
         margin-bottom: 20px;
     }
 }
+p,
+h1, h2, h3, h4, h5,
+a,
+span {
+    text-transform: capitalize !important;
+}
+ .nc{
+            color: black !important;
+        }

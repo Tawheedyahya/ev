@@ -88,18 +88,18 @@
 
         <div class="venue-content">
             <div class="venue-header">
-                <h3 class="mt-3">
+                <h3 class="mt-3 section-title">
                     <i class="bi bi-building me-2"></i>
                     {{ $venue['venue_name'] }}
                 </h3>
             </div>
 
             <div class="venue-description">
-                <p style="color: rgba(135,135,135,1);">{{ $venue['description'] }}</p>
+                <p class="section-desc">{{ $venue['description'] }}</p>
             </div>
 
             <div class="venue-specifications">
-                <h3 class="mt-3 mb-3">Venue Specification</h3>
+                <h3 class="mt-3 mb-3 section-title">Venue Specification</h3>
 
                 <div class="spec-list d-flex flex-wrap gap-3">
                     @forelse (array_slice($images, 1) as $im)
@@ -114,18 +114,18 @@
             </div>
 
             <div class="why">
-                <h3 class="mt-3 mb-3">Why this venue</h3>
-                <p>{{ $venue['why'] }}</p>
+                <h3 class="mt-3 mb-3 section-title">Why this venue</h3>
+                <p class="section-desc">{{ $venue['why'] }}</p>
             </div>
 
             <div class="why">
-                <h3 class="mt-3 mb-3">What this venue</h3>
-                <p>{{ $venue['what'] }}</p>
+                <h3 class="mt-3 mb-3 section-title">What this venue</h3>
+                <p class="section-desc">{{ $venue['what'] }}</p>
             </div>
 
             @if ($venue['food_provide'] == 'yes')
                 <div class="venue-food">
-                    <h5 class="mt-3 mb-3 fw-semibold">Food card</h5>
+                    <h5 class="mt-3 mb-3 fw-semibold section-title">Food card</h5>
                     <div class="spec-list d-flex flex-wrap gap-3">
                         <button type="button" class="spec-card btn text-start">
                             <div class="spec-name text-warning fw-semibold">Breakfast</div>

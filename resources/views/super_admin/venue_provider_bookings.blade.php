@@ -24,16 +24,16 @@
                     @forelse ($bookings as $book)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$book->dubvenue->venue_name}}</td>
-                        <td>{{$book->dubvenue->venue_city}}</td>
-                        <td>{{$book->name}}</td>
+                        <td>{{ucfirst($book->dubvenue->venue_name)}}</td>
+                        <td>{{ucfirst($book->dubvenue->venue_city)}}</td>
+                        <td>{{ucfirst($book->name)}}</td>
                         <td>{{$book->phone}}</td>
-                        <td>{{$book->status}}</td>
+                        <td>{{ucfirst($book->status)}}</td>
                         <td>{{$book->order_date}}</td>
                         <td>{{$book->upto_date}}</td>
                     </tr>
                     @empty
-                    <p>noo bookings</p>
+                    <p>no bookings</p>
                     @endforelse
                 </tbody>
             </table>

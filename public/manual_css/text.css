@@ -36,4 +36,8 @@
   background:#ff7a1a; /* your orange */
   box-shadow: 0 6px 14px rgba(255,122,26,.5);
 }
-.header-title h1{ font-size: clamp(24px, 3.5vw, 34px); }    
+.header-title h1{ font-size: clamp(24px, 3.5vw, 34px); }
+.nbg{
+    background-color:  #121826 !important;
+    color: white !important;
+}

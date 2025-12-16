@@ -27,19 +27,19 @@
                         @foreach ($professionals as $provider)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $provider->name }}</td>
-                                <td>{{ $provider->phone }}</td>
-                                <td>{{ $provider->companyname}}</td>
-                                <td>{{$provider->professionlist->name}}</td>
+                                <td>{{ ucwords($provider->name) }}</td>
+                                <td>{{ ucwords($provider->phone) }}</td>
+                                <td>{{ ucwords($provider->companyname)}}</td>
+                                <td>{{ucwords($provider->professionlist->name)}}</td>
                                 <td>{{ $provider->email }}</td>
                                 <td><a href="{{ asset('professionals/' . $provider->doc) }}" target="_blank">link</a></td>
                                 <td
-                                    @if ($provider->status == 'pending') class="bg-danger"
+                                    @if ($provider->status == 'pending') class="bg-danger nc"
                                     @elseif ($provider->status == 'approved')
-                                    class="bg-success"
+                                    class="bg-success nc"
                                     @else
-                                    class="bg-warning" @endif>
-                                    {{ $provider->status }}</td>
+                                    class="bg-warning nc" @endif>
+                                    {{ ucwords($provider->status) }}</td>
                                 <td class="text">
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">

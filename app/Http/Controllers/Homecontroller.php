@@ -26,9 +26,12 @@ class Homecontroller extends Controller
                 'venue_name'=>$venues['venue_name'],
                 'venue_city'=>$venues['venue_city'],
                 'doc'=>$venues['venueimages'][0]['doc']??null,
-                'amount'=>$venues['amount']
+                'amount'=>$venues['amount'],
+                'new_venue'=> 'yes',
+                'description'=>$venues['description']
             ];
         },$venues);
+        // pr($venues);
         return view('home.dashboard',compact('venues','action','footer'));
     }
     public function aboutus(){
@@ -38,9 +41,10 @@ class Homecontroller extends Controller
         return view('contactus');
     }
     public function prof(){
-        $prof=Professional::where('status','approved')->get()->toArray();
+        $prof=Professional::with("info")->where('status','approved')->get()->toArray();
         $profs=array_slice($prof,0,20);
         // pr($profs);
+        // return response()->json($profs);
         $action='prof.professional';
         $venues=array_map(function($venues){
             return [
@@ -48,15 +52,18 @@ class Homecontroller extends Controller
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['address'],
                 'doc'=>$venues['prof_logo'],
-                'amount'=>$venues['amount']
+                'amount'=>$venues['amount'],
+                'new_venue'=> 'no',
+                'description'=>$venues['info']['about_us']??'Excellent professional providing top-notch services.'
             ];
         },$profs);
+
         return view('home.category_show',compact('venues','action'));
     }
     public function ser(){
         $ser=Serviceproviders::where('status','approved')->get()->toArray();
         $sers=array_slice($ser,0,20);
-        // pr($sers);
+        //  pr($sers);
         $action='ser.service_provider';
         $venues=array_map(function($venues){
             return [
@@ -64,9 +71,12 @@ class Homecontroller extends Controller
                 'venue_name'=>$venues['companyname'],
                 'venue_city'=>$venues['city'],
                 'doc'=>$venues['logo'],
-                'amount'=>$venues['price']
+                'amount'=>$venues['price'],
+                'new_venue'=> 'no',
+                'description'=>$venues['about_us']??'Excellent Service provider top-notch services.'
             ];
         },$sers);
+        // pr($sers);
          return view('home.category_show',compact('venues','action'));
     }
     public function ratings(Request $request,$id,$type){

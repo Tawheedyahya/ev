@@ -21,11 +21,11 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <strong>Name:</strong>
-                        <p>{{ Auth::guard('ser')->user()->name }}</p>
+                        <p>{{ ucfirst(Auth::guard('ser')->user()->name) }}</p>
                     </div>
                     <div class="col-md-6">
                         <strong>Company Name:</strong>
-                        <p>{{ Auth::guard('ser')->user()->companyname }}</p>
+                        <p>{{ ucfirst(Auth::guard('ser')->user()->companyname) }}</p>
                     </div>
                 </div>
 
@@ -84,3 +84,4 @@
     </div>
     </div>
 @endsection
+
