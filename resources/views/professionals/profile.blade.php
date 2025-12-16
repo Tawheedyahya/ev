@@ -5,7 +5,7 @@
 
   @if ($prof)
   <div class="card shadow-lg border-0 rounded-3 d-flex flex-row align-items-center p-3" style="max-width: 800px; width:100%;">
-      
+
       <!-- Left Section: Profile Image / Icon -->
       <div class="text-center p-4 border-end" style="flex: 0 0 250px;">
           @if (!empty($prof->prof_logo))
@@ -15,7 +15,7 @@
               <i class="bi bi-person-circle text-secondary" style="font-size:120px;"></i>
           @endif
           <h6 class="mt-3 fw-semibold">{{ $prof->name }}</h6>
-          <a href="{{ route('prof.profile.edit') }}" class="btn btn-warning btn-sm mt-2">
+          <a href="{{ route('prof.profile.edit') }}" class="btn nbg btn-sm mt-2">
               <i class="bi bi-pencil-square"></i> Edit Profile
           </a>
       </div>

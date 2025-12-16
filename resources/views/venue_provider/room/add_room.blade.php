@@ -5,12 +5,12 @@
     <div class="container-fluid">
         @include('venue_provider.layouts.header')
         <!-- <h1 class="title-shadow-glow">Room form</h1> -->
-        <a href="javascript:history.back()" class="back-btn"> <i class="bi bi-arrow-left"></i>Back to Venues</a>
+        <a href="javascript:history.back()" class="btn nbg"> <i class="bi bi-arrow-left"></i>Back to Venues</a>
         @include('components.toast')
         <div class="row justify-content-center mt-5">
             <div>
                 <div class="card form-card">
-                    <div class="card-header form-header title-shadow-glow">Room details</div>
+                    <div class="card-header form-header  nbg">Room details</div>
                     <div class="card-body form-body">
                         {{-- <form action="@if ('hii') @else @endif" method="POST"
                             enctype="multipart/form-data" id="register_form"> --}}
@@ -55,7 +55,7 @@
                              @else ''
                              @endif"  class="room-img img-fluid" loading="lazy" id="r_img" style="height: 180px;width:200px;">
                             <div class="mt-3 form-end d-flex justify-content-center align-items-center">
-                                <button class="btn" style="background-color:grey;color:white;">submit</button>
+                                <button class="btn btn-primary" style="color:white;">submit</button>
                             </div>
                         </form>
                     </div>

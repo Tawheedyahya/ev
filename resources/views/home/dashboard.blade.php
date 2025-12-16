@@ -44,8 +44,9 @@
 
 /* MAIN HEADING — MATCH WTC SIZE */
 .hero-content h1 {
-    font-size: 30px; /* Reduced */
-    font-weight: 600;
+    font-size: 35px; /* Reduced */
+    font-weight: 700;
+    font-family: Playfair Display;
     color: white;
     line-height: 1.25;
     margin-bottom: 18px;
@@ -69,7 +70,7 @@
 /* BUTTON STYLE EXACT LIKE WTC */
 .outline-btn1 {
     text-align: center;
-    background: linear-gradient(90deg, #ff6a00, #f7b733);
+    background: #EB4D4B;
     color: white !important;
     padding: 8px 20px;
     border-radius: 30px;
@@ -134,7 +135,6 @@
         </div>
 
     </div>
-
 
 </div>
 

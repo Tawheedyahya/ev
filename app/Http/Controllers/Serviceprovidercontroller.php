@@ -172,6 +172,8 @@ class Serviceprovidercontroller extends Controller
             $user->phone=$request->input('phone');
             $user->facebook=$request->input('facebook')??null;
             $user->instagram=$request->input('instagram')??null;
+            $user->about_us=$request->input('about_us')??null;
+            $user->long_description=$request->input('long_description')??null;
             if($request->hasFile('logo')){
                 if(file_exists(public_path($user->logo))){
                     @unlink(public_path($user->logo));

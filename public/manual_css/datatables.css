@@ -1,115 +1,199 @@
-/* ============================================
-   PROFESSIONAL DATATABLES THEME (LIGHT UI)
-   ============================================ */
+/* =====================================================
+   PROFESSIONAL DATATABLES DESIGN (VENUE DASHBOARD)
+   ===================================================== */
 
-:root {
-  --dt-bg: #ffffff;
-  --dt-bg-alt: #f5f7fa;
-  --dt-border: #e6e8ec;
-  --dt-text: #1f2a37;
-  --dt-muted: #6b7280;
-  --dt-primary: #2b6cb0; /* Corporate Blue */
-  --dt-primary-hover: #2c5282;
-  --dt-radius: 10px;
+/* ---------- TABLE CONTAINER (CARD LOOK) ---------- */
+.table-start {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.06);
 }
 
-/* Wrapper */
+/* ---------- BASE TABLE ---------- */
+#my_table {
+    width: 100%;
+    border-collapse: separate !important;
+    border-spacing: 0;
+}
+
+#my_table th,
+#my_table td {
+    vertical-align: middle;
+}
+
+/* ---------- TABLE HEADER ---------- */
+#my_table thead th {
+    background: #f9fafb;
+    color: #374151;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 12px;
+    border-bottom: 1px solid #e5e7eb !important;
+    white-space: nowrap;
+}
+
+/* ---------- TABLE BODY CELLS ---------- */
+#my_table tbody td {
+    padding: 16px 12px;
+    font-size: 0.92rem;
+    color: #4b5563;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* ---------- COLUMN EMPHASIS ---------- */
+/* Venue Name */
+#my_table tbody td:nth-child(2) {
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Venue Description */
+#my_table tbody td:nth-child(3) {
+    color: #6b7280;
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+/* Venue Rate */
+#my_table tbody td:nth-child(4) {
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* ---------- ROW HOVER ---------- */
+#my_table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+#my_table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ---------- ACTION BUTTONS ---------- */
+#my_table .btn {
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    border-radius: 999px;
+    line-height: 1.2;
+}
+
+/* Primary */
+#my_table .btn-outline-primary {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+#my_table .btn-outline-primary:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+/* Danger */
+#my_table .btn-outline-danger {
+    border-color: #dc2626;
+    color: #dc2626;
+}
+
+#my_table .btn-outline-danger:hover {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+/* Secondary */
+#my_table .btn-outline-secondary {
+    border-color: #6b7280;
+    color: #6b7280;
+}
+
+#my_table .btn-outline-secondary:hover {
+    background: #6b7280;
+    color: #ffffff;
+}
+
+/* ---------- DATATABLES CONTROLS ---------- */
 .dataTables_wrapper {
-  background: var(--dt-bg);
-  border: 1px solid var(--dt-border);
-  border-radius: var(--dt-radius);
-  padding: 20px;
+    background: transparent;
+    padding: 0;
+    border: none;
 }
 
-/* Top: Search + Length */
+/* Length + Search */
 .dataTables_length label,
 .dataTables_filter label {
-  font-weight: 600;
-  color: var(--dt-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #6b7280;
 }
 
 .dataTables_length select,
 .dataTables_filter input {
-  border: 1px solid var(--dt-border);
-  border-radius: var(--dt-radius);
-  padding: 8px 12px;
-  background: var(--dt-bg-alt);
-  color: var(--dt-text);
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    color: #111827;
 }
 
-.dataTables_filter input:focus,
-.dataTables_length select:focus {
-  border-color: var(--dt-primary);
-  outline: none;
+.dataTables_filter input::placeholder {
+    color: #9ca3af;
 }
 
-/* Table */
-table.dataTable {
-  border: 1px solid var(--dt-border);
-  border-radius: var(--dt-radius);
-  background: #fff;
-  overflow: hidden;
+/* ---------- PAGINATION ---------- */
+.dataTables_paginate {
+    margin-top: 10px;
 }
 
-/* Header */
-table.dataTable thead th {
-  background: #f2f4f7;
-  color: var(--dt-text);
-  font-weight: 700;
-  border-bottom: 1px solid var(--dt-border);
-  padding: 12px;
+.dataTables_paginate .paginate_button {
+    background: transparent !important;
+    border: none !important;
+    padding: 6px 10px;
+    margin: 0 2px;
+    font-size: 0.85rem;
+    color: #4b5563 !important;
+    border-radius: 6px;
 }
 
-/* Sorting Icons */
-table.dataTable thead th.sorting:after,
-table.dataTable thead th.sorting_asc:after,
-table.dataTable thead th.sorting_desc:after {
-  opacity: .7;
+.dataTables_paginate .paginate_button:hover {
+    background: #e5e7eb !important;
+    color: #111827 !important;
 }
 
-/* Body */
-table.dataTable tbody td {
-  padding: 12px;
-  border-bottom: 1px solid var(--dt-border);
-  color: var(--dt-text);
+.dataTables_paginate .paginate_button.current {
+    background: #2563eb !important;
+    color: #ffffff !important;
 }
 
-/* Row Hover */
-table.dataTable tbody tr:hover {
-  background: #edf2f7;
-}
-
-/* Striping */
-table.dataTable.stripe tbody tr:nth-child(odd) {
-  background: var(--dt-bg-alt);
-}
-
-/* Pagination */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  border: 1px solid var(--dt-border) !important;
-  background: var(--dt-bg) !important;
-  border-radius: 6px !important;
-  padding: 6px 12px !important;
-  margin: 0 2px !important;
-  color: var(--dt-text) !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-  background: var(--dt-primary-hover) !important;
-  color: #fff !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-  background: var(--dt-primary) !important;
-  color: white !important;
-  border-color: var(--dt-primary) !important;
-}
-
-/* Info */
+/* ---------- INFO TEXT ---------- */
 .dataTables_info {
-  color: var(--dt-muted);
-  font-size: 14px;
-  padding-top: 10px;
+    font-size: 0.8rem;
+    color: #6b7280;
+    padding-top: 8px;
+}
+
+/* ---------- RESPONSIVE (MOBILE) ---------- */
+@media (max-width: 768px) {
+    .table-start {
+        padding: 12px;
+    }
+
+    #my_table thead th {
+        font-size: 0.7rem;
+        padding: 10px 8px;
+    }
+
+    #my_table tbody td {
+        padding: 12px 8px;
+        font-size: 0.88rem;
+    }
+
+    #my_table .btn {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
 }
         .badge-gradient-success {
             background: linear-gradient(45deg, #28a745, #5dd39e);

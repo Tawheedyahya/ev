@@ -10,7 +10,7 @@
                     style="width:100%">
                     <thead>
                         <tr>
-                            <th>B.NO</th>
+                            <th>NO.</th>
                             <th>SERVICE PROVIDER NAME</th>
                             {{-- <th class="phone-device">B.ID</th> --}}
                             <th>PROVIDER PHONE</th>
@@ -27,18 +27,18 @@
                         @foreach ($service_providers as $provider)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $provider->name }}</td>
+                                <td>{{ ucwords($provider->name) }}</td>
                                 <td>{{ $provider->phone }}</td>
-                                <td>{{ $provider->companyname}}</td>
-                                <td>{{$provider->categories->name}}</td>
+                                <td>{{ ucwords($provider->companyname)}}</td>
+                                <td>{{ucwords($provider->categories->name)}}</td>
                                 <td>{{ $provider->email }}</td>
                                 {{-- <td><a href="{{ asset('professionals/' . $provider->doc) }}" target="_blank">link</a></td> --}}
                                 <td
-                                    @if ($provider->status == 'pending') class="bg-danger"
+                                    @if ($provider->status == 'pending') class="bg-danger nc"
                                     @elseif ($provider->status == 'approved')
-                                    class="bg-success"
+                                    class="bg-success nc"
                                     @else
-                                    class="bg-warning" @endif>
+                                    class="bg-warning nc" @endif>
                                     {{ $provider->status }}</td>
                                 <td class="text">
                                     <div class="dropdown">

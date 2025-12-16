@@ -10,7 +10,7 @@
                     style="width:100%">
                     <thead>
                         <tr>
-                            <th>B.NO</th>
+                            <th>NO.</th>
                             <th>VENUE_PROVIDER NAME</th>
                             {{-- <th class="phone-device">B.ID</th> --}}
                             <th>VENUE_PROVIDER PHONE</th>
@@ -25,17 +25,17 @@
                         @foreach ($venue_providers as $provider)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $provider->name }}</td>
-                                <td>{{ $provider->phone }}</td>
+                                <td>{{ ucfirst($provider->name) }}</td>
+                                <td>{{ ucfirst($provider->phone) }}</td>
                                 <td>{{ $provider->email }}</td>
                                 <td><a href="{{ asset('venue_providers/' . $provider->doc) }}" target="_blank">link</a></td>
                                 <td
-                                    @if ($provider->status == 'pending') class="bg-danger"
+                                    @if ($provider->status == 'pending') class="bg-danger nc"
                                     @elseif ($provider->status == 'approved')
-                                    class="bg-success"
+                                    class="bg-success nc"
                                     @else
-                                    class="bg-warning" @endif>
-                                    {{ $provider->status }}</td>
+                                    class="bg-warning nc" @endif>
+                                    {{ ucfirst($provider->status) }}</td>
                                 <td class="text">
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">

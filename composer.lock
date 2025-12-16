@@ -7,6 +7,20 @@
     "content-hash": "2804a9f3a0a8c617513d7d7be989d011",
     "packages": [
         {
+            "name": "brick/math",
+            "version": "0.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/brick/math.git",
+                "reference": "f05858549e5f9d7bb45875a75583240a38a281d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/brick/math/zipball/f05858549e5f9d7bb45875a75583240a38a281d0",
+                "reference": "f05858549e5f9d7bb45875a75583240a38a281d0",
+                "shasum": ""
+            },
+            "require": {
             "name": "aws/aws-crt-php",
             "version": "v1.2.7",
             "source": {
@@ -172,6 +186,7 @@
                 "shasum": ""
             },
             "require": {
+>>>>>>> stagescopy
                 "php": "^8.2"
             },
             "require-dev": {
@@ -2271,6 +2286,17 @@
             "time": "2025-03-24T10:02:05+00:00"
         },
         {
+<<<<<<< HEAD
+            "name": "nesbot/carbon",
+            "version": "3.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CarbonPHP/carbon.git",
+                "reference": "bdb375400dcd162624531666db4799b36b64e4a1"
+            },
+            "dist": {
+                "type": "zip",
+=======
             "name": "mtdowling/jmespath.php",
             "version": "2.8.0",
             "source": {
@@ -2346,6 +2372,7 @@
             },
             "dist": {
                 "type": "zip",
+>>>>>>> stagescopy
                 "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/bdb375400dcd162624531666db4799b36b64e4a1",
                 "reference": "bdb375400dcd162624531666db4799b36b64e4a1",
                 "shasum": ""
@@ -4060,6 +4087,17 @@
             "time": "2024-09-25T14:21:43+00:00"
         },
         {
+<<<<<<< HEAD
+            "name": "symfony/finder",
+            "version": "v7.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "340b9ed7320570f319028a2cbec46d40535e94bd"
+            },
+            "dist": {
+                "type": "zip",
+=======
             "name": "symfony/filesystem",
             "version": "v7.4.0",
             "source": {
@@ -4139,6 +4177,7 @@
             },
             "dist": {
                 "type": "zip",
+>>>>>>> stagescopy
                 "url": "https://api.github.com/repos/symfony/finder/zipball/340b9ed7320570f319028a2cbec46d40535e94bd",
                 "reference": "340b9ed7320570f319028a2cbec46d40535e94bd",
                 "shasum": ""

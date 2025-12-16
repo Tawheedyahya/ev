@@ -39,8 +39,8 @@
         <!-- @include('venue_provider.layouts.header') -->
 
         <div class="add-venue mb-3" style="text-align:right;">
-            <a href="{{ route('vp.venue.add') }}" class="add-venue-tile" aria-label="Add a new venue">
-                <span class="btn btn-warning rounded-pill">
+            <a href="{{ route('vp.venue.add') }}" class="add-venue-tile  btn nbg rounded-pill" aria-label="Add a new venue">
+                <span class="">
                     <i class="bi bi-plus-lg me-1"></i> Add venue
                 </span>
             </a>
@@ -50,21 +50,21 @@
             <table class="table align-middle" id="my_table" style="width:100%">
                 <thead>
                     <tr>
-                        <th class="phone-device">V.NO</th>
-                        <th class="phone-device">V.ID</th>
+                        <th class="phone-device">NO</th>
+                        {{-- <th class="phone-device">V.ID</th> --}}
                         <th>VENUE NAME</th>
-                        <th>VENUE DESCRIPTION</th>
-                        <th>VENUE AMOUNT</th>
-                        <th>ACTION</th>
+                        <th class="text-center">VENUE DESCRIPTION</th>
+                        <th>VENUE RATE</th>
+                        <th class="text-center">ACTION</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($venues as $venue)
                         <tr>
                             <td class="phone-device">{{ $loop->iteration }}</td>
-                            <td class="phone-device">{{ $venue['id'] }}</td>
-                            <td>{{ $venue['venue_name'] }}</td>
-                            <td>{{ $venue['description'] }}</td>
+                            {{-- <td class="phone-device">{{ $venue['id'] }}</td>    --}}
+                            <td>{{ ucfirst($venue['venue_name']) }}</td>
+                            <td>{{ ucfirst($venue['description']) }}</td>
                             <td>{{ $venue['amount'] }}</td>
                             <td class="text-end" style="white-space:nowrap;width:1%;">
                                 <div class="d-inline-flex align-items-center gap-2">

@@ -42,7 +42,7 @@
 
 /* ACTIVE */
 .seg-tab.active {
-    background:linear-gradient(90deg, #ff6a00, #f7b733) !important;
+    background:#EB4D4B;
     color:white;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08) inset;
 }
@@ -79,7 +79,7 @@
 }
 
 function loadVerified(e) {
-    $(".fetch").load("/yahi .categoryy > *", function(_, status) {
+    $(".fetch").load("/yahi?id=no .categoryy > *", function(_, status) {
         if (status === "success") activateTab(e);
     });
 }

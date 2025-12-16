@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card form-card">
-                    <div class="card-header form-header">
+                    <div class="card-header form-header nbg">
                         Edit profile
                     </div>
                     <div class="card-body form-body">
@@ -45,6 +45,20 @@
                                     <div class="return-error" id="phone-error">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <!-- <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea name="about_us" id="about_us">{{ old('about_us', $user->about_us) }}</textarea>
+                                @error('about_us')
+                                    <div class="return-error" id="phone-error">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="long_description" class="form-label">About your profile</label>
+                                <textarea name="long_description" id="long_description">{{ old('long_description', $user->long_description) }}</textarea>
+                                @error('long_description')
+                                    <div class="return-error" id="phone-error">{{ $message }}</div>
+                                @enderror
+                            </div> -->
                             <!-- experience -->
                             <div class="mb-3">
                                 <label for="experience" class="form-label">Experience</label>
@@ -113,8 +127,8 @@
                                 @endif
                             </div>
                             <!-- Submit -->
-                            <div class="mt-3 form-end">
-                                <button type="submit" class="btn form-submit-btn">
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-primary">
                                     update
                                 </button>
                                 {{-- <img src="" alt=""> --}}
