@@ -14,13 +14,13 @@
         <ul class="nav flex-column px-2">
             <li class="nav-item"><a
                     class=" text-white nav-link @if ($request == 'venue_providers') active" @else " @endif href="{{ route('ad.vn.ds') }}"><i
-                        class="bi bi-speedometer2"></i> <span class="">Venue_providers</span></a></li>
+                        class="bi bi-speedometer2"></i> <span class="">Venue providers</span></a></li>
             <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'professionals') active" @else " @endif href="{{route('ad.p.ds')}}"><i
                         class="bi bi-calendar-event"></i> <span class="">professionals</span></a></li>
             <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'service_providers') active" @else " @endif href="{{route('ad.sp.ds') }}"><i
-                        class="bi bi-journal-check"></i> <span class="">service_providers</span></a></li>
+                        class="bi bi-journal-check"></i> <span class="">service providers</span></a></li>
             <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'footer') active" @else " @endif href="{{route('ad.footer') }}"><i
                         class="bi bi-gear"></i> <span class="">Footer</span></a></li>

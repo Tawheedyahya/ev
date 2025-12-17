@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\Emailverfication;
 use App\Mail\Passwordmail;
 use App\Models\Occasion;
+use App\Models\Serviceplace;
 use App\Models\Venue;
 use App\Models\Venuefacility;
 use App\Models\Venueproviders;
@@ -145,6 +146,8 @@ class Venueprovider extends Controller
     }
     public function add_venue(Request $request)
     {
+        $places=Serviceplace::all();
+        // pr($places);
         $venue = null;
         @$id = $request->route('id');
         if (@$id) {
@@ -184,12 +187,12 @@ class Venueprovider extends Controller
             $occasions = Occasion::all();
             $venue_facilities = Venuefacility::all();
             // pr($occasions);
-            return view('venue_provider.add_venue', compact('occasions', 'venue_facilities', 'venue'));
+            return view('venue_provider.add_venue', compact('occasions', 'venue_facilities', 'venue','places'));
         }
         $occasions = Occasion::all();
         $venue_facilities = Venuefacility::all();
         // pr($occasions);
-        return view('venue_provider.add_venue', compact('occasions', 'venue_facilities', 'venue'));
+        return view('venue_provider.add_venue', compact('occasions', 'venue_facilities', 'venue','places'));
     }
     public function register_venue(Request $request, $id = null)
     {

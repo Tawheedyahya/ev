@@ -29,13 +29,12 @@
                                 <td>{{ ucfirst($provider->phone) }}</td>
                                 <td>{{ $provider->email }}</td>
                                 <td><a href="{{ asset('venue_providers/' . $provider->doc) }}" target="_blank">link</a></td>
-                                <td
-                                    @if ($provider->status == 'pending') class="bg-danger nc"
+                                <td>
+                                    <span  @if ($provider->status == 'pending') class="bg-danger nc"
                                     @elseif ($provider->status == 'approved')
                                     class="bg-success nc"
                                     @else
-                                    class="bg-warning nc" @endif>
-                                    {{ ucfirst($provider->status) }}</td>
+                                    class="bg-warning nc" @endif style="padding:2px;border-radius:5px;">{{ ucfirst($provider->status) }}</span></td>
                                 <td class="text">
                                     <div class="dropdown">
                                         <button class="btn btn-sm btn-light" data-bs-toggle="dropdown">

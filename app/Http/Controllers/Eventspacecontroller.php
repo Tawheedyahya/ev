@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Occasion;
 use App\Models\Professional;
 use App\Models\Ratingall;
+use App\Models\Serviceplace;
 use App\Models\Serviceproviders;
 use App\Models\User;
 use App\Models\Venue;
@@ -23,9 +24,8 @@ class Eventspacecontroller extends Controller
         $occasions = Occasion::all();
         $venue_facilities = Venuefacility::all();
         $location =Venue::all()->pluck('venue_name')->toArray();
-        $avail=Venue::select('venue_city')->distinct('venue_city')->pluck('venue_city')->toArray();
+        $avail=Serviceplace::pluck('name')->toArray();
         // pr($avail);
-
         // Paginate instead of get()->toArray()
         $venues = Venue::with([
             'venueimages' => fn($q) => $q->select('venue_id', 'doc')->orderBy('id')

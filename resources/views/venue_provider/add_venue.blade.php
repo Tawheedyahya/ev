@@ -88,11 +88,16 @@
                                 {{-- Row 3: City | Seat Capacity | Amount --}}
                                 <div class="col-md-6">
                                     <label for="venue_city" class="form-label">Venue City</label>
-                                    <input type="text" name="venue_city" id="venue_city" class="form-control"
+                                    {{-- <input type="text" name="venue_city" id="venue_city" class="form-control"
                                         value="{{ old('venue_city', $venue['venue_city'] ?? '') }}">
                                     @error('venue_city')
                                         <div class="return-error">{{ $message }}</div>
-                                    @enderror
+                                    @enderror --}}
+                                    <select name="venue_city" id="" class="form-control">
+                                        @foreach ($places as $p)
+                                        <option value="{{ $p->name }}" @selected(old('venue_city', $venue['venue_city']) == $p->name)>{{ $p->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="col-md-3">
@@ -230,7 +235,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-12">
-                                    <label for="what" class="form-label">What this venue</label>
+                                    <label for="what" class="form-label">What this venue offers</label>
                                     <textarea name="what" id="what" rows="6" class="form-control">{{ old('what', $venue['what'] ?? '') }}</textarea>
                                     @error('what')
                                         <div class="return-error">{{ $message }}</div>
@@ -246,7 +251,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-6">
-                                    <label for="vedios" class="form-label">Vedio URL</label>
+                                    <label for="vedios" class="form-label">Video URL</label>
                                     <input type="text" name="vedios" id="vedios" class="form-control"
                                         value="{{ old('vedios', $venue['vedios'] ?? '') }}">
                                     @error('vedios')
@@ -289,33 +294,44 @@
                                 </div>
 
                                 {{-- Row 10: Upload + Preview --}}
-                                <div class="row align-items-center g-3">
+<div class="row align-items-start g-3">
 
-                                    <div class="col-md-6 d-flex align-items-center gap-3">
+    <div class="col-md-6 d-flex align-items-start gap-3">
 
-                                        {{-- Upload --}}
-                                        <input type="file" name="doc" id="doc" class="visually-hidden"
-                                            accept="image/*">
+        {{-- Upload --}}
+        <input type="file" name="doc" id="doc" class="visually-hidden" accept="image/*">
 
-                                        <label for="doc" class="btn btn-primary mb-0">
-                                            <i class="bi bi-upload me-1"></i> Upload photos
-                                        </label>
+        {{-- LEFT COLUMN (Upload + Submit) --}}
+        <div class="d-flex flex-column justify-content-between"
+             style="height:180px;">
 
-                                        {{-- Preview --}}
-                                        <img src="{{ asset($venue['doc'][0] ?? '') }}"
-                                            class="venue-img img-fluid rounded border" loading="lazy" id="p-img"
-                                            style="height:180px; width:200px; object-fit:cover;">
+            <label for="doc" class="btn btn-primary mb-0 mt-5">
+                <i class="bi bi-upload me-1"></i> Upload photos
+            </label>
 
-                                    </div>
-                                    @error('doc')
-                                        <div class="col-12">
-                                            <div class="return-error">{{ $message }}</div>
-                                        </div>
-                                    @enderror
-                                </div>
-                                    <div class="col-md-6 offset-md-2 mt-5">
-                                        <button class="btn btn-primary">Submit</button>
-                                    </div>
+            <button class="btn btn-primary" type="submit">
+                Submit
+            </button>
+
+        </div>
+
+        {{-- Preview --}}
+        <img src="{{ asset($venue['doc'][0] ?? '') }}"
+             class="venue-img img-fluid rounded border"
+             loading="lazy"
+             id="p-img"
+             style="height:180px; width:200px; object-fit:cover;">
+
+    </div>
+
+</div>
+
+@error('doc')
+<div class="col-12">
+    <div class="return-error">{{ $message }}</div>
+</div>
+@enderror
+
                                 {{-- Row 11: Submit --}}
 
 
