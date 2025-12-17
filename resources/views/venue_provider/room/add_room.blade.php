@@ -55,7 +55,7 @@
                              @else ''
                              @endif"  class="room-img img-fluid" loading="lazy" id="r_img" style="height: 180px;width:200px;">
                             <div class="mt-3 form-end d-flex justify-content-center align-items-center">
-                                <button class="btn btn-primary" style="color:white;">submit</button>
+                                <button class="btn btn-primary" style="color:white;">Submit</button>
                             </div>
                         </form>
                     </div>

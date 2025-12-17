@@ -6,7 +6,7 @@
 
 <div class="header">
   <div class="header-title">
-    <h2>{{ $title }}</h2>
+    <h5>{{ $title }}</h5>
   </div>
 </div>
 <style>

@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Auth;
 class Homecontroller extends Controller
 {
     public function dashboard(){
-        $venues=Venue::with('venueimages')->get()->toArray();
+        $venues=Venue::with('venueimages')->where('halal',0)->orWhereNull('halal')->limit(8)->get()->toArray();
+        $verified_venues=Venue::with('venueimages')->where('halal',1)->limit(4)->get()->toArray();
+        // pr($verified_venues);
         $action='card.venue';
         $footer=Footer::pluck('value','type');
         // pr($footer->toArray());
-        $venues=array_slice($venues,0,20);
+        $venues=array_slice($venues,0,8);
         // pr($venues);z
         $venues=array_map(function($venues){
             return [
@@ -28,11 +30,12 @@ class Homecontroller extends Controller
                 'doc'=>$venues['venueimages'][0]['doc']??null,
                 'amount'=>$venues['amount'],
                 'new_venue'=> 'yes',
+                'verified'=>$venues['halal']==0?'Halal Verified':'Null',
                 'description'=>$venues['description']
             ];
         },$venues);
         // pr($venues);
-        return view('home.dashboard',compact('venues','action','footer'));
+        return view('home.dashboard',compact('venues','action','footer','verified_venues'));
     }
     public function aboutus(){
         return view('vr');
