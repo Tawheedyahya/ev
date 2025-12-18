@@ -261,78 +261,10 @@
                 @endforeach
 
             </div>
-            <h5 class="mt-5 d-flex align-items-center gap-2 fw-semibold fs-3">
-                <i class="bi bi-patch-check-fill text-success"></i>
-                <span class="text-dark">Halal Verified Venues</span>
-            </h5>
-
-            <div class="venue-grid">
-
-                @foreach ($verified_venues as $venue)
-                    <a href="{{ route($action, $venue['id']) }}" class="venue-card">
-
-                        <!-- IMAGE BLOCK -->
-                        <div class="venue-card-img-container">
-
-                            <img data-src="{{ asset($venue['venueimages'][0]['doc']) }}" class="lazyload"
-                                alt="{{ $venue['venue_name'] }}">
-
-                            <div class="overlay-layer"></div>
-                            {{-- @if ($venue['new_venue'] == 'yes') --}}
-                            <span class="venue-tag">Halal Verified</span>
-                            {{-- @endif --}}
-                            <br>
-                            <!-- <span class="price-overlay">RM{{ $venue['amount'] }}</span> -->
-                        </div>
-
-                        <!-- CONTENT BLOCK -->
-                        <div class="venue-card-content">
-
-                            <!-- TITLE -->
-                            <h4>{{ ucwords($venue['venue_name']) }}</h4>
-
-                            <!-- DESCRIPTION -->
-                            <p class="venue-desc">
-                                {{ $venue['description'] ?? 'Beautiful multipurpose event venue for all occasions.' }}
-                            </p>
-
-                            <!-- VALUES -->
-                            <div class="venue-values">
-                                @if (!empty($venue['rooms_available']))
-                                    <span class="value-badge">{{ $venue['rooms_available'] }} rooms available</span>
-                                @endif
-
-                                @if (!empty($venue['category']))
-                                    <span class="value-badge">{{ ucwords($venue['category']) }}</span>
-                                @endif
-                            </div>
-
-                            <!-- LOCATION -->
-                            <p class="location">
-                                <i class="bi bi-geo-alt-fill"></i>
-                                {{ ucwords($venue['venue_city']) }}
-                            </p>
-
-
-                            <!-- PRICE BELOW LOCATION -->
-                            <p class="venue-price-below">
-                                RM{{ number_format($venue['amount'], 2) }}
-                            </p>
-
-
-                        </div>
-
-                    </a>
-                @endforeach
-
-            </div>
-             <h5 class="mt-5 d-flex align-items-center gap-2 fw-semibold fs-3">
-                <i class="bi bi-patch-check-fill text-success"></i>
-                <span class="text-dark">Halal Verified Venues</span>
-            </h5>
         </div>
     </div>
 </div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/lazysizes/lazysizes.min.js" async></script>
