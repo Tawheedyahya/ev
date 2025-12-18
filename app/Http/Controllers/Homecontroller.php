@@ -15,10 +15,10 @@ class Homecontroller extends Controller
 {
     public function dashboard(){
         $venues=Venue::with('venueimages')->where('halal',0)->orWhereNull('halal')->limit(8)->get()->toArray();
-        $verified_venues=Venue::with('venueimages')->where('halal',1)->limit(4)->get()->toArray();
+        $verified_venues=Venue::with('venueimages')->where('halal',1)->limit(8)->get()->toArray();
         // SLIDDER
         $categories=[1,4,5,6];
-        $c_k=['weddings','birthday','corporate','social'];
+        $c_k=['Weddings','Birthday','Corporate','Social gatherings'];
         $slidder=[];
         foreach($categories as $index=>$c){
             $slidder[$c_k[$index]]=Venue::select('id','venue_name','venue_city','description','amount')->with(['venueimages'=>function($q){$q->select('id','venue_id','doc')->orderBy('id')->limit(1);}])->whereHas('occasion',fn($q)=>$q->where('occasions.id',$c))->where('venue_city','kula lampur')->limit(4)->get()->map(function($venue){
@@ -32,7 +32,7 @@ class Homecontroller extends Controller
                 ];
             })->toArray();
             }
-        // pr($slidder);    
+        // pr($slidder);
         // END SLIDDER
         $action='card.venue';
         $footer=Footer::pluck('value','type');
