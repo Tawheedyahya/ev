@@ -56,7 +56,7 @@ class Customercontroller extends Controller
         $url = url('/customer/verified_email?token=' . $token . '&email=' . $request->input('email'));
         if($user->status=='pending'){
             Mail::to($request->input('email'))->queue(new Passwordmail($url));
-            return back()->with('success', 'registerd successfully and check the email to verify');
+            return back()->with('success', 'Already registerd successfully and Check the email to verify');
         }
         // $user = new User();
         // $user->name = trim($request->input('name'));
@@ -64,7 +64,11 @@ class Customercontroller extends Controller
         // $user->phone = trim($request->input('phone'));
         // $user->password = Hash::make(trim($request->input('password')));
         else{
-            return back()->with('success', 'register successfully and login ');
+            $user=User::where('email',$request->input('email'))->exists();
+            if(!$user){
+                return back()->with('success','Registerd successfully and Check the email to verify');
+            }
+            return back()->with('success', 'Register successfully and Login ');
         }
     }
     public function verified(Request $request){

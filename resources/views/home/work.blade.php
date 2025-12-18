@@ -1,4 +1,386 @@
 <!-- GUIDE SECTION -->
+<style>
+    /* Fix card width (same as your design) */
+    .venue-card-wrapper {
+        width: 340px;
+        /* adjust to your card width */
+        position: relative;
+    }
+
+    /* Prevent Bootstrap stretching */
+    .carousel,
+    .carousel-inner,
+    .carousel-item {
+        width: 100%;
+    }
+
+    /* Ensure card stays fixed size */
+    .venue-card {
+        display: block;
+        width: 100%;
+    }
+
+    /* Position chevrons INSIDE the image */
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 36px;
+        height: 36px;
+        top: 30%;
+        transform: translateY(-50%);
+        opacity: 1;
+        z-index: 10;
+    }
+
+    /* Left & right positioning inside image */
+    .carousel-control-prev {
+        left: 12px;
+    }
+
+    .carousel-control-next {
+        right: 12px;
+    }
+
+    /* Blue circular background */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 36px;
+        height: 36px;
+        background-color: #0d6efd;
+        /* Bootstrap blue */
+        border-radius: 50%;
+        background-image: none;
+        /* remove default icon */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* White arrow */
+    .carousel-control-prev-icon::after,
+    .carousel-control-next-icon::after {
+        content: '';
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 5px;
+    }
+
+    /* Arrow directions */
+    .carousel-control-prev-icon::after {
+        transform: rotate(135deg);
+    }
+
+    .carousel-control-next-icon::after {
+        transform: rotate(-45deg);
+    }
+
+    /* Optional hover effect */
+    .carousel-control-prev:hover .carousel-control-prev-icon,
+    .carousel-control-next:hover .carousel-control-next-icon {
+        background-color: #084298;
+        /* darker blue */
+    }
+</style>
+<div class="ms-md-5">
+    <h5 class="mt-5 d-flex align-items-center gap-2 fw-semibold fs-3">
+        <i class="bi bi-patch-check-fill text-success"></i>
+        <span class="text-dark">Halal Verified Venues</span>
+    </h5>
+
+    <div class="venue-grid">
+
+        @foreach ($verified_venues as $venue)
+            <a href="{{ route($action, $venue['id']) }}" class="venue-card">
+
+                <!-- IMAGE BLOCK -->
+                <div class="venue-card-img-container">
+
+                    <img data-src="{{ asset($venue['venueimages'][0]['doc']) }}" class="lazyload"
+                        alt="{{ $venue['venue_name'] }}">
+
+                    <div class="overlay-layer"></div>
+                    {{-- @if ($venue['new_venue'] == 'yes') --}}
+                    <span class="venue-tag">Halal Verified</span>
+                    {{-- @endif --}}
+                    <br>
+                    <!-- <span class="price-overlay">RM{{ $venue['amount'] }}</span> -->
+                </div>
+
+                <!-- CONTENT BLOCK -->
+                <div class="venue-card-content">
+
+                    <!-- TITLE -->
+                    <h4>{{ ucwords($venue['venue_name']) }}</h4>
+
+                    <!-- DESCRIPTION -->
+                    <p class="venue-desc">
+                        {{ $venue['description'] ?? 'Beautiful multipurpose event venue for all occasions.' }}
+                    </p>
+
+                    <!-- VALUES -->
+                    <div class="venue-values">
+                        @if (!empty($venue['rooms_available']))
+                            <span class="value-badge">{{ $venue['rooms_available'] }} rooms available</span>
+                        @endif
+
+                        @if (!empty($venue['category']))
+                            <span class="value-badge">{{ ucwords($venue['category']) }}</span>
+                        @endif
+                    </div>
+
+                    <!-- LOCATION -->
+                    <p class="location">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        {{ ucwords($venue['venue_city']) }}
+                    </p>
+
+
+                    <!-- PRICE BELOW LOCATION -->
+                    <p class="venue-price-below">
+                        RM{{ number_format($venue['amount'], 2) }}
+                    </p>
+
+
+                </div>
+
+            </a>
+        @endforeach
+
+    </div>
+</div>
+{{-- OCCASIONS --}}
+<!-- GUIDE SECTION -->
+<div class="">
+<h5 class="mt-5 d-flex align-items-center  fw-semibold fs-3">
+    <i class="bi bi-patch-check-fill text-success"></i>
+    <span class="text-dark">Most Viewed Occasions</span>
+</h5>
+<div class="venue-grid">
+
+    <!-- CARD WIDTH CONTAINER -->
+    <div class="venue-card-wrapper">
+
+        <div id="weddingVenueCarousel" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+
+                @foreach ($slidder['weddings'] as $index => $venue)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+
+                        <!-- SINGLE CARD -->
+                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
+
+                            <div class="venue-card-img-container">
+                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
+
+                                <div class="overlay-layer"></div>
+                                <span class="venue-tag">Weddings</span>
+                            </div>
+
+                            <!-- OPTIONAL CONTENT (like your screenshot) -->
+                            <div class="venue-card-content">
+                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
+                                <p class="venue-desc">{{ $venue['description'] }}</p>
+                                <!-- LOCATION -->
+                                <p class="location">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    {{ ucwords($venue['venue_city']) }}
+                                </p>
+                                <p class="venue-price-below">
+                                    RM{{ number_format($venue['amount'], 2) }}
+                                </p>
+                            </div>
+
+                        </a>
+
+                    </div>
+                @endforeach
+
+            </div>
+
+            <!-- CHEVRONS -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+
+        </div>
+
+    </div>
+    {{-- bithday parties --}}
+    <div class="venue-card-wrapper">
+
+        <div id="weddingVenueCarouse" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+
+                @foreach ($slidder['birthday'] as $index => $venue)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+
+                        <!-- SINGLE CARD -->
+                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
+
+                            <div class="venue-card-img-container">
+                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
+
+                                <div class="overlay-layer"></div>
+                                <span class="venue-tag">Birthday</span>
+                            </div>
+
+                            <!-- OPTIONAL CONTENT (like your screenshot) -->
+                            <div class="venue-card-content">
+                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
+                                <p class="venue-desc">{{ $venue['description'] }}</p>
+                                <!-- LOCATION -->
+                                <p class="location">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    {{ ucwords($venue['venue_city']) }}
+                                </p>
+                                <p class="venue-price-below">
+                                    RM{{ number_format($venue['amount'], 2) }}
+                                </p>
+                            </div>
+
+                        </a>
+
+                    </div>
+                @endforeach
+
+            </div>
+
+            <!-- CHEVRONS -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarouse"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarouse"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+
+        </div>
+
+    </div>
+    {{--  --}}
+    <div class="venue-card-wrapper">
+
+        <div id="weddingVenueCarous" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+
+                @foreach ($slidder['corporate'] as $index => $venue)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+
+                        <!-- SINGLE CARD -->
+                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
+
+                            <div class="venue-card-img-container">
+                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
+
+                                <div class="overlay-layer"></div>
+                                <span class="venue-tag">Corporate parties</span>
+                            </div>
+
+                            <!-- OPTIONAL CONTENT (like your screenshot) -->
+                            <div class="venue-card-content">
+                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
+                                <p class="venue-desc">{{ $venue['description'] }}</p>
+                                <!-- LOCATION -->
+                                <p class="location">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    {{ ucwords($venue['venue_city']) }}
+                                </p>
+                                <p class="venue-price-below">
+                                    RM{{ number_format($venue['amount'], 2) }}
+                                </p>
+                            </div>
+
+                        </a>
+
+                    </div>
+                @endforeach
+
+            </div>
+
+            <!-- CHEVRONS -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarous"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarous"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+
+        </div>
+
+    </div>
+    {{-- social gatherings --}}
+    <div class="venue-card-wrapper">
+
+        <div id="weddingVenueCarou" class="carousel slide" data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+
+                @foreach ($slidder['social'] as $index => $venue)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+
+                        <!-- SINGLE CARD -->
+                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
+
+                            <div class="venue-card-img-container">
+                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
+
+                                <div class="overlay-layer"></div>
+                                <span class="venue-tag">Social gatherings</span>
+                            </div>
+
+                            <!-- OPTIONAL CONTENT (like your screenshot) -->
+                            <div class="venue-card-content">
+                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
+                                <p class="venue-desc">{{ $venue['description'] }}</p>
+                                <!-- LOCATION -->
+                                <p class="location">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    {{ ucwords($venue['venue_city']) }}
+                                </p>
+                                <p class="venue-price-below">
+                                    RM{{ number_format($venue['amount'], 2) }}
+                                </p>
+                            </div>
+
+                        </a>
+
+                    </div>
+                @endforeach
+
+            </div>
+
+            <!-- CHEVRONS -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarou"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarou"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+{{-- end occasion --}}
 <div class="container my-5">
 
     <div class="ped-wrapper">
@@ -67,157 +449,162 @@
 </div>
 
 <style>
-/* =========================
+    /* =========================
    MAIN WRAPPER
 ========================= */
-.ped-wrapper {
-    display: flex;
-    gap: 24px;
-    background: #ffffff;
-    padding: 20px;
-    height: 500px;                 /* FIXED CARD HEIGHT */
-    border-radius: 24px;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    align-items: stretch;          /* KEY FOR SAME HEIGHT */
-}
+    .ped-wrapper {
+        display: flex;
+        gap: 24px;
+        background: #ffffff;
+        padding: 20px;
+        height: 500px;
+        /* FIXED CARD HEIGHT */
+        border-radius: 24px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        align-items: stretch;
+        /* KEY FOR SAME HEIGHT */
+    }
 
-/* =========================
+    /* =========================
    LEFT IMAGE CARD
 ========================= */
-.ped-image {
-    position: relative;
-    flex: 0 0 42%;
-    height: 100%;
-    border-radius: 18px;
-    overflow: hidden;
-}
-
-.ped-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.ped-image::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.75) 0%,
-        rgba(0,0,0,0.45) 40%,
-        rgba(0,0,0,0.15) 100%
-    );
-}
-
-.ped-image-overlay {
-    position: absolute;
-    bottom: 28px;
-    left: 28px;
-    right: 28px;
-    z-index: 2;
-}
-
-.ped-image-title {
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 800;
-    line-height: 1.25;
-    margin: 0;
-    max-width: 95%;
-}
-
-/* =========================
-   RIGHT CONTENT CARD
-========================= */
-.ped-content {
-    flex: 1;
-    height: 100%;
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 28px;
-    overflow-y: auto;
-}
-
-.ped-content h3 {
-    font-weight: 800;
-    margin-bottom: 18px;
-}
-
-.ped-content h5 {
-    font-weight: 700;
-    margin-top: 22px;
-}
-
-.ped-content p,
-.ped-content li {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #444;
-}
-
-/* NICE SCROLLBAR */
-.ped-content::-webkit-scrollbar {
-    width: 6px;
-}
-.ped-content::-webkit-scrollbar-thumb {
-    background: #cfcfcf;
-    border-radius: 10px;
-}
-
-/* =========================
-   EXTRA IMAGES
-========================= */
-.girl,
-.halal {
-    text-align: center;
-}
-
-.halal img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* =========================
-   MOBILE
-========================= */
-/* =========================
-   ENHANCED MOBILE RESPONSIVENESS
-========================= */
-/* =========================
-   MOBILE FIX (CRITICAL)
-========================= */
-@media (max-width: 991px) {
-
-    .ped-wrapper {
-        flex-direction: column;   /* STACK IMAGE + CONTENT */
-        height: auto;             /* REMOVE FIXED HEIGHT */
-        padding: 16px;
+    .ped-image {
+        position: relative;
+        flex: 0 0 42%;
+        height: 100%;
+        border-radius: 18px;
+        overflow: hidden;
     }
 
-    .ped-image {
-        flex: none;
+    .ped-image img {
         width: 100%;
-        height: 260px;            /* CONTROL IMAGE HEIGHT */
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
 
-    .ped-content {
-        height: auto;
-        overflow: visible;        /* PAGE SCROLL, NOT CARD SCROLL */
+    .ped-image::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top,
+                rgba(0, 0, 0, 0.75) 0%,
+                rgba(0, 0, 0, 0.45) 40%,
+                rgba(0, 0, 0, 0.15) 100%);
     }
-}
-@media (max-width: 480px) {
 
-    .ped-image {
-        height: 200px;
+    .ped-image-overlay {
+        position: absolute;
+        bottom: 28px;
+        left: 28px;
+        right: 28px;
+        z-index: 2;
     }
 
     .ped-image-title {
-        font-size: 1.05rem;
-        line-height: 1.3;
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: 800;
+        line-height: 1.25;
+        margin: 0;
+        max-width: 95%;
     }
-}
 
+    /* =========================
+   RIGHT CONTENT CARD
+========================= */
+    .ped-content {
+        flex: 1;
+        height: 100%;
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 28px;
+        overflow-y: auto;
+    }
+
+    .ped-content h3 {
+        font-weight: 800;
+        margin-bottom: 18px;
+    }
+
+    .ped-content h5 {
+        font-weight: 700;
+        margin-top: 22px;
+    }
+
+    .ped-content p,
+    .ped-content li {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    /* NICE SCROLLBAR */
+    .ped-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .ped-content::-webkit-scrollbar-thumb {
+        background: #cfcfcf;
+        border-radius: 10px;
+    }
+
+    /* =========================
+   EXTRA IMAGES
+========================= */
+    .girl,
+    .halal {
+        text-align: center;
+    }
+
+    .halal img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* =========================
+   MOBILE
+========================= */
+    /* =========================
+   ENHANCED MOBILE RESPONSIVENESS
+========================= */
+    /* =========================
+   MOBILE FIX (CRITICAL)
+========================= */
+    @media (max-width: 991px) {
+
+        .ped-wrapper {
+            flex-direction: column;
+            /* STACK IMAGE + CONTENT */
+            height: auto;
+            /* REMOVE FIXED HEIGHT */
+            padding: 16px;
+        }
+
+        .ped-image {
+            flex: none;
+            width: 100%;
+            height: 260px;
+            /* CONTROL IMAGE HEIGHT */
+        }
+
+        .ped-content {
+            height: auto;
+            overflow: visible;
+            /* PAGE SCROLL, NOT CARD SCROLL */
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        .ped-image {
+            height: 200px;
+        }
+
+        .ped-image-title {
+            font-size: 1.05rem;
+            line-height: 1.3;
+        }
+    }
 </style>
