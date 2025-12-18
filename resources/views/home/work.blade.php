@@ -149,237 +149,83 @@
     </div>
 </div>
 {{-- OCCASIONS --}}
-<!-- GUIDE SECTION -->
-<div class="">
-<h5 class="mt-5 d-flex align-items-center  fw-semibold fs-3">
-    <i class="bi bi-patch-check-fill text-success"></i>
-    <span class="text-dark">Most Viewed Occasions</span>
-</h5>
-<div class="venue-grid">
+<div>
+    <h5 class="mt-5 d-flex align-items-center gap-2 fw-semibold fs-3">
+        <i class="bi bi-patch-check-fill text-success"></i>
+        <span class="text-dark">Most Viewed Occasions</span>
+    </h5>
 
-    <!-- CARD WIDTH CONTAINER -->
-    <div class="venue-card-wrapper">
+    <div class="venue-grid">
 
-        <div id="weddingVenueCarousel" class="carousel slide" data-bs-ride="carousel">
+        @foreach ($slidder as $occasion => $venues)
+            <div class="venue-card-wrapper">
 
-            <div class="carousel-inner">
+                <div id="carousel-{{ $occasion }}" class="carousel slide" data-bs-ride="carousel">
 
-                @foreach ($slidder['weddings'] as $index => $venue)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                    <div class="carousel-inner">
 
-                        <!-- SINGLE CARD -->
-                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
+                        @foreach ($venues as $index => $venue)
+                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
 
-                            <div class="venue-card-img-container">
-                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
+                                <!-- SAME CARD DESIGN -->
+                                <a href="{{ route($action, $venue['id']) }}" class="venue-card">
 
-                                <div class="overlay-layer"></div>
-                                <span class="venue-tag">Weddings</span>
+                                    <div class="venue-card-img-container">
+                                        <img data-src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}"
+                                            class="lazyload">
+
+                                        <div class="overlay-layer"></div>
+
+                                        <span class="venue-tag">
+                                            {{ ucwords($occasion) }}
+                                        </span>
+                                    </div>
+
+                                    <div class="venue-card-content">
+
+                                        <h4>{{ ucwords($venue['venue_name']) }}</h4>
+
+                                        <p class="venue-desc">
+                                            {{ $venue['description'] ?? 'Beautiful multipurpose event venue for all occasions.' }}
+                                        </p>
+
+                                        <p class="location">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                            {{ ucwords($venue['venue_city']) }}
+                                        </p>
+
+                                        <p class="venue-price-below">
+                                            RM{{ number_format($venue['amount'], 2) }}
+                                        </p>
+
+                                    </div>
+
+                                </a>
+
                             </div>
-
-                            <!-- OPTIONAL CONTENT (like your screenshot) -->
-                            <div class="venue-card-content">
-                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
-                                <p class="venue-desc">{{ $venue['description'] }}</p>
-                                <!-- LOCATION -->
-                                <p class="location">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    {{ ucwords($venue['venue_city']) }}
-                                </p>
-                                <p class="venue-price-below">
-                                    RM{{ number_format($venue['amount'], 2) }}
-                                </p>
-                            </div>
-
-                        </a>
+                        @endforeach
 
                     </div>
-                @endforeach
+
+                    <!-- CONTROLS -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ $occasion }}"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ $occasion }}"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+
+                </div>
 
             </div>
-
-            <!-- CHEVRONS -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-
-        </div>
+        @endforeach
 
     </div>
-    {{-- bithday parties --}}
-    <div class="venue-card-wrapper">
 
-        <div id="weddingVenueCarouse" class="carousel slide" data-bs-ride="carousel">
-
-            <div class="carousel-inner">
-
-                @foreach ($slidder['birthday'] as $index => $venue)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-
-                        <!-- SINGLE CARD -->
-                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
-
-                            <div class="venue-card-img-container">
-                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
-
-                                <div class="overlay-layer"></div>
-                                <span class="venue-tag">Birthday</span>
-                            </div>
-
-                            <!-- OPTIONAL CONTENT (like your screenshot) -->
-                            <div class="venue-card-content">
-                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
-                                <p class="venue-desc">{{ $venue['description'] }}</p>
-                                <!-- LOCATION -->
-                                <p class="location">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    {{ ucwords($venue['venue_city']) }}
-                                </p>
-                                <p class="venue-price-below">
-                                    RM{{ number_format($venue['amount'], 2) }}
-                                </p>
-                            </div>
-
-                        </a>
-
-                    </div>
-                @endforeach
-
-            </div>
-
-            <!-- CHEVRONS -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarouse"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarouse"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-
-        </div>
-
-    </div>
-    {{--  --}}
-    <div class="venue-card-wrapper">
-
-        <div id="weddingVenueCarous" class="carousel slide" data-bs-ride="carousel">
-
-            <div class="carousel-inner">
-
-                @foreach ($slidder['corporate'] as $index => $venue)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-
-                        <!-- SINGLE CARD -->
-                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
-
-                            <div class="venue-card-img-container">
-                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
-
-                                <div class="overlay-layer"></div>
-                                <span class="venue-tag">Corporate parties</span>
-                            </div>
-
-                            <!-- OPTIONAL CONTENT (like your screenshot) -->
-                            <div class="venue-card-content">
-                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
-                                <p class="venue-desc">{{ $venue['description'] }}</p>
-                                <!-- LOCATION -->
-                                <p class="location">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    {{ ucwords($venue['venue_city']) }}
-                                </p>
-                                <p class="venue-price-below">
-                                    RM{{ number_format($venue['amount'], 2) }}
-                                </p>
-                            </div>
-
-                        </a>
-
-                    </div>
-                @endforeach
-
-            </div>
-
-            <!-- CHEVRONS -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarous"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarous"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-
-        </div>
-
-    </div>
-    {{-- social gatherings --}}
-    <div class="venue-card-wrapper">
-
-        <div id="weddingVenueCarou" class="carousel slide" data-bs-ride="carousel">
-
-            <div class="carousel-inner">
-
-                @foreach ($slidder['social'] as $index => $venue)
-                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-
-                        <!-- SINGLE CARD -->
-                        <a href="{{ route($action, $venue['id']) }}" class="venue-card">
-
-                            <div class="venue-card-img-container">
-                                <img src="{{ asset($venue['image']) }}" alt="{{ $venue['venue_name'] }}">
-
-                                <div class="overlay-layer"></div>
-                                <span class="venue-tag">Social gatherings</span>
-                            </div>
-
-                            <!-- OPTIONAL CONTENT (like your screenshot) -->
-                            <div class="venue-card-content">
-                                <h4>{{ ucwords($venue['venue_name']) }}</h4>
-                                <p class="venue-desc">{{ $venue['description'] }}</p>
-                                <!-- LOCATION -->
-                                <p class="location">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    {{ ucwords($venue['venue_city']) }}
-                                </p>
-                                <p class="venue-price-below">
-                                    RM{{ number_format($venue['amount'], 2) }}
-                                </p>
-                            </div>
-
-                        </a>
-
-                    </div>
-                @endforeach
-
-            </div>
-
-            <!-- CHEVRONS -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#weddingVenueCarou"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button" data-bs-target="#weddingVenueCarou"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-
-        </div>
-
-    </div>
 </div>
-</div>
-
 {{-- end occasion --}}
 <div class="container my-5">
 
