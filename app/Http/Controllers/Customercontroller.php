@@ -34,42 +34,68 @@ class Customercontroller extends Controller
     }
     public function register(Request $request)
     {
-        // echo 'hi';
+            $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|string|max:20',
+        'password' => 'required|confirmed|min:6',
+    ]);
 
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'password' => 'required|confirmed',
-        ]);
-        $token=\Str::random(20);
-        // pr($token);
-        $user=User::updateOrCreate(
-            ['email'=>$request->input('email')],
-            ['name'=>$request->input('name'),
-            'email'=>$request->input('email'),
-            'phone'=>$request->input('phone'),
-            'remember_token'=>Hash::make($token),
-            'password'=>Hash::make($request->input('password'))]
-        );
-        // pr($token);
-        $url = url('/customer/verified_email?token=' . $token . '&email=' . $request->input('email'));
-        if($user->status=='pending'){
-            Mail::to($request->input('email'))->queue(new Passwordmail($url));
-            return back()->with('success', 'Already registerd successfully and Check the email to verify');
+    // 2️⃣ Check if user already exists
+    $user = User::where('email', $request->email)->first();
+
+    // 3️⃣ If user exists
+    if ($user) {
+
+        // ✅ Already verified → DO NOT update password
+        if ($user->status === 'approved') {
+            return back()->with(
+                'success',
+                'Email already registered. Please login or use Forgot Password.'
+            );
         }
-        // $user = new User();
-        // $user->name = trim($request->input('name'));
-        // $user->email = trim($request->input('email'));
-        // $user->phone = trim($request->input('phone'));
-        // $user->password = Hash::make(trim($request->input('password')));
-        else{
-            $user=User::where('email',$request->input('email'))->exists();
-            if(!$user){
-                return back()->with('success','Registerd successfully and Check the email to verify');
-            }
-            return back()->with('success', 'Register successfully and Login ');
+
+        // ⏳ Pending verification → resend email
+        if ($user->status === 'pending') {
+
+            $token = Str::random(40);
+
+            $user->update([
+                'remember_token' => Hash::make($token),
+            ]);
+
+            $url = url('/customer/verified_email?token=' . $token . '&email=' . $user->email);
+
+            Mail::to($user->email)->queue(new Passwordmail($url));
+
+            return back()->with(
+                'success',
+                'Already registered. Please check your email to verify your account.'
+            );
         }
+    }
+
+    // 4️⃣ New user → create
+    $token = \Str::random(40);
+
+    $user = User::create([
+        'name' => trim($request->name),
+        'email' => trim($request->email),
+        'phone' => trim($request->phone),
+        'password' => Hash::make($request->password),
+        'remember_token' => Hash::make($token),
+        'status' => 'pending',
+    ]);
+
+    // 5️⃣ Send verification email
+    $url = url('/customer/verified_email?token=' . $token . '&email=' . $user->email);
+
+    Mail::to($user->email)->queue(new Passwordmail($url));
+
+    return back()->with(
+        'success',
+        'Registered successfully. Please check your email to verify your account.'
+    );
     }
     public function verified(Request $request){
         // echo 'hi';
