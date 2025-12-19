@@ -26,8 +26,8 @@
             <label class="chip" for="{{ $fid }}">{{ ucwords($cat->name) }}</label>
         @endforeach
     </div>
-    <button type="submit" class="btn btn-primary mt-4">Search</button>
-    <div class="btn btn-warning mt-4">
+    <button type="submit" class="btn btn-primary mt-4" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: #ef5350; border: none;">Search</button>
+    <div class="btn btn-warning mt-4"style="background-color: #c7E9F0; border: none;">
                 <a href=""><span>Reset all</span></a>
             </div>
 </form>
