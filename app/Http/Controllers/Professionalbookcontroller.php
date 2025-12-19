@@ -54,7 +54,7 @@ if ($professionals) {
             'company_name' => $q->companyname,   // Correctly accessing the 'companyname' property
             'prof_logo' => $q->prof_logo,        // Correctly accessing the 'prof_logo' property
             'experience' => $q->experience,      // Correctly accessing the 'experience' property
-            'price' => $q->price,                // Correctly accessing the 'price' property
+            'price' => $q->amount,                // Correctly accessing the 'price' property
             'proservice_place' => $q->proserviceplace->map(function($place){
                 return $place->name;
             })->toArray(), // Correctly accessing the 'proserviceplace' relationship

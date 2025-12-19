@@ -1,4 +1,4 @@
-<form id="filter_form" action="{{ route('eventspace.filter') }}" method="post">
+<form id="filter_form" action="{{ route('eventspace.filter') }}" method="GET">
     @csrf
 
     <h6 class="mb-2">Price Range</h6>
