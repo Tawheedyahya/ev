@@ -37,7 +37,7 @@ Route::prefix('/home')->group(function(){
 Route::prefix('/eventspace')->group(function(){
     Route::get('/venues_provider/dashboard',[Eventspacecontroller::class,'dashboard'])->name('eventspace.dashboard');
     Route::get('/location_filter',[Eventspacecontroller::class,'location_filter'])->name('eventspace.location');
-    Route::post('/filter',[Eventspacecontroller::class,'filter'])->name('eventspace.filter');
+    Route::get('/filter',[Eventspacecontroller::class,'filter'])->name('eventspace.filter');
     Route::get('/venues/{id}',[Eventspacecontroller::class,'venue'])->name('card.venue');
     Route::get('/profession_filter',[Eventspacecontroller::class,'prof_location'])->name('prof.location');
     Route::get('/professiona_filer_opt',[Eventspacecontroller::class,'prof_filter'])->name('eventspace.prof.filter');

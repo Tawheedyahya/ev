@@ -198,7 +198,7 @@ STYLES
 {{-- =========================
 HALAL VERIFIED VENUES
 ========================= --}}
-<div class="ms-md-5">
+<div class="container">
     <h5 class="mt-5 d-flex align-items-center gap-2 fw-semibold fs-3">
         <i class="bi bi-patch-check-fill text-success"></i>
         <span>Halal Verified Venues</span>
@@ -233,12 +233,69 @@ HALAL VERIFIED VENUES
     </div>
 </div>
 
+<div class="container my-5">
+
+    <div class="ped-wrapper">
+
+        <!-- LEFT IMAGE CARD -->
+        <div class="ped-image">
+            <img src="{{ asset('ev_photos/work4.jpg') }}" alt="Event Planning Guide" loading="lazy">
+
+            <div class="ped-image-overlay">
+                <h2 class="ped-image-title">
+                    Malaysia Event Planning & Venue Marketing Guide:<br>
+                    How to Book or Get<br>
+                    Booked
+                </h2>
+            </div>
+        </div>
+
+        <!-- RIGHT CONTENT CARD -->
+        <div class="ped-content">
+            <h3>For Event Planners: How to Book Smart and Save Time</h3>
+
+            <h5>1. Start With the Right Filters on EV.asia</h5>
+            <p>
+                Planners rarely search for “event venue” without context. You know what you need,
+                you just need a fast way to find it. Instead of browsing aimlessly or guessing,
+                use EV.asia's filters to match your exact event type, size, and budget.
+            </p>
+
+            <p>
+                Using EV.asia's smart filter helps you skip the noise, cut your shortlist in half,
+                and connect only with venues that match your goals. The “Venue With Packages” toggle
+                is especially useful if you want bundled deals without the back-and-forth.
+            </p>
+
+            <h5>2. Compare Features, Not Just Price</h5>
+            <ul>
+                <li>Included amenities (tables, AV, Wi-Fi, air conditioning)</li>
+                <li>Rental terms (minimum spend, hourly vs full-day)</li>
+                <li>Layout flexibility (workshops vs social events)</li>
+            </ul>
+
+            <p>
+                Look at the full package. Many event venues are priced low
+                but exclude basic needs like audio or setup.
+            </p>
+
+            <h5>3. Read Venue Reviews</h5>
+            <p>
+                Don't just look at ratings. Read how others used the venue.
+                A wedding review may not help if you're planning a seminar.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
 {{-- =========================
 MOST VIEWED OCCASIONS (FIXED)
 ========================= --}}
-<div class="px-4">
-    <h5 class="mt-5 ms-3 d-flex align-items-center gap-2  fw-semibold fs-3">
-        <i class="bi bi-graph-up-arrow text-primary"></i>
+<div class="container">
+    <h5 class="mt-5 d-flex align-items-center gap-2 fw-semibold fs-3">
+        {{-- <i class="bi bi-graph-up-arrow text-primary"></i> --}}
         <span>Most Viewed Occasions</span>
     </h5>
 
@@ -298,67 +355,11 @@ MOST VIEWED OCCASIONS (FIXED)
 </div>
 
 {{-- end occasion --}}
-<div class="container my-5">
-
-    <div class="ped-wrapper">
-
-        <!-- LEFT IMAGE CARD -->
-        <div class="ped-image">
-            <img src="{{ asset('ev_photos/work4.jpg') }}" alt="Event Planning Guide" loading="lazy">
-
-            <div class="ped-image-overlay">
-                <h2 class="ped-image-title">
-                    Malaysia Event Planning & Venue Marketing Guide:<br>
-                    How to Book or Get<br>
-                    Booked
-                </h2>
-            </div>
-        </div>
-
-        <!-- RIGHT CONTENT CARD -->
-        <div class="ped-content">
-            <h3>For Event Planners: How to Book Smart and Save Time</h3>
-
-            <h5>1. Start With the Right Filters on EV.asia</h5>
-            <p>
-                Planners rarely search for “event venue” without context. You know what you need,
-                you just need a fast way to find it. Instead of browsing aimlessly or guessing,
-                use EV.asia's filters to match your exact event type, size, and budget.
-            </p>
-
-            <p>
-                Using EV.asia's smart filter helps you skip the noise, cut your shortlist in half,
-                and connect only with venues that match your goals. The “Venue With Packages” toggle
-                is especially useful if you want bundled deals without the back-and-forth.
-            </p>
-
-            <h5>2. Compare Features, Not Just Price</h5>
-            <ul>
-                <li>Included amenities (tables, AV, Wi-Fi, air conditioning)</li>
-                <li>Rental terms (minimum spend, hourly vs full-day)</li>
-                <li>Layout flexibility (workshops vs social events)</li>
-            </ul>
-
-            <p>
-                Look at the full package. Many event venues are priced low
-                but exclude basic needs like audio or setup.
-            </p>
-
-            <h5>3. Read Venue Reviews</h5>
-            <p>
-                Don't just look at ratings. Read how others used the venue.
-                A wedding review may not help if you're planning a seminar.
-            </p>
-        </div>
-
-    </div>
-
-</div>
 
 <!-- GIRL IMAGE -->
-<div class="girl my-4">
+{{-- <div class="girl my-4">
     <img src="{{ asset('ev_photos/girl.png') }}" alt="" class="img-fluid" loading="lazy">
-</div>
+</div> --}}
 
 <!-- HALAL IMAGE -->
 <div class="halal my-3">
