@@ -31,31 +31,112 @@
         font-weight: 700;
         color: #333;
     }
+    .venue-gallery {
+    width: 100%;
+}
+
+.venue-hero {
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 14px 40px rgba(0,0,0,.12);
+}
+
+.venue-hero img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+}
+
+.venue-thumbs {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+.venue-thumbs img {
+    height: 72px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: .75;
+    transition: .25s ease;
+}
+
+.venue-thumbs img:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+/* Thumbnails container */
+.venue-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+}
+
+/* Default (laptop / desktop) */
+.venue-thumbs img {
+    height: 64px;                 /* smaller & clean */
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+/* Hover (desktop only) */
+@media (hover: hover) {
+    .venue-thumbs img:hover {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .venue-thumbs img {
+        height: 56px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    .venue-thumbs {
+        gap: 8px;
+    }
+
+    .venue-thumbs img {
+        height: 48px;             /* compact for mobile */
+        border-radius: 8px;
+    }
+}
+
 </style>
-<div id="venueCarousel" class="carousel slide" data-bs-ride="false">
-    <div class="carousel-inner">
-        @foreach ($images as $idx => $img)
-            <div class="carousel-item {{ $idx === 0 ? 'active' : '' }}">
-                <div class="card shadow-lg border-0 rounded-4 overflow-hidden mx-auto">
-                    <div class="ratio ratio-16x9">
-                        <img data-src="{{ asset($img['doc'] ?? $img['room_doc']) }}"
-                            class="card-img-top object-fit-cover img-fluid lazyload" alt="Venue image" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        @endforeach
+<div class="venue-gallery">
+    <!-- Main image -->
+    <div class="venue-hero">
+        <img id="mainImage"
+             src="{{ asset($images[0]['doc'] ?? $images[0]['room_doc']) }}"
+             alt="Venue image">
     </div>
 
-    <!-- Prev / Next buttons -->
-    <button class="carousel-control-prev custom-arrow" type="button" data-bs-target="#venueCarousel"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next custom-arrow" type="button" data-bs-target="#venueCarousel"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
+    <!-- Thumbnails -->
+    <div class="venue-thumbs">
+        @foreach ($images as $img)
+            <img
+                src="{{ asset($img['doc'] ?? $img['room_doc']) }}"
+                onclick="setMainImage(this.src)"
+                alt="Room image">
+        @endforeach
+    </div>
 </div>
+
 
 {{-- VR SHOW --}}
 <div class="vr-show ">
@@ -391,4 +472,9 @@
             })
             .catch(() => location.reload());
     }
+function setMainImage(src) {
+    document.getElementById('mainImage').src = src;
+}
+
+
 </script>
