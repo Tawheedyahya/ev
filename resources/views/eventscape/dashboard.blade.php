@@ -1,122 +1,136 @@
 @extends('welcome')
-@section('title', 'eventscappe dashboard')
+@section('title','Eventscape – Venues')
+
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('manual_css/text.css') }}">
-    <link rel="stylesheet" href="{{ asset('manual_css/navigatore.css') }}">
-    <!-- Fix Hamburger Icon -->
-    <style>
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-        }
+<link rel="stylesheet" href="{{ asset('manual_css/text.css') }}">
+<link rel="stylesheet" href="{{ asset('manual_css/navigatore.css') }}">
+<link rel="stylesheet" href="{{ asset('manual_css/eventscape_checkbox.css') }}">
 
-        @media(min-width:770px) {
-            .venue-full {
-                display: flex;
-                align-items: flex-start;
-            }
+<style>
+/* =============================== */
+/* DASHBOARD TABS (INLINE STYLES)  */
+/* =============================== */
 
-            /* Sidebar (Filter) */
-            .filter {
-                position: sticky;
-                /* stick in viewport */
-                top: 80px;
-                /* adjust for navbar height */
-                height: calc(100vh - 100px);
-                overflow-y: auto;
-                /* scroll inside filter if it’s tall */
-                border-right: 1px solid #eee;
-            }
+.dashboard-tabs{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+}
 
-            /* Content (Venue Show) */
-            .venue_show {
-                flex: 1;
-                /* take remaining width */
-                height: calc(100vh - 100px);
-                overflow-y: auto;
-                /* this part scrolls */
-                padding-left: 20px;
-            }
-        }
-    </style>
+/* Tab buttons */
+.dashboard-tabs .tab-btn{
+    padding:10px 18px;
+    border-radius:999px;
+    border:1px solid #e5e5e5;
+    background:#fff;
+    color:#111;
+    font-weight:600;
+    font-size:0.95rem;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    transition:all .2s ease;
+}
+
+/* Hover */
+.dashboard-tabs .tab-btn:hover{
+    background:#f8f8f8;
+    transform:translateY(-1px);
+}
+
+/* Active */
+.dashboard-tabs .tab-btn.active{
+    background:#111;
+    color:#fff;
+    border-color:#111;
+    box-shadow:0 6px 16px rgba(0,0,0,.15);
+}
+
+/* Filter button */
+.dashboard-tabs .filter-btn{
+    margin-left:auto;
+    padding:10px 18px;
+    border-radius:12px;
+    border:1px solid #e5e5e5;
+    background:#fff;
+    color:#111;
+    font-weight:600;
+    font-size:0.95rem;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:all .2s ease;
+}
+
+/* Filter hover */
+.dashboard-tabs .filter-btn:hover{
+    background:#f8f8f8;
+    transform:translateY(-1px);
+}
+.dashboard-tabs .tab-btn.active{
+    background:#ef5350;
+    border-color:#ef5350;
+    color:#fff;
+}
+
+
+/* Mobile tweaks */
+@media(max-width:768px){
+    .dashboard-tabs{
+        gap:8px;
+    }
+    .dashboard-tabs .tab-btn,
+    .dashboard-tabs .filter-btn{
+        padding:9px 14px;
+        font-size:.9rem;
+    }
+}
+
+
+</style>
 @endpush
+
 @section('content')
 
-    @include('components.navigator',[
-        'action'=>'eventspace.location'
-    ])
+@include('components.navigator',['action'=>'eventspace.location'])
 
-    {{-- </div> --}}
-    <div class="container-fluid " style="margin-top: 50px;">
-        <!-- Sidebar Toggle (Hamburger Button) -->
-        <!-- Sidebar Toggle Button (mobile only) -->
-        <button class="btn btn-primary m-3 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-            aria-controls="sidebar">
-            <span class="navbar-toggler-icon"></span>
+<div class="container-fluid mt-4">
+
+    {{-- ACTION BUTTONS --}}
+    <div class="dashboard-tabs mb-4">
+
+        <a href="{{ route('eventspace.dashboard') }}"
+           class="tab-btn active">
+            Venues
+        </a>
+
+        <a href="{{ route('serpro.dashboard') }}"
+           class="tab-btn">
+            Service Providers
+        </a>
+
+        <a href="{{ route('prof.dashboard') }}"
+           class="tab-btn">
+            Professionals
+        </a>
+
+        <button class="filter-btn"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sidebar">
+            <i class="bi bi-funnel"></i>
+            Filter
         </button>
 
-        <div class="venue-full row">
-            <div class="filter col-md-4 col-lg-4">
-                @include('eventscape.filter_form')
-            </div>
-            <div class="venue_show  col-sm-12">
-                <div class="venue-show">
-                    @include('eventscape.venue_show')
-                </div>
-            </div>
-        </div>
     </div>
-    @push('scripts')
-        <script src="{{ asset('manual_js/navigator.js') }}" defer></script>
-    @endpush
+
+    {{-- RESULTS --}}
+    @include('eventscape.venue_show')
+
+</div>
+
+{{-- FILTER --}}
+@include('eventscape.filter_form')
+
 @endsection
-@if (request()->routeIs('eventspace.dashboard'))
-    <style>
-        a {
-            text-decoration: none;
-            color: black;
-        }
-    </style>
-@endif
-<style>
-    .venues-wrap {
-        display: flex;
-        /* grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); */
-        /* gap: 16px;
-   */
-        flex-direction: column;
-    }
-
-    .venue-card {
-        display: flex;
-        gap: 16px;
-        border: 1px solid #eee;
-        border-radius: 12px;
-        background: #fff;
-        padding: 12px;
-    }
-
-    .venue-img .v-img {
-        width: 250px;
-        height: 183px;
-        border-radius: 8px;
-        object-fit: cover;
-    }
-
-    .venue-body {
-        flex: 1;
-    }
-
-    /* Mobile */
-    @media (max-width: 768px) {
-        .venue-card {
-            flex-direction: column;
-            /* stack image above text on small screens */
-            gap: 12px;
-        }
-
-        .venue-img .v-img {
-            width: 100%;
-            height: 180px;
-        }
-    }
-</style>
