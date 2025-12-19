@@ -77,7 +77,8 @@ a:hover {
     transition: 0.3s ease;
 }
     .section-title {
-    font-size: 1.35rem;        /* strong but not oversized */
+    font-size: 1.35rem;
+      max-width: 800px !important;       /* strong but not oversized */
     font-weight: 700;          /* bold heading */
     color: #111111;            /* near-black */
     margin-bottom: 8px;
@@ -87,7 +88,8 @@ a:hover {
 .section-desc {
     font-size: 0.95rem;        /* smaller than heading */
     font-weight: 400;
-    color: #4b5563;            /* soft black / dark gray */
+    color: #4b5563;
+      max-width: 800px !important;      /* soft black / dark gray */
     line-height: 1.65;
     max-width: 520px;
 }
