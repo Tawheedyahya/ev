@@ -200,7 +200,7 @@
 
 <div class="fetch">
     <div class="categoryy">
-        <div class="category-pic">
+        <div class="category-pic container">
 
             <div class="venue-grid">
 
