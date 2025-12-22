@@ -47,7 +47,53 @@
     object-fit: cover;
     display: block;
 }
+.heart-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(15,23,42,.15);
+    background: #ffffff;
+    color: #475569;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow: 0 8px 20px rgba(2,6,23,.08);
+  }
 
+  .heart-btn i {
+    font-size: 1.1rem;
+    transition: transform .25s ease;
+  }
+
+/* Hover */
+  .heart-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(2,6,23,.12);
+  }
+
+/* Liked state */
+  .heart-btn.liked {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #b91c1c;
+  }
+
+  .heart-btn.liked i {
+    color: #dc2626;
+  }
+
+/* Loading */
+  .heart-btn.loading {
+    pointer-events: none;
+    opacity: .6;
+  }
+
+/* Pop animation */
+  .heart-btn.animate i {
+    transform: scale(1.35);
+  }
 .venue-thumbs {
     display: flex;
     gap: 12px;
@@ -118,6 +164,7 @@
 }
 
 </style>
+<link rel="stylesheet" href="{{asset('manual_css/common.css')}}">
 <div class="venue-gallery">
     <!-- Main image -->
     <div class="venue-hero">
@@ -158,12 +205,23 @@
             @endphp
 
             <!-- Heart Button -->
-            <button id="heartBtn" class="heart" aria-label="Like" data-id="{{ $u_id }}"></button>
-            <span id="heart_msg" class="heart_m d-none"></span>
+            <button id="heartBtn" class="heart @if ($is_liked)
+            liked
+            @endif" aria-label="Like" data-id="{{ $u_id }}"><i class="bi bi-heart"></i><span id="heart_msg" class="heart_m d-none"></span></button>
             <a href="javascript:void(0)" class="btn vvr-card video-btn mb-3" onclick="vedio()">
                 <i class="bi bi-play-circle video-icon"></i>
                 <span id="v_title" class="video-title">Video</span>
             </a>
+             {{-- Like --}}
+    {{-- <button
+        id="prof_heart"
+        class="heart-btn"
+        aria-label="Save professional"
+        data-id="{{ Auth::id() }}"
+        data-liked="{{ $isLiked ?? '0' }}">
+        <i class="bi bi-heart"></i>
+        <span class="heart-text"></span>
+    </button> --}}
         </div>
         {{-- </div> --}}
 

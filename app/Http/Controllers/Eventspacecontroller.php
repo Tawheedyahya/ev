@@ -171,6 +171,8 @@ class Eventspacecontroller extends Controller
             $venue = Venue::with('venueimages', 'room', 'provider')->findOrFail($id)->toArray();
             $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->where('venue_city',$venue['venue_city'])->inRandomOrder()->take(5)->get();
             // $provider=Venue::
+            $is_liked=auth()->check()?auth()->user()->hearts()->where('venue_id',$id)->exists():false;
+            // pr($is_liked);
             // echo data_get($venue,'venueimages.0.doc');
             // pr($suggest->toArray());
             $provider = $venue['provider'];
@@ -183,7 +185,7 @@ class Eventspacecontroller extends Controller
             unset($venue['venueimages']);
             // $venue=array_column($venue['venueimages'],'doc');
             // pr($venue);
-            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider','suggest','rating'));
+            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider','suggest','rating','is_liked'));
         }
     }
     public function book($id, Request $request)
