@@ -319,64 +319,66 @@
   .item-card:hover{ transform: translateY(-4px); }
 
   /* Ratings track */
-  .ratings-track{
-    display:flex;
+  /* ===== RATINGS SECTION ===== */
+/* ===============================
+   RATINGS – PROFESSIONAL STYLE
+   =============================== */
+
+.ratings-track {
+    display: flex;
+    flex-direction: column;
     gap: 18px;
-    overflow-x:auto;
-    padding-bottom: 10px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-  .rating-box{
-    scroll-snap-align:start;
-    min-width: 290px;
-    max-width: 360px;
-    background: radial-gradient(circle at top left, #f97316 0, #1f2937 45%, #020617 100%);
-    color:#f9fafb;
+}
+
+/* Card */
+.rating-box {
+    background: #ffffff;
+    border: 1px solid #e6e9ee;
     border-radius: 16px;
-    padding: 14px 16px;
-    box-shadow: 0 18px 40px rgba(15,23,42,.30);
-    position:relative;
-    overflow:hidden;
-  }
-  .rating-box::before{
-    content:"";
-    position:absolute;
-    inset:-40%;
-    background: radial-gradient(circle at top right, rgba(251,191,36,.18), transparent 60%);
-    opacity:.9;
-    pointer-events:none;
-  }
-  .rating-box > *{ position:relative; z-index:1; }
-  .rating-name{
-    font-weight:700;
-    font-size:.95rem;
-    margin: 0 0 6px;
-    display:inline-flex;
-    align-items:center;
-    gap: 8px;
-  }
-  .rating-name::before{
-    content:"";
-    width: 26px; height: 26px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #fbbf24, #f97316);
-    display:inline-block;
-  }
-  .rating-stars{ margin-bottom: 6px; }
-  .rating-stars .star{
-    font-size: 1.15rem;
-    color: rgba(148,163,184,.6);
-    margin-right: 2px;
-    display:inline-block;
-  }
-  .rating-stars .star.filled{ color:#fde047; }
-  .rating-desc{
-    font-size:.92rem;
-    line-height:1.55;
-    color:#e5e7eb;
-    margin:0;
-  }
+    padding: 18px 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+
+/* Header row */
+.rating-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Name */
+.rating-name {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* Stars */
+.rating-stars {
+    display: flex;
+    gap: 3px;
+    font-size: 15px;
+}
+
+.rating-stars .star {
+    color: #e5e7eb;
+}
+
+.rating-stars .star.filled {
+    color: #fbbf24;
+}
+
+/* Description */
+.rating-desc {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #4b5563;
+    max-width: 90%;
+}
+
+  /* end */
 
   /* Responsive */
   @media (max-width: 992px){
@@ -559,36 +561,40 @@
         </div>
       </div>
 
-      {{-- RATINGS --}}
-      <div class="section-card mt-3" id="venue_ratings">
-        <div class="section-head">
-          <h5 class="section-title">
-            <i class="bi bi-star-fill text-warning"></i>
-            Client Reviews
-          </h5>
-        </div>
-        <div class="section-body">
-          @if (isset($rating) && $rating->count())
-            <div class="ratings-track">
-              @foreach ($rating as $r)
-                <div class="rating-box">
-                  <p class="rating-name">{{ $r->user->name }}</p>
+<div class="section-card mt-3" id="venue_ratings">
+  <div class="section-head">
+    <h5 class="section-title">
+      <i class="bi bi-star-fill text-warning"></i>
+      Client Reviews
+    </h5>
+  </div>
 
-                  <div class="rating-stars">
-                    @for ($i = 1; $i <= 5; $i++)
-                      <span class="star {{ $i <= $r->ratings ? 'filled' : '' }}">&#9733;</span>
-                    @endfor
-                  </div>
+  <div class="section-body">
+    @if (isset($rating) && $rating->count())
+      <div class="ratings-track">
+        @foreach ($rating as $r)
+          <div class="rating-box">
 
-                  <p class="rating-desc">{{ $r->description }}</p>
-                </div>
-              @endforeach
+            <div class="rating-box-header">
+              <p class="rating-name">{{ ucfirst($r->user->name) }}</p>
+
+              <div class="rating-stars">
+                @for ($i = 1; $i <= 5; $i++)
+                  <span class="star {{ $i <= $r->ratings ? 'filled' : '' }}">&#9733;</span>
+                @endfor
+              </div>
             </div>
-          @else
-            <p class="text-muted mb-0">This professional has no ratings yet.</p>
-          @endif
-        </div>
+
+            <p class="rating-desc">{{ ucfirst($r->description) }}</p>
+          </div>
+        @endforeach
       </div>
+    @else
+      <p class="text-muted mb-0">This professional has no ratings yet.</p>
+    @endif
+  </div>
+</div>
+
 
     </div>
 

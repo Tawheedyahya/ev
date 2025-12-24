@@ -68,11 +68,11 @@ if ($professionals) {
     // return;
     // pr($professional);
     // pr($service_place);
-
+    $isLiked=auth()->check()?auth()->user()->likedProfessionals()->where('professional_id',$id)->exists():false;
 
     // Output the result as an array
     // pr($prof);
-    return view('eventscape.professional.professional_show.show',compact('professional','service_place','suggest','p_c','info','rating'));
+    return view('eventscape.professional.professional_show.show',compact('professional','service_place','suggest','p_c','info','rating','isLiked'));
 } else {
     pr('Professional not found.');
 }

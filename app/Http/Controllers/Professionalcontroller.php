@@ -9,6 +9,7 @@ use App\Models\Profinfo;
 use App\Models\Serviceplace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Str;
@@ -201,5 +202,14 @@ class Professionalcontroller extends Controller
             $booking->save();
             return back()->with('error',"booking rejected for customer ".$booking->user->name);
         }
+    }
+    public function ratings(){
+        // echo 'hi';
+        $query=DB::query()->from('ratingalls as r')->join('users as u','u.id','=','r.user_id')->where('r.vorp_id',Auth::guard('prof')->user()->id)->where('type',2)->select('r.id','r.ratings','r.description','u.name','r.status','r.status_id')->get();
+        // pr($query);
+        return view('professionals.ratings',compact('query'));
+    }
+    public function rate_action(){
+        return 'hi';
     }
 }
