@@ -142,6 +142,13 @@
                     <span>Bookings</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link @if ($request == 'venue_ratings') active @endif"
+                   href="{{ url('/venue_provider/venue_ratings') }}">
+                    <i class="bi bi-star"></i>
+                    <span>Ratings</span>
+                </a>
+            </li>
 
             <li class="nav-item mt-auto">
                 <a class="nav-link @if ($request == 'logout') active @endif"

@@ -22,10 +22,10 @@
                         class="bi bi-calendar-event"></i> <span class="">Bookings</span></a></li>
             {{-- <li class="nav-item"><a
                     class="nav-link text-white  @if ($request == 'bookings') active" @else " @endif href="{{ url('/venue_provider/bookings/dashboard') }}"><i
-                        class="bi bi-journal-check"></i> <span class="">Bookings</span></a></li>
+                        class="bi bi-journal-check"></i> <span class="">Bookings</span></a></li> --}}
             <li class="nav-item"><a
-                    class="nav-link text-white  @if ($request == 'settings') active" @else " @endif href="#"><i
-                        class="bi bi-gear"></i> <span class="">Settings</span></a></li>--}}
+                    class="nav-link text-white  @if ($request == 'ratings') active" @else " @endif href="{{route('pf.ratings')}}"><i
+                        class="bi bi-star"></i> <span class="">Ratings</span></a></li>
             <li class="nav-item mt-auto"><a
                     class="nav-link text-white  @if ($request == 'logout') active" @else " @endif href="{{ route('pf.logout') }}"><i
                         class="bi bi-box-arrow-right"></i> <span class="">Logout</span></a></li>

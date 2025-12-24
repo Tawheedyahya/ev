@@ -336,7 +336,7 @@ class Customercontroller extends Controller
             return back()->with('success', 'dates updated');
         }
     }
-    public function heart(Request $request)
+        public function heart(Request $request)
     {
         // return response()->json('hii');
         $venue_id = $request->input('venue_id');

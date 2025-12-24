@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\Emailverfication;
 use App\Mail\Passwordmail;
 use App\Models\Occasion;
+use App\Models\Professional;
+use App\Models\Ratingall;
 use App\Models\Serviceplace;
 use App\Models\Venue;
 use App\Models\Venuefacility;
@@ -394,4 +396,49 @@ class Venueprovider extends Controller
         });
         return back()->with('error', 'venue and his details deleted');
     }
+    public function ratings(){
+        $venue_provider_id=Auth::guard('venue_provider')->user()->id;
+        // echo $ratings_all_venues;
+        $query=DB::query()->from('ratingalls as r')->join('venues as v','v.id','=','r.vorp_id')->join('users as u','u.id','=','r.user_id')->where('v.venue_provider_id',$venue_provider_id)->where('r.type',1)->select('r.id','r.description','r.ratings','u.name','v.venue_name','r.status')->paginate(20);
+        // pr($query->toArray());
+        return view('venue_provider.ratings',compact('query'));
+    }
+
+    public function rating_action($id, $act)
+    {
+        $rating = Ratingall::findOrFail($id);
+        // AUTHORIZATION CHECK
+        // dd('hi');
+        if ($rating->type == 1) {
+            $venue = Venue::findOrFail($rating->vorp_id);
+            if (Auth::guard('venue_provider')->id() !== $venue->venue_provider_id) {
+                return redirect()->route('err');
+            }
+        }
+        if ($rating->type == 2) {
+            // Professional rating
+            if (Auth::guard('prof')->id() !== $rating->vorp_id) {
+                return redirect()->route('err');
+            }
+        }
+        // DELETE ACTION
+        if ($act == 2) {
+            $rating->delete();
+            return back()->with('error', 'Rating deleted');
+        }
+        // STATUS UPDATE
+        $statusMap = [
+            0 => 'deactivate',
+            1 => 'activate',
+        ];
+        if (!isset($statusMap[$act])) {
+            return back()->with('error', 'Invalid action');
+        }
+        $rating->status     = $statusMap[$act];
+        $rating->status_id  = $act;
+        $rating->save();
+
+        return back()->with('success', 'Status updated');
+    }
+
 }

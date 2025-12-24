@@ -217,6 +217,42 @@
                 @endforelse
             </div>
         </section>
+        {{-- related service provider --}}
+                <section id="venue_suggestion" style="margin-top: 50px;" class="">
+            <h5 class="fw-bold mb-3">Related Service provider</h5>
+
+            <div class="cards-rail">
+                @forelse ($suggest_service_providers as $s)
+                {{-- @php
+                     $logo = data_get($s, 'venueimages.0.doc');
+                @endphp --}}
+                    <div class="card border-0 shadow-sm text-center rounded-3 item-card">
+                        <a href="" class="text-decoration-none text-dark">
+                            <img src="{{ asset($s['logo'] ?? 'images/default.jpg') }}" alt="{{ $s['companyname'] }}"
+                                class="card-img-top rounded-top" style="object-fit: cover; height: 160px;"
+                                loading="lazy">
+
+                            <div class="card-body p-2">
+                                <p class="fw-semibold mb-1 text-truncate" title="{{ $s['name'] }}">
+                                    {{ $s['name'] }}
+                                </p>
+                                <p class="text-muted small mb-1">
+                                    {{-- {{ $s->venue_city }} --}}
+                                </p>
+                                @if (!empty($s['companyname']))
+                                    <p class="small text-secondary mb-0">
+                                            <i class="bi bi-building-fill"></i>
+                                            {{ $s['companyname'] }}
+                                    </p>
+                                @endif
+                            </div>
+                        </a>
+                    </div>
+                @empty
+                    <p class="text-muted">No other venue provider found for this category.</p>
+                @endforelse
+            </div>
+        </section>
         <section id="venue_ratings" class="mt-5">
             <h5 class="fw-bold mb-3">Ratings</h5>
 

@@ -6,6 +6,7 @@ use App\Models\Footer;
 use App\Models\Professional;
 use App\Models\Rating;
 use App\Models\Ratingall;
+use App\Models\Serviceplace;
 use App\Models\Serviceproviders;
 use App\Models\Venue;
 use Illuminate\Http\Request;
@@ -17,11 +18,12 @@ class Homecontroller extends Controller
         $venues=Venue::with('venueimages')->where('halal',0)->orWhereNull('halal')->limit(8)->get()->toArray();
         $verified_venues=Venue::with('venueimages')->where('halal',1)->limit(8)->get()->toArray();
         // SLIDDER
+        $city_name=Serviceplace::first();
         $categories=[1,4,5,6];
         $c_k=['Weddings','Birthday','Corporate','Social gatherings'];
         $slidder=[];
         foreach($categories as $index=>$c){
-            $slidder[$c_k[$index]]=Venue::select('id','venue_name','venue_city','description','amount')->with(['venueimages'=>function($q){$q->select('id','venue_id','doc')->orderBy('id')->limit(1);}])->whereHas('occasion',fn($q)=>$q->where('occasions.id',$c))->where('venue_city','kula lampur')->limit(4)->get()->map(function($venue){
+            $slidder[$c_k[$index]]=Venue::select('id','venue_name','venue_city','description','amount')->with(['venueimages'=>function($q){$q->select('id','venue_id','doc')->orderBy('id')->limit(1);}])->whereHas('occasion',fn($q)=>$q->where('occasions.id',$c))->where('venue_city',$city_name->name)->limit(4)->get()->map(function($venue){
                 return [
                       'id'          => $venue->id,
             'venue_name'  => $venue->venue_name,

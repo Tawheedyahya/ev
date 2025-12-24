@@ -14,7 +14,9 @@
         height: auto;
         display: block;
     }
-
+:root{
+     --major-color:#EB4D4B;
+}
     /* Make navbar links easier to tap on mobile */
 .navbar .nav-link { padding: .6rem .75rem; }
 
@@ -47,35 +49,6 @@ a:hover {
 /* heart */
 /* Heart button styling */
 
-#heartBtn.heart,#prof_heart.heart {
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 50%;
-    background: #ffffff;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.3);
-    transition: 0.3s ease;
-    font-size: 50px;;
-
-    /* LEFT & RIGHT SPACE */
-    margin: 0 10px; /* Adjust (10px) to your preference */
-}
-@media(min-width:800px){
-    #heartBtn.heart,#prof_heart.heart{
-        padding: 10px;
-    }
-}
-
-/* Heart icon */
-#heartBtn.heart::before,#prof_heart.heart::before {
-    content: "\2665";
-    color: #ff2e2e;
-    transition: 0.3s ease;
-}
     .section-title {
     font-size: 1.35rem;
       max-width: 800px !important;       /* strong but not oversized */
@@ -94,25 +67,54 @@ a:hover {
     max-width: 520px;
 }
 
-/* Hover animation */
-#heartBtn.heart:hover,#prof_heart.heart:hover {
-    box-shadow: 0 6px 16px rgba(255, 0, 0, 0.45);
-    transform: scale(1.05);
-}
-
-/* Active (clicked) */
-#heartBtn.heart.active::before,#prof_heart.heart.active::before {
-    color: #c00000;
-}
-#heart_msg.heart_m,#prof_hearty.heart_m {
-    margin:0px 8px;
-    font-size: 16px;
-    color: #ff2e2e;           /* red tone to match heart */
+  /* ===== HEART BUTTON ===== */
+  .heart {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(15,23,42,.15);
+    background: #ffffff;
+    color: #475569;
     font-weight: 600;
-    /* display: inline-block; */
-    transition: 0.3s ease;
-    min-width: 50px;          /* keeps layout stable */
-}
+    cursor: pointer;
+    transition: all .25s ease;
+    box-shadow: 0 8px 20px rgba(2,6,23,.08);
+  }
+
+  .heart i {
+    font-size: 1.1rem;
+    transition: transform .25s ease;
+  }
+
+/* Hover */
+  .heart:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(2,6,23,.12);
+  }
+
+/* Liked state */
+  .heart.liked {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #b91c1c;
+  }
+
+  .heart.liked i {
+    color: #dc2626;
+  }
+
+/* Loading */
+  .heart.loading {
+    pointer-events: none;
+    opacity: .6;
+  }
+
+/* Pop animation */
+  .heart.animate i {
+    transform: scale(1.35);
+  }
 
   /* heart end*/
 .thumb-btn {
@@ -160,3 +162,16 @@ a:hover {
  .nc{
             color: white !important;
         }
+
+
+.spec-name{
+    color: var(--major-color);
+}
+.spec-bg{
+    background-color: var(--major-color );
+    color: white;
+}
+.spec-bg:hover{
+    background-color: var(--major-color );
+    color: white;
+}

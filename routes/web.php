@@ -90,6 +90,8 @@ Route::prefix('/vendor')->group(function(){
 // lovider
 Route::prefix('/venue_provider')->group(function(){
     Route::post('/register',[Venueprovider::class,'register'])->name('venue.register');
+    Route::get('/venue_ratings',[Venueprovider::class,'ratings'])->middleware('venue_provider_auth');
+    Route::match(['delete', 'post'], '/venue_ratings/{id}/{act}', [Venueprovider::class,'rating_action'])->name('venue.ratings.all');
     Route::get('/verified_email',[Venueprovider::class,'email_verify']);
     Route::post('/login',[Venueprovider::class,'login'])->name('venue.login');
     Route::get('/logout',[Venueprovider::class,'logout'])->name('vp.logout');
@@ -126,6 +128,8 @@ Route::prefix('/professionals')->group(function(){
     Route::get('/bookings',[Professionalcontroller::class,'bookings'])->middleware(['prof'])->name('professional.bookings');
     Route::get('/booking/accept/{id}',[Professionalcontroller::class,'accept'])->middleware(['prof'])->name('prof.booking.approve');
     Route::post('/booking/reject/{id}',[Professionalcontroller::class,'reject'])->middleware(['prof'])->name('prof.booking.reject');
+    Route::get('/ratings',[Professionalcontroller::class,'ratings'])->middleware(['prof'])->name('pf.ratings');
+    // Route::match(['delete', 'post'], '/ratings/{id}/{act}',[Professionalcontroller::class,'rate_action'])->middleware(['prof'])->name('prof.ratings.all');
 });
 Route::prefix('/eventspace/prof')->group(function(){
     Route::get('/dashboard',[Professionalbookcontroller::class,'dashboard'])->name('prof.dashboard');

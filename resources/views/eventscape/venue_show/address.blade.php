@@ -28,9 +28,9 @@
             <!-- Venue Info -->
             <h6 class="fw-semibold">Venue Details</h6>
             <ul class="list-unstyled mb-0">
-                <li><i class="bi bi-geo-alt me-2 text-warning"></i> {{ $venue['venue_address'] }}</li>
-                <li><i class="bi bi-building me-2 text-warning"></i> {{ $venue['venue_city'] }}</li>
-                <li><i class="bi bi-people me-2 text-warning"></i> Seats: {{ $venue['venue_seat_capacity'] }}</li>
+                <li><i class="bi bi-geo-alt me-2 spec-name"></i> {{ $venue['venue_address'] }}</li>
+                <li><i class="bi bi-building me-2 spec-name"></i> {{ $venue['venue_city'] }}</li>
+                <li><i class="bi bi-people me-2 spec-name"></i> Seats: {{ $venue['venue_seat_capacity'] }}</li>
             </ul>
         </div>
     </div>

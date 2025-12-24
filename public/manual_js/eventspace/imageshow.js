@@ -57,8 +57,8 @@ heartBtn.addEventListener("click", async() => {
         heart_msg.textContent='Need to Login'
         return
     }
-    heart_msg.classList.add('d-none');
-    heartBtn.classList.add("active");
+        heartBtn.classList.toggle("liked");
+        heartBtn.classList.add("animate");
 
     const origin=window.location.origin+'/customer/heart'
     console.log(origin);
