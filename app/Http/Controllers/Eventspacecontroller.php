@@ -166,10 +166,30 @@ class Eventspacecontroller extends Controller
     public function venue($id)
     {
         if ($id) {
-            $rating=Ratingall::with('user')->where('type',1)->where('vorp_id',$id)->get();
+            $rating=Ratingall::with('user')->where('type',1)->where('vorp_id',$id)->where('status_id',true)->get();
             // pr($rating->toArray());
             $venue = Venue::with('venueimages', 'room', 'provider')->findOrFail($id)->toArray();
             $suggest=Venue::with('venueimages', 'room', 'provider')->whereNotIn('id',[$id])->where('venue_city',$venue['venue_city'])->inRandomOrder()->take(5)->get();
+            $city_id=Serviceplace::where('name',$venue['venue_city'])->value('id');
+            // pr($city_id);
+             $suggest_service_providers = DB::query()
+                ->from('serviceproviders','s')
+                ->join('serserviceplaces as ss', 'ss.serpro_id', '=', 's.id')->join('servicecategories as sc','sc.id','=','s.category')->where('ss.serpla_id','=',$city_id)
+                ->inRandomOrder()->limit(5)
+                ->select(
+                    's.id',
+                    // 's.name',
+                    's.companyname',
+                    'sc.name',
+                    // 'sp.place'
+                    's.logo',
+                    's.price'
+                )
+                ->get()->map(function($q){
+                    return ['id'=>$q->id,
+                    'name'=>$q->name,'companyname'=>$q->companyname,'logo'=>$q->logo,'price'=>$q->logo];
+                });
+            // pr($suggest_service_providers);
             // $provider=Venue::
             $is_liked=auth()->check()?auth()->user()->hearts()->where('venue_id',$id)->exists():false;
             // pr($is_liked);
@@ -183,9 +203,10 @@ class Eventspacecontroller extends Controller
             // pr($venue);
             unset($venue['room']);
             unset($venue['venueimages']);
+
             // $venue=array_column($venue['venueimages'],'doc');
             // pr($venue);
-            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider','suggest','rating','is_liked'));
+            return view('eventscape.venue_show.show', compact('images', 'venue', 'provider','suggest','rating','is_liked','suggest_service_providers'));
         }
     }
     public function book($id, Request $request)

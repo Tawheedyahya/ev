@@ -14,7 +14,9 @@
         height: auto;
         display: block;
     }
-
+:root{
+     --major-color:#EB4D4B;
+}
     /* Make navbar links easier to tap on mobile */
 .navbar .nav-link { padding: .6rem .75rem; }
 
@@ -160,3 +162,16 @@ a:hover {
  .nc{
             color: white !important;
         }
+
+
+.spec-name{
+    color: var(--major-color);
+}
+.spec-bg{
+    background-color: var(--major-color );
+    color: white;
+}
+.spec-bg:hover{
+    background-color: var(--major-color );
+    color: white;
+}

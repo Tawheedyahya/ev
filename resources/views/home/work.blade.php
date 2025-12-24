@@ -169,7 +169,7 @@ STYLES
 .carousel-control-next-icon {
     width: 36px;
     height: 36px;
-    background-color: #0d6efd;
+    background-color: #EB4D4B;
     border-radius: 50%;
     background-image: none;
     display: flex;
@@ -300,8 +300,8 @@ MOST VIEWED OCCASIONS (FIXED)
     </h5>
 
     <div class="venue-grid">
-
         @foreach ($slidder as $occasion => $venues)
+        @if(!empty($venues))
         <div class="venue-card-wrapper">
 
             <div id="carousel-{{ $occasion }}" class="carousel slide">
@@ -349,7 +349,9 @@ MOST VIEWED OCCASIONS (FIXED)
             </div>
 
         </div>
+        @endif
         @endforeach
+
 
     </div>
 </div>

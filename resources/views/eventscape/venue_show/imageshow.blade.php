@@ -1,4 +1,7 @@
 <style>
+    .spec-name{
+        color: #EB4D4B;
+    }
     .video-btn {
         display: inline-flex;
         align-items: center;
@@ -243,7 +246,7 @@
                 <div class="spec-list d-flex flex-wrap gap-3">
                     @forelse (array_slice($images, 1) as $im)
                         <button type="button" class="spec-card btn text-start" data-name="{{ $im['room_name'] }}">
-                            <div class="spec-name text-warning fw-semibold">{{ $im['room_name'] }}</div>
+                            <div class="spec-name  fw-semibold">{{ $im['room_name'] }}</div>
                             <div class="spec-cap text-muted small">Seating: {{ $im['room_capacity'] }}</div>
                         </button>
                     @empty
@@ -267,21 +270,21 @@
                     <h5 class="mt-3 mb-3 fw-semibold section-title">Food card</h5>
                     <div class="spec-list d-flex flex-wrap gap-3">
                         <button type="button" class="spec-card btn text-start">
-                            <div class="spec-name text-warning fw-semibold">Breakfast</div>
+                            <div class="spec-name  fw-semibold">Breakfast</div>
                             <div class="spec-cap text-muted small">
                                 {{ $venue['breakfast'] == null ? 'Not provided' : 'Per person MYR: ' . $venue['breakfast'] }}
                             </div>
                         </button>
 
                         <button type="button" class="spec-card btn text-start">
-                            <div class="spec-name text-warning fw-semibold">Lunch</div>
+                            <div class="spec-name  fw-semibold">Lunch</div>
                             <div class="spec-cap text-muted small">
                                 {{ $venue['lunch'] == null ? 'Not provided' : 'Per person MYR: ' . $venue['lunch'] }}
                             </div>
                         </button>
 
                         <button type="button" class="spec-card btn text-start">
-                            <div class="spec-name text-warning fw-semibold">Dinner</div>
+                            <div class="spec-name  fw-semibold">Dinner</div>
                             <div class="spec-cap text-muted small">
                                 {{ $venue['dinner'] == null ? 'Not provided' : 'Per person MYR: ' . $venue['dinner'] }}
                             </div>
@@ -303,7 +306,7 @@
     <div class="request">
         <div class="card p-3 me-5" style="border-radius:12px;">
             <div class="actions d-flex flex-nowrap flex-column align-items-stretch gap-3 ">
-                <a href="javascript:void(0)" id="see_price" class="btn light-b fw-semibold py-3"
+                <a href="javascript:void(0)" id="see_price" class="btn spec-bg fw-semibold py-3"
                     style="border-radius:8px;padding:100px" data-amount="{{ $venue['amount'] }}">
                     See Price
                 </a>
