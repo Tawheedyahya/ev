@@ -34,144 +34,68 @@
     max-width: 90%;
   }
 }
-/* ratings */
-/* ---- Ratings Section Wrapper ---- */
-#venue_ratings {
-  max-width: 1200px;
-  /* margin: 40px auto 0; */
-  /* padding: 0 15px; */
-}
 
-#venue_ratings > h5 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #1f2933;
-}
 
-/* ---- Horizontal Scroll Track ---- */
+/* end ratings */
+  /* Ratings track */
+  /* ===== RATINGS SECTION ===== */
+/* ===============================
+   RATINGS – PROFESSIONAL STYLE
+   =============================== */
+
 .ratings-track {
-  display: flex;
-  gap: 18px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
-/* nicer scrollbar on desktop */
-.ratings-track::-webkit-scrollbar {
-  height: 6px;
-}
-.ratings-track::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.7);
-  border-radius: 3px;
-}
-
-/* ---- Individual Rating Card ---- */
+/* Card */
 .rating-box {
-  scroll-snap-align: start;
-  min-width: 280px;
-  max-width: 340px;
-  background: radial-gradient(circle at top left, #f97316 0, #1f2937 45%, #020617 100%);
-  color: #f9fafb;
-  border-radius: 16px;
-  padding: 14px 16px;
-  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.35);
-  position: relative;
-  overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e6e9ee;
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
 }
 
-/* subtle glow decoration */
-.rating-box::before {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.18), transparent 60%);
-  opacity: 0.9;
-  pointer-events: none;
+/* Header row */
+.rating-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-/* place content above glow */
-.rating-box > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* ---- Name / header line ---- */
+/* Name */
 .rating-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
 }
 
-.rating-name::before {
-  content: "";
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #fbbf24, #f97316);
-  display: inline-block;
-}
-
-/* ---- Stars ---- */
+/* Stars */
 .rating-stars {
-  margin-bottom: 6px;
+    display: flex;
+    gap: 3px;
+    font-size: 15px;
 }
 
 .rating-stars .star {
-  font-size: 1.15rem;
-  color: rgba(148, 163, 184, 0.6);
-  margin-right: 2px;
-  display: inline-block;
+    color: #e5e7eb;
 }
 
 .rating-stars .star.filled {
-  color: #fde047; /* bright gold */
+    color: #fbbf24;
 }
 
-/* ---- Description ---- */
+/* Description */
 .rating-desc {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: #e5e7eb;
-  margin-bottom: 0;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #4b5563;
+    max-width: 90%;
 }
-
-/* ---- No rating text ---- */
-.no-rating {
-  font-style: italic;
-  color: #6b7280;
-  margin-top: 10px;
-}
-
-/* ---- Responsive tweaks ---- */
-@media (max-width: 992px) {
-  #venue_ratings {
-    padding: 0 12px;
-  }
-}
-
-@media (max-width: 576px) {
-  .ratings-track {
-    gap: 14px;
-  }
-  .rating-box {
-    min-width: 85%;
-    max-width: 85%;
-    padding: 12px 14px;
-  }
-  .rating-stars .star {
-    font-size: 1.05rem;
-  }
-  .rating-desc {
-    font-size: 0.85rem;
-  }
-}
-
-/* end ratings */
 </style>
 @section('content')
     <div class="container" style="margin-top: 50px;" >
@@ -252,7 +176,7 @@
                     <p class="text-muted">No other venue provider found for this category.</p>
                 @endforelse
             </div>
-        </section>
+        {{-- </section>
         <section id="venue_ratings" class="mt-5">
             <h5 class="fw-bold mb-3">Ratings</h5>
 
@@ -275,7 +199,32 @@
             @else
                 <p class="no-rating">This venue has no ratings yet.</p>
             @endif
-        </section>
+        </section> --}}
+          <div class="section-body">
+    @if (isset($rating) && $rating->count())
+      <div class="ratings-track">
+        <h5 class="fw-bold mb-3 mt-5">Ratings</h5>
+        @foreach ($rating as $r)
+          <div class="rating-box">
+
+            <div class="rating-box-header">
+              <p class="rating-name">{{ ucfirst($r->user->name) }}</p>
+
+              <div class="rating-stars">
+                @for ($i = 1; $i <= 5; $i++)
+                  <span class="star {{ $i <= $r->ratings ? 'filled' : '' }}">&#9733;</span>
+                @endfor
+              </div>
+            </div>
+
+            <p class="rating-desc">{{ ucfirst($r->description) }}</p>
+          </div>
+        @endforeach
+      </div>
+    @else
+      <p class="text-muted mb-0">This professional has no ratings yet.</p>
+    @endif
+  </div>
 
 
     </div>
