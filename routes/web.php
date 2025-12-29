@@ -113,7 +113,7 @@ Route::prefix('/venue_provider')->group(function(){
         Route::post('/room/insert/{id}',[Roomcontroller::class,'insert_room'])->name('room.insert')->middleware(['venue_provider_auth','venue_provider_action']);
         Route::get('/room/edit/{id}/{room_id}',[Roomcontroller::class,'add_rooms'])->name('room.edit')->middleware(['venue_provider_auth','room_action']);
         Route::post('/room/update/{id}/{room_id}',[Roomcontroller::class,'insert_room'])->name('room.update')->middleware(['venue_provider_auth','room_action']);
-        Route::get('/room/delete/{id}/{room_id}',[Roomcontroller::class,'delete_room'])->name('room.delete')->middleware(['venue_provider_auth','room_action']);
+        Route::delete('/room/delete/{id}/{room_id}',[Roomcontroller::class,'delete_room'])->name('room.delete')->middleware(['venue_provider_auth','room_action']);
     });
 });
 

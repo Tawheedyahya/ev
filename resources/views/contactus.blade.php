@@ -373,7 +373,7 @@
     <div class="hero-box">
       <h1>GROW YOUR<br>EVENT BUSINESS</h1>
       <p>Get more bookings</p>
-      <a href="{{url('/eventspace/venues_provider/dashboard')}}" class="register-btn">REGISTER AS VENDOR</a>
+      <a href="{{url('/vendor/venue_login_form')}}" class="register-btn">REGISTER AS VENDOR</a>
     </div>
 </section>
 
@@ -543,7 +543,7 @@
     <div class="easy-text">
       <h2>We Know You’re Busy,<br>That’s Why We Made It Easy</h2>
       <p>We know you're juggling multiple clients, setups, and timelines. That's why our platform makes it easy to manage inquiries and convert them into confirmed bookings — all in one place.</p>
-      <a href="#" class="register-btn" style="background:#C7E9F0; color:#000000; text-decoration:none; padding:12px 25px; border-radius:6px; font-weight:600; display:inline-block;">REGISTER AS VENDOR</a>
+      <a href="{{url('vendor/venue_login_form')}}" class="register-btn" style="background:#C7E9F0; color:#000000; text-decoration:none; padding:12px 25px; border-radius:6px; font-weight:600; display:inline-block;">REGISTER AS VENDOR</a>
     </div>
 
     <div style="flex-shrink:0;">

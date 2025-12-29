@@ -429,7 +429,7 @@
         </div>
 
         <section class="mt-5 pt-4">
-            <h4 class="fw-bold mb-4">Similar Professionals</h4>
+            <h4 class="fw-bold mb-4">Similar service provider</h4>
             <div class="cards-rail">
                 @forelse ($suggest ?? [] as $s)
                     <a href="{{ route('ser.service_provider', $s->id) }}" class="item-card bg-white shadow-sm">
@@ -441,7 +441,7 @@
                         </div>
                     </a>
                 @empty
-                    <p class="text-muted">No related professionals found.</p>
+                    <p class="text-muted">No related service provider found.</p>
                 @endforelse
             </div>
         </section>

@@ -26,7 +26,7 @@ class Professionalbookcontroller extends Controller
         return view('eventscape.professional.dashboard',compact('location','professionals','paginate','service_places','category'));
     }
     public function professional($id){
-         $rating=Ratingall::with('user')->where('type',2)->where('vorp_id',$id)->get();
+         $rating=Ratingall::with('user')->where('type',2)->where('vorp_id',$id)->where('status_id',1)->get();
 $professionals = Professional::with('proserviceplace','professionlist','info')->findOrFail($id);
 // pr($professionals->toArray());
 $info=$professionals->info;
